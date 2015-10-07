@@ -1,0 +1,47 @@
+---
+title: "Coding with R"
+author: "Marc, Sean, Bronson and Debbie"
+date: "10/7/2015"
+output: html_document
+---
+
+Welcome to our third course which aims to take you from a basic ability to interact with the language to one where you are able to write some real code.  From the outset we will try to warn you about bad habits so that you will avoid making some of the mistakes that most other people make when they start programming in R.
+
+Here is a list of topics that should be covered by the end of this course:
+
+# Writing good code in R
+
+### check your arguments when writing functions
+### write short functions
+### Don't repeat yourself (DRY)
+### always check if someone else has solved the problem
+
+
+# How to create basic functions
+### The basics
+
+
+# How to write S4 methods (and why)
+### Why would you do this? (elegant dispatch)
+### What is a Generic and when do I need to care?
+
+
+### Some pitfalls specific to R
+#### forgetting to vectorize
+#### the loop with a big appetite
+#### hidden arguments and default behaviors [,drop=TRUE]
+
+
+
+
+
+### Write good packages (this is likely a whole other course)
+#### use your namespace (don't export everything)
+#### use live code blocks and unit tests
+#### use toy examples to verify that code works
+ 
+
+
+
+
+

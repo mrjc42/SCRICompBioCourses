@@ -14,25 +14,70 @@ Here is a list of topics that should be covered by the end of this course:
 
 # Introduction to Linux: 
 
-### What is it?  
+### What is Linux?  
+
+Linux is a free open sourced operating system based on Unix.  It's technically not unix, but in practice it might as well be.  Unix is a dinosaur of the computer world and has been around forever.  The reason it's still here is because it works really well and people still find it quite useful today.
 
 ### How is it organized?  
 
+There are many flavors of unix, but most of them have the same basic directory structure.  You don't need to know about a lot of it in order to use it.  But you should know a couple of things.  The 1st is that the root directory is the base for the whole system.  Unless you are the system admin or are installing software or something, you probably don't belong down there.  More commonly you want to be in your home directory.  Your home is at ~/  We will talk more about this is a minute.
+
 ### Why do people use it?
+
+People like unix because it is powerful and flexible tool for efficiently getting certain kinds of work done.  This is especially true for work that has never been done before or that requires the creation of customized work flows.  If this sounds familiar that's because this is the same kind of work that people often need to do to manage data in science.  And this is why so many scientists have found linux to be a useful platform for developing new work flows.  Everyone agrees that graphical interfaces can be nice.  But the odds that you will find one that already does exactly what your experiment needs get vanishingly small starting with the moment you do anything interesting.
+
 
 # Introduction to the command line: 
 
-### Directories, files and executables
+### pwd, / and ~/
 
-### / and ~/
+This is how you know where you are:
 
-### pwd
+```{}
+pwd
+```
 
-### cd
+'pwd' means print working directory.  It will tell you where in the file system you are by giving you the full path starting with root.
 
-### . and ..
+
+The root of a unix filesystem always starts with '/'.  So when you run 'pwd', you will alway state your current path relative to root.  '~/' is shorthand for your home directory.  But if you go to your home directory, you will be able to see the full absolute path by using 'pwd'.
+
+### Directories, executables and files
+
+Directories are for storing stuff, executables do things to stuff and files are stuff.  In Linux a full directory path will start with root and end with another '/' and use more '/'s in between as separators for each subdirectory.  On most command lines directories will be colored to indicate that they are different from the files.  And in linux most executables are stored somewhere else, so you won't normally see those unless you are invoking them as commands.
+
+
+### cd, . and ..
+
+'cd' means change directory.  You call that command followed by a single argument to indicate which directory you want to change to.  
+
+'.' means here.  You use it to indicate that the path to something is where you are right now.  
+
+And '..' means one directory up from here.
+
 
 ### ls
+
+'ls' is used to list a directory.  Which directory does it list?  That would be the second argument.  For example, the following command would list the contents of the root directory
+
+```{}
+ls /
+```
+
+And this would list the current directory.
+```{}
+ls .
+```
+
+But in practice when people want to list the current directory, they leave out the implicit '.' like so:
+```{}
+ls
+```
+
+
+
+
+### touch
 
 ### cp
 

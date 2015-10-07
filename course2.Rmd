@@ -1,0 +1,63 @@
+---
+title: "Introduction to R and interactive programming"
+author: "Marc, Sean, Bronson and Debbie"
+date: "10/7/2015"
+output: html_document
+---
+
+Welcome to the second course in our series of courses designed to help train Biologists who want to be able to analyze their own data.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
+
+
+Here is a list of topics that should be covered by the end of this course:
+
+# Introduction to R
+
+### Getting familiar with RStudio
+#### What are all these panels for?
+#### Where is R?
+
+
+### Getting help (not always as simple as it sounds!)
+#### Man pages
+#### vignettes
+#### example()
+
+
+### calling functions
+#### arguments can be named or passed "in order"
+#### always check the man page
+
+
+### Getting data into R 
+#### read.table
+#### scan
+#### Other options: Databases, URIs, REST, HDF5 and many more
+
+
+### Atomic vectors and other fun Data structures
+#### Vectors
+#### Lists
+#### data.frames
+#### S4 objects
+
+
+### Data object management
+#### class()
+#### as.list() and friends
+#### subsetting operators [] vs [[]]
+
+
+### Exploring packages
+#### CRAN 
+#### Bioconductor
+#### github
+
+
+### Bioconductor
+#### Walkthroughs, vignettes and man pages.
+
+
+
+
+
+

@@ -10,30 +10,65 @@ Welcome to the introductory course for computer resources here at SCRI.  This co
 
 Here is a list of topics that should be covered by the end of this course:
 
-Introduction to Citrix
+# Introduction to Citrix
 
+# Introduction to Linux: 
 
-Introduction to Linux: What is it?  How is it organized?  Why do peoeple use it?
+### What is it?  
 
+### How is it organized?  
 
-Introduction to the command line: Directories, files and executables
-cd
-ls
-what are permissions?
-What is tab-completion?
-find
-grep
-cat
-What are pipes?
+### Why do people use it?
 
+# Introduction to the command line: 
 
+### Directories, files and executables
 
+### / and ~/
 
+### pwd
 
+### cd
 
+### . and ..
 
-For example you could search using the grep command:
+### ls
+
+### cp
+
+### mv
+
+### rm
+
+### What are wildcards?
+
+### ps
+
+### top
+
+### What are permissions?
+
+### What is tab-completion?
+
+### find
+
+### grep
+
+The grep command is usually used to find strings in text files. For example you could search a file called 'file.txt' for the string 'var' like this:
+
 ```{}
 grep 'var' file.txt
 ```
+
+
+### cat
+
+### What are pipes?
+
+
+
+
+
+
+
 

@@ -1,0 +1,39 @@
+---
+title: "Intro To Citrix And Linux"
+author: "Bronson, Debbie, Sean and Marc"
+date: "10/7/2015"
+output: html_document
+---
+
+Welcome to the introductory course for computer resources here at SCRI.  This course will cover a basic introduction to the SCRI Citrix environment and also will introduce you to basic tools in linux.  If you have a bad case of CLAS (command line aversion syndrome), then this course should help you get on the road to recovery.
+
+
+Here is a list of topics that should be covered by the end of this course:
+
+Introduction to Citrix
+
+
+Introduction to Linux: What is it?  How is it organized?  Why do peoeple use it?
+
+
+Introduction to the command line: Directories, files and executables
+cd
+ls
+what are permissions?
+What is tab-completion?
+find
+grep
+cat
+What are pipes?
+
+
+
+
+
+
+
+For example you could search using the grep command:
+```{}
+grep 'var' file.txt
+```
+

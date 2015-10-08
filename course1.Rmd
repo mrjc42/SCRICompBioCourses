@@ -87,6 +87,23 @@ ls -alh
 Which translates to: list the directory, but list all the files (even hidden ones), and use the long format, and make the sizes human readable.  How did I ever learn to do that?
 
 
+### man
+
+Well I used the man command to learn more about 'ls'.  You can use the man command to pull up a manual about any linux command like this:
+
+```{}
+man ls
+```
+
+When you are done looking at it, hit the 'q' key.
+
+
+### flags
+
+And while we are looking at an example of some, lets talk about 'flags'.  In Linux, there are special arguments called flags.  They come after the command and always follow a dash (like '-alh' above).  What they do is modify the meaning of a function.  The man page for a command should always tell you about the different flags that a command supports.
+
+
+
 ### What are permissions?
 
 Another thing you might have noticed about my longer form use of 'ls' is that it puts a string of characters in from of each file and directory.  Lets look at a toy example:
@@ -106,15 +123,6 @@ Based on this, we can see that for the file above the permissions are set to be 
 
 
 
-### man
-
-Well I used the man command to learn more about 'ls'.  You can use the man command to pull up a manual about any linux command like this:
-
-```{}
-man ls
-```
-
-When you are done looking at it, hit the 'q' key.
 
 ### mkdir
 
@@ -224,16 +232,84 @@ The grep command is usually used to find strings in text files. For example you 
 grep 'var' file.txt
 ```
 
+This is useful all by itself, and grep is extremely powerful since it is a fast and efficient way to search your files for lines that match.  But look at what happens when we pair it with a pipe and less like above:
 
+```{}
+grep 'var' file.txt | less
+```
+
+Now if I have a Large number of search results, I can easily page through them (or use the additional search feature inside of less).  Or I can take the results of the 1st grep search and send that along to another grep search like this:
+
+
+```{}
+grep 'var' file.txt | grep 'car' | less
+```
+
+
+
+### > and >>
+
+What happens if you link together a set of pipes that does something useful?  Then you might want to save the out put.  This is when you would use the "bent pipe" or '>'
+
+```{}
+grep 'var' file.txt | grep 'car' > saveFile.txt
+```
+
+And sometimes, you might want to simply append to an existing file without overwriting it.  In that case you would use the "double bent pipe" or '>>'.  So if we repeat the example above, then you will see that we have appended the same thing into 'saveFile.txt'.
+
+```{}
+grep 'var' file.txt | grep 'car' >> saveFile.txt
+```
 
 
 ### find
 
+The find command is for finding files in the filesystem.  But it is actually VERY powerful because like everything else today it can be paired with the other toys in the Linux toybox.  The find command takes a couple of arguments. The 1st is the part of the directory to search in and the secons is what to look for.  A common way to use find is to find a file with a specific name.  So to find a file named 'bob.txt' in your local directory could could do this
+
+```{}
+find . -name 'bob.txt'
+```
+
+But as I stated before find is quite powerful.  You can also do partial matches, and choose from a huge array of other flags etc. to find things depending on what you happen to remember.
 
 
-### ps
+### who and top
 
-### top
+Sometimes you want to know who else is logged in. IOW, if there are multiple machines to work on, you might prefer to work on a less crowded one...
+
+Other times when you log into a computer you might be wondering what it is doing overall.  This is what the top command is for.  If you call top, you will get a high level overview of what the computer is doing right now.  Top will tell you what processes are running, and how many resources they are using.  And by using it you can spot problems.  For example, you might want to know about long running processes that are consuming up all the system resources and slowing you down.
+
+
+### ps and kill
+
+Top is useful for seeing whether there is a problem, but it updates frequently and only tends to display long running processes that are using a lot of resources.  Sometimes you just want to see all the things that you are running.  'ps' is a good way to list all the processes that you have running.  This command will list all the processed run by a particular user:
+
+```{}
+ps -U username
+```
+
+Once you have done that, you will see an output that looks like this:
+
+
+```{}
+[username@EWRLNXRD29 SCRICompBioCourses]$ ps -U username
+  PID TTY          TIME CMD
+ 5101 ?        00:00:00 sshd
+ 5106 ?        00:00:00 sshd
+ 5108 ?        00:00:00 sftp-server
+```
+
+The 'PID' stands for the process identifier.  It's a unique number that can be used to specify precisely which process you mean.  This is important, because if you make a mistake and accidentally launch some long running resource hogging process, you might not want to wait (or make others wait) for it to finish.  In that case you might need to 'kill' it.  Here is an example of how you could do just that:
+
+
+```{}
+kill 5106
+```
+
+The above command will kill the process where the PID = 5106.
+
+
+
 
 
 

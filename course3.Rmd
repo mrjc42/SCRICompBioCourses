@@ -9,28 +9,33 @@ Welcome to our third course which aims to take you from a basic ability to inter
 
 Here is a list of topics that should be covered by the end of this course:
 
-# Writing good code in R
 
+# How to create basic functions
+### The basics
+
+
+# Writing good code in R
 ### check your arguments when writing functions
 ### write short functions
 ### Don't repeat yourself (DRY)
 ### always check if someone else has solved the problem
 
 
-# How to create basic functions
-### The basics
-
-
-# How to write S4 methods (and why)
-### Why would you do this? (elegant dispatch)
-### What is a Generic and when do I need to care?
-
-
-### Some pitfalls specific to R
+# Some pitfalls specific to R
 #### forgetting to vectorize
 #### the loop with a big appetite
 #### hidden arguments and default behaviors [,drop=TRUE]
 
+
+# Literate programming.
+### What is an .Rmd file?
+### Reproducible research
+
+
+# How to write S4 methods (and why)
+### methods are not the same thing as functions
+### Why would you do this? (elegant dispatch)
+### What is a Generic and when do I need to care?
 
 
 

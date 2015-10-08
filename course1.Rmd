@@ -74,16 +74,85 @@ But in practice when people want to list the current directory, they leave out t
 ls
 ```
 
+And when I use it, it tends to look like this:
+```{}
+ls -alh
+```
+Which translates to: list the directory, but list all the files (even hidden ones), and use the long format, and make the sizes human readable.  How did I ever learn to do that?
 
+### man
 
+Well I used the man command to learn more about 'ls'.  You can use the man command to pull up a manual about any linux command like this:
+
+```{}
+man ls
+```
+
+When you are done looking at it, hit the 'q' key.
+
+### mkdir
+
+Sometimes you will need to make a new directory.  For that there is the mkdir command.
+```{}
+mkdir myDir
+```
 
 ### touch
 
-### cp
+And sometimes you will just need to create an empty file.  Maybe later on you want to write something to it, but right now you just want to reserve that filename.  For that you can use the 'touch' command.  Here we use touch to create a file inside of our new directory:
 
-### mv
+```{}
+touch myDir/test.txt
+```
 
-### rm
+### text editors
+
+Linux is rife with powerful text editors.  Some of them (like vi or emacs) are so powerful that they could each have their own course.  Today lets look at a very simple and common one: 'nano'.
+
+```{}
+nano myFile.txt
+```
+
+That command will launch the nano editor.  Once inside you will be able to type in text of interest.  When you want to leave you can look at the bottom of the screen and you will see commands abbreviated like this: ^X 
+
+^X means 'control-X'.  It's a hint about how to give that command.  Do it now to exit out of nano and feel free to save your work on the way.
+
+
+### less is more
+
+Sometimes less is more.  And when you are using linux suddenly 'less' literally is a more advanced version of the 'more' command.  The 'more' command was long used for looking at large text files.  And 'less' does the same basic job as 'more'.  So now that you know that, you should expect that the following command will let you look at the file 'myFile.txt':
+
+```{}
+less myFile.txt
+```
+
+And when you were done you could exit by again pressing 'q'.  Why the similarity to 'man'?  Because man is actually using 'less' to display the contents of the manual pages.  It's not the only time you will see that happen either.  Tools in Linux gets reused a lot.
+
+### cp, mv and rm
+
+'cp' copies a file to another place.  'mv' moves a file (and so does not leave the original behind).  Here is an example of each of these:
+
+```{}
+cp file.txt filecopy.txt
+mv file.txt ..
+```
+
+The first of these commands copies 'file.txt' to another file with a different name 'filecopy.txt' in the same directory.  The second command moves file.txt up a directory from where it is currently located.
+
+But sometimes you just want to get rid of something altogether.  'rm' will do that for you.  Here is an example that just removed file.txt:
+
+```{}
+rm file.txt
+```
+
+Another common case with rm is when you have a directory and you want to remove it AND everything in it  When that happens you can tell rm to remove things recursively like this:
+
+```{}
+rm -r myDir
+```
+
+Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So be caregful!
+
 
 ### What are wildcards?
 

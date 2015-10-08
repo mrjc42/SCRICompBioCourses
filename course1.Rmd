@@ -80,7 +80,7 @@ But in practice when people want to list the current directory, they leave out t
 ls
 ```
 
-And when I use it, it tends to look like this:
+And when I use this command, it tends to look like this:
 ```{}
 ls -alh
 ```
@@ -89,13 +89,20 @@ Which translates to: list the directory, but list all the files (even hidden one
 
 ### What are permissions?
 
-Another thing you might have noticed about my longer form use of 'ls' is that it puts a string of characters in from of each file and directory.  The strings will look kind of like this:
+Another thing you might have noticed about my longer form use of 'ls' is that it puts a string of characters in from of each file and directory.  Lets look at a toy example:
 
 ```{}
--rw-r--r-- <the rest of each line>
+-rw-r--r-- 1 username rleQAS_SCRI-Sudo 8.2K Oct  7 17:21 file.txt
 ```
 
+Permssions are used by Linux to control who can do things. They can be applied to (u)sers, (g)roups, (o)thers, or (a)ll.  (u)sers means the user who owns (created) the file while (g)roups mean the group that the file belongs to, and (o)thers means people who are not in these first two categories.  In Linux everything belongs to someone, so ownership and permission to act accordingly is a big deal.  Also true in Linux, is that groups of users are tracked and assigned to each file.  But each of these categories (user, group or other) can have separate permissions set to control whether people are allowed to (r)ead, (w)rite or e(x)ecute them.  Returning back to the mysterious string of ten characters mentioned above, it is actually broken into 4 sections: 
 
+1) The very first character doesn't actually have to do with permissions.  It just indicates the kind of thing that something is. For example if it starts with 'd', then it's a directory etc.  In general, you won't need to spend a lot of time thinking about this first character.
+2) The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (u)ser
+3) The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (g)roup
+4) The last three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (o)thers
+
+Based on this, we can see that for the file above the permissions are set to be readable and writable for the owner of this file, but only readable by others.  If you ever need to change the permissions on a file, you would do that by using the 'chmod' command.  Also, you may not be allowed to change permissions for some files and directories depending on who they belong to and what kind of access priveleges you have.
 
 
 
@@ -186,11 +193,28 @@ Wildcards are useful for a whole host of other circumstances.  But be careful.  
 
 ### cat
 
+Cat is useful for streaming the contents of a file.  As a quick example the following use of cat would dump the contents of 'myFile.txt' to the screen.  So by itself 'cat' is not so useful.
+
+```{}
+cat myFile.txt
+```
+
+But: the more common use for 'cat' is to send a command to a pipe.  What is a pipe you say?
+
+
+
 ### What are pipes?
 
+So glad you asked! A pipe is a way of moving data around in unix.  Technically, it is an "operator" (like "+" and "-").  And you use it to indicate something specific that you want to happen between a couple of other things.  Let me give an example to clarify:
 
+```{}
+cat myFile.txt | less
+```
 
-### find
+Here cat is streaming the contents of myFile "in" to a pipe.  Where doed the data go next?  Well in the example above it goes "in" to the less command.  So when you see the '|' operator, what it means is that the output of the thing to it's left is being sent "in" to the thing to it's right.  Just like a pipe would.  
+
+Ok, I will admit that the example above could be a lot more interesting.  Right now you are probably wondering why not just use less on the file like a normal person?  But just wait till we show you some other tricks that you can use with pipe.  I promise we will make this worth your time...
+
 
 ### grep
 
@@ -199,6 +223,11 @@ The grep command is usually used to find strings in text files. For example you 
 ```{}
 grep 'var' file.txt
 ```
+
+
+
+
+### find
 
 
 

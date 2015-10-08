@@ -192,6 +192,13 @@ rm -r myDir
 Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So be caregful!
 
 
+
+#### __Exercise L2:__ 
+
+TODO: We need something like some 'toy tab files' for people to get. And some creative ideas about what they should do with them.
+
+
+
 ### What are wildcards?
 
 In linux you can use `*` as a wildcard to indicate more broadly which things you mean.  So for example, if I have to files that both end with `.txt` then I can move them both into myDir by doing this:
@@ -277,6 +284,14 @@ find . -name 'bob.txt'
 But as I stated before find is quite powerful.  You can also do partial matches, and choose from a huge array of other flags etc. to find things depending on what you happen to remember.
 
 
+
+
+#### __Exercise L3:__ 
+
+TODO: need an idea about what people can do with pipes, cat and grep.
+
+
+
 ### who and top
 
 Sometimes you want to know who else is logged in. IOW, if there are multiple machines to work on, you might prefer to work on a less crowded one...
@@ -314,6 +329,11 @@ The above command will kill the process where the PID = 5106.
 
 
 
+
+#### __Exercise L4:__ 
+
+
+TODO: need an idea of how they can start a bad process and then find and kill it.
 
 
 
@@ -353,3 +373,10 @@ No: the permissions prevent this
 
 
 
+##### __Answer for Question L2:__
+
+
+##### __Answer for Question L3:__
+
+
+##### __Answer for Question L4:__

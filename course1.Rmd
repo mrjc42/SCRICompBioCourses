@@ -29,6 +29,12 @@ People like unix because it is powerful and flexible tool for efficiently gettin
 
 # Introduction to the command line: 
 
+
+### What is tab-completion?
+
+Before you type anything, please locate the tab key in the upper left part of your keyboard. You are going to be hitting that key a lot. That is because in Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. Go ahead and try it!  Type 'pw' and then hit the tab key for suggestions about what we might do next...
+
+
 ### pwd, / and ~/
 
 This is how you know where you are:
@@ -79,6 +85,19 @@ And when I use it, it tends to look like this:
 ls -alh
 ```
 Which translates to: list the directory, but list all the files (even hidden ones), and use the long format, and make the sizes human readable.  How did I ever learn to do that?
+
+
+### What are permissions?
+
+Another thing you might have noticed about my longer form use of 'ls' is that it puts a string of characters in from of each file and directory.  The strings will look kind of like this:
+
+```{}
+-rw-r--r-- <the rest of each line>
+```
+
+
+
+
 
 ### man
 
@@ -156,13 +175,20 @@ Where myDir and everything in it will be deleted.  Obviously using the -r flag w
 
 ### What are wildcards?
 
-### ps
+In linux you can use '*' as a wildcard to indicate more broadly which things you mean.  So for example, if I have to files that both end with '.txt' then I can move them both into myDir by doing this:
 
-### top
+```{}
+mv *.txt /myDir
+```
 
-### What are permissions?
+Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with commands like rm, you might end up wishing that you could rewind time.
+ 
 
-### What is tab-completion?
+### cat
+
+### What are pipes?
+
+
 
 ### find
 
@@ -175,9 +201,11 @@ grep 'var' file.txt
 ```
 
 
-### cat
 
-### What are pipes?
+### ps
+
+### top
+
 
 
 

@@ -34,6 +34,30 @@ People like unix because it is powerful and flexible tool for efficiently gettin
 
 Before you type anything, please locate the tab key in the upper left part of your keyboard. You are going to be hitting that key a lot. That is because in Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. Go ahead and try it!  Type `pw` and then hit the tab key for suggestions about what we might do next...
 
+### Case sensitivity.
+
+In Linux, the case of a letter matters. 'A' is not the same thing as 'a' etc.  So watch out for changes in case.  You will notice that some people prefer to name things using alternating lowercase and uppercase letters like this: 
+
+```
+myFile.txt
+``` 
+That style is called camel case.  
+
+Other people prefer to use underscores like this:
+
+```
+my_file.txt
+```
+
+And still other people prefer all lowercase like this:
+
+```
+myfile.txt
+```
+
+Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters...  And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will be annoyed with you.
+
+
 
 ### pwd, / and ~/
 

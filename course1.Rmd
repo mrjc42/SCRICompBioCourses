@@ -353,7 +353,6 @@ The above command will kill the process where the PID = 5106.
 
 
 
-
 #### __Exercise L4:__ 
 
 
@@ -361,6 +360,68 @@ TODO: need an idea of how they can start a bad process and then find and kill it
 
 
 
+
+# Other useful commands
+
+### dos2unix
+
+dos2unix is a useful command to know about. Text files from windows will typically have different line endings from text files from unix. And that can be a problem if you need to parse files by line. dos2unix fixes files that have been formatted for windows so that the line endings are the same.  So the following command will fix the `myFile.txt`.
+
+```
+dos2unix myFile.txt
+```
+
+### split
+
+Sometimes you may have a really big file that you need to split into smaller pieces.  the `split` command will let you easily do that.
+
+### head and tail
+
+Another thing that happens with large files is that you may only want to see (or process) the first few lines.  The `head` and `tail` commands will allow you to look at the first or last few lines of any given file.
+
+### sort
+
+Need to put the contents of a command into a particular order?  The `sort` command is your friend for this task.
+
+```
+sort test.txt
+```
+
+
+### uniq
+Want to filter out rows that are not unique?  Use the `uniq` command.
+
+```
+sort test.txt | uniq
+```
+
+
+### cut
+
+Cut is especially useful if you have to deal with delimited files.  It allows you to get data by specifying a delimiter and then extract only a piece of interest.  For example, the following gets the 2nd column from a tab delimited file
+
+``` 
+cut -f 2- testTabs.txt
+```
+
+### wc
+
+The `wc` command is the word count command.  This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, if you wanted to know how many things were in the current directory you could do this:
+
+```
+ls | wc
+```
+
+
+
+
+### echo
+
+Sometimes you may need to look at the contents of shell variables.  Linux systems will often use environment variables and sometimes you might need to see what these have been set to.  The `echo` command will let you see what these values are.  When you use the echo command, you have to prefix any variable names with `$`.
+
+```
+echo $PATH
+```
 
 
 -----------------------------------------------------------------------------------------------------------------

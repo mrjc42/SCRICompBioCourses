@@ -62,6 +62,12 @@ myfile.txt
 
 Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters...  And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be annoyed with you.
 
+### Reserved Characters (also called "Special")
+
+Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, \0 and \ which is the path separator.  Other reserved characters are allowed but special meaning to the system like the "-" which proceeds flags on the command line or "*" which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
+
+Include table of Reserved Characters and their function ( in work)
+
 
 
 ### pwd, / and ~/

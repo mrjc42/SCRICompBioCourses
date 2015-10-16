@@ -304,6 +304,12 @@ And sometimes, you might want to simply append to an existing file without overw
 grep 'var' file.txt | grep 'car' >> saveFile.txt
 ```
 
+#### __Exercise L3:__ 
+
+TODO: need an idea about what people can do with pipes, cat and grep.
+
+
+
 
 ### split
 
@@ -359,11 +365,10 @@ find . -name 'bob.txt'
 But as I stated before find is quite powerful.  You can also do partial matches, and choose from a huge array of other flags etc. to find things depending on what you happen to remember.
 
 
+#### __Exercise L4:__ 
 
+TODO: need an idea about what people can do with pipes and the other fun stuff here like find, uniq and word count.
 
-#### __Exercise L3:__ 
-
-TODO: need an idea about what people can do with pipes, cat and grep.
 
 
 
@@ -404,7 +409,7 @@ The above command will kill the process where the PID = 5106.
 
 
 
-#### __Exercise L4:__ 
+#### __Exercise L5:__ 
 
 
 TODO: need an idea of how they can start a bad process and then find and kill it.
@@ -461,3 +466,7 @@ No: the permissions prevent this
 
 
 ##### __Answer for Question L4:__
+
+
+##### __Answer for Question L5:__
+

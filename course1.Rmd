@@ -2,7 +2,7 @@
 title: "Intro To Citrix And Linux"
 author: "Bronson, Debbie, Sean and Marc"
 date: "10/7/2015"
-output: pdf_document
+output: html_document
 ---
 
 Welcome to the introductory course for computer resources here at SCRI.  This course will cover a basic introduction to the SCRI Citrix environment and also will introduce you to basic tools in linux.  If you have a bad case of CLAS (command line aversion syndrome), then this course should help you get on the road to recovery.
@@ -61,6 +61,7 @@ myfile.txt
 ```
 
 Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters...  And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be annoyed with you.
+
 
 ### Reserved Characters (also called "Special")
 
@@ -248,7 +249,7 @@ tar zxvf myFile.tar.gz
 
 #### __Exercise L2:__ 
 
-Use the `cp` command to pull down the tarball file from this path: ``.  Now unpack it to your working directory.  Be sure to get help if you have trouble with this since future questions will require that you succeeded at this.
+Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/rnaseq_sampledata.tar.gz`.  Now unpack it into your working directory into a directory called `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
 
 
 
@@ -483,6 +484,13 @@ No: the permissions prevent this
 
 ##### __Answer for Question L2:__
 
+```
+cd ~
+mkdir sampledata
+cd sampledata
+cp /tools/sampledata/rnaseq_sampledata.tar.gz .
+tar -zxvf rnaseq_sampledata.tar.gz
+```
 
 ##### __Answer for Question L3:__
 

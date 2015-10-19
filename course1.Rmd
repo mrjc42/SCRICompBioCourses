@@ -238,20 +238,19 @@ dos2unix myFile.txt
 
 ### Compression and decompression with __`tar`__
 
-`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. The good news is you can use tar to unpack those with ease:
+`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease:
 
 ```
 tar zxvf myFile.tar.gz
 ```
 
  
- 
- 
-
 
 #### __Exercise L2:__ 
 
-TODO: We need something like some 'toy tab files' for people to get. And some creative ideas about what they should do with them.
+Use the `cp` command to pull down the tarball file from this path: ``.  Now unpack it to your working directory.  Be sure to get help if you have trouble with this since future questions will require that you succeeded at this.
+
+
 
 
 
@@ -266,9 +265,9 @@ mv *.txt /myDir
 Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with commands like rm, you might end up wishing that you could rewind time.
  
 
-### Using __`cat`__
+### Using __`cat`__ and __`zcat`__
 
-Cat is useful for streaming the contents of a file.  As a quick example the following use of cat would dump the contents of `myFile.txt` to the screen.  So by itself `cat` is not so useful.
+Cat is useful for streaming the contents of a file.  As a quick example the following use of cat would dump the contents of `myFile.txt` to the screen.  So by itself `cat` is not so useful.  But in combination with other commands, it can be very useful (more on this in a moment).  Another command you will sometimes see is `zcat`, which allows you to call cat on files that are zipped (end with a `.gz` extension).
 
 ```
 cat myFile.txt

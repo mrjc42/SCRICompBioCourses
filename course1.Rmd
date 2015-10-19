@@ -2,7 +2,7 @@
 title: "Intro To Citrix And Linux"
 author: "Bronson, Debbie, Sean and Marc"
 date: "10/7/2015"
-output: pdf_document
+output: html_document
 ---
 
 Welcome to the introductory course for computer resources here at SCRI.  This course will cover a basic introduction to the SCRI Citrix environment and also will introduce you to basic tools in linux.  If you have a bad case of CLAS (command line aversion syndrome), then this course should help you get on the road to recovery.
@@ -72,16 +72,20 @@ Include table of Reserved Characters and their function ( in work)
 
 ### Using __`pwd`__, __`/`__ and __`~/`__
 
+If you are used to interfacing with your computer via a graphical user interface such as Finder (Mac) or Windows Explorer (PC), the concept of a __root directory__ may be somewhat vague. The root directory is simply the most inclusive folder on the system, or in other words, the folder that contains all other folders and files. When working with the command line, no matter what system you use, you can designate an absolute path by describing its location relative to root. For Window's users, each disk drive has it's own root, for example `C:`, `D:`, etc. Unix based systems, including Mac OS X and Linux, have a single root designated simply by `/`.
+
+__root__ is not to be confused with __home__. A home directory is merely a default location to store personal account settings and user-specific files. Note however, that home is not root. In linux, your home directory is always located at `/home/username`. Because this is a common stop for so many functions, a convenient short hand is used to designate home: `~/`
+
+When working with the command line, you will notice that your view of the filesystem is always based relative to the directory that you are currently in. So it is very important to be able to figure out where you are relative to root, how to look around and see what files and directories are nearby, and how to move yourself to different locations.
+
 This is how you know where you are:
 
 ```
 pwd
 ```
 
-`pwd` means print working directory.  It will tell you where in the file system you are by giving you the full path starting with root.
+`pwd` means print working directory.  It will always tell you where in the file system you are by giving you the full path starting with root. 
 
-
-The root of a unix filesystem always starts with `/`.  So when you run `pwd`, you will alway state your current path relative to root.  `~/` is shorthand for your home directory.  But if you go to your home directory, you will be able to see the full absolute path by using `pwd`.
 
 ### Directories, executables and files
 
@@ -120,6 +124,9 @@ And when I use this command, it tends to look like this:
 ls -alh
 ```
 Which translates to: list the directory, but list all the files (even hidden ones), and use the long format, and make the sizes human readable.  How did I ever learn to do that?
+
+
+### Other important locations: `/home`, `/tmp`, `/bin`, `/usr`, `/etc`
 
 
 ### Using __`man`__

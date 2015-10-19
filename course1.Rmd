@@ -62,6 +62,7 @@ myfile.txt
 
 Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters...  And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be annoyed with you.
 
+
 ### Reserved Characters (also called "Special")
 
 Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, \0 and \ which is the path separator.  Other reserved characters are allowed but special meaning to the system like the "-" which proceeds flags on the command line or "*" which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
@@ -169,6 +170,10 @@ Based on this, we can see that for the file above the permissions are set to be 
 
 Display the working directory of your home directory.  Now look around to see if you can find the working directories for the other users.  Are you allowed to see the contents of those directories?  How do you know?
 
+Now lets look at another directory. Change to this directory: `/tools/references`.  What reference organisms are available?  Use tab completion to find the hg19 whole genome reference sequence.  Now use it to find the human Ensembl GRCh37 chr22 reference sequence.  Now use less to look at some `.gtf` files for this genome and see how many exons the gene PCA3 has?
+
+
+
 
 ### Using __`mkdir`__
 
@@ -200,13 +205,13 @@ That command will launch the nano editor.  Once inside you will be able to type 
 
 ### __`less`__ is __`more`__
 
-Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at large text files.  And `less` does the same basic job as `more`.  So now that you know that, you should expect that the following command will let you look at the file `myFile.txt`:
+Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gignantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  So now that you know that, you should expect that the following command will let you look at the file `myFile.txt`:
 
 ```
 less myFile.txt
 ```
 
-And when you were done you could exit by again pressing `q`.  Why the similarity to `man`?  Because man is actually using `less` to display the contents of the manual pages.  It's not the only time you will see that happen either.  Tools in Linux gets reused a lot.
+And when you were done you could exit by again pressing `q`.  Why the similarity to `man`?  Because man is actually using `less` to display the contents of the manual pages.  It's not the only time you will see that happen either.  Tools in Linux gets reused a lot.  Another super useful thing to know about less is that you can search for a specific string while you have it open.  All you need to do is to type the `/` key while less is open and then you can type a string to search for and then hit enter.
 
 ### Using __`cp`__, __`mv`__ and __`rm`__
 
@@ -255,10 +260,10 @@ tar zxvf myFile.tar.gz
 
 #### __Exercise L2:__ 
 
-Use the `cp` command to pull down the tarball file from this path: ``.  Now unpack it to your working directory.  Be sure to get help if you have trouble with this since future questions will require that you succeeded at this.
+Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/rnaseq_sampledata.tar.gz`.  Now unpack it into your working directory into a directory called `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
 
 
-
+TODO: Add question asking them to 'less' and then 'fix' a file with bad line endings...
 
 
 ### What are wildcards?
@@ -335,7 +340,12 @@ grep 'var' file.txt | grep 'car' >> saveFile.txt
 
 #### __Exercise L3:__ 
 
-TODO: need an idea about what people can do with pipes, cat and grep.
+Once again explore the GTF file for GRCh37 from exercise #1.  This time use grep to both extract lines from the file that mention the 'PCA3' gene and to count how many lines are like that in the file.
+
+Now enter the data directory that you unpacked from exercise #2 (sampledata) and use `zcat` to view the first two read records of a file (in fastq format each read corresponds to exactly 4 lines of data)
+
+Now use `zcat`, `pipe` and `grep` along with `wc` to determine how many reads are there in the first library?
+
 
 
 
@@ -484,14 +494,62 @@ ls -l
 ```
 No: the permissions prevent this
 
+```
+cd /tools/references
+```
+What reference organisms are available?
+```
+ls -l
+```
+Use tab completion to find the human UCSC hg19 whole genome reference sequence
+```
+ls -l /tools/references/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta
+```
+Use tab completion to find the human Ensembl GRCh37 chr22 reference sequence
+```
+ls /tools/references/Homo_sapiens/Ensembl/GRCh37/Sequence/Chromosomes/
+```
+Use the Ensembl GRCh37 most current gene annotation to discover how many exons does the gene PCA3 have?
+```
+cd /tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes
+less genes.gtf
+```
+
+
 
 
 
 
 ##### __Answer for Question L2:__
 
+```
+cd ~
+mkdir sampledata
+cd sampledata
+cp /tools/sampledata/rnaseq_sampledata.tar.gz .
+tar -zxvf rnaseq_sampledata.tar.gz
+```
 
 ##### __Answer for Question L3:__
+
+```
+cd /tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes
+grep PCA3 genes.gtf
+grep PCA3 genes.gtf| wc -l
+```
+
+Enter the data directory and view the first two read records of a file (in fastq format each read corresponds to 4 lines of data)
+
+```
+cd ~/sampledata/rnaseq/data
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 8
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_2.fastq.gz | head -n 8
+```
+
+Decompress file on the fly with 'zcat', pipe into 'grep', search for the read name prefix and pipe into 'wc' to do a word count ('-l' gives lines)
+```
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep -P "^\@HWI" | wc -l
+```
 
 
 ##### __Answer for Question L4:__

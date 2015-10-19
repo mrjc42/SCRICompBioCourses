@@ -163,7 +163,7 @@ Based on this, we can see that for the file above the permissions are set to be 
 
 Display the working directory of your home directory.  Now look around to see if you can find the working directories for the other users.  Are you allowed to see the contents of those directories?  How do you know?
 
-Now lets look at another directory. Change to this directory: `/tools/references`.  What reference organisms are available?  Use tab completion to find the hg19 whole genome reference sequence.  Now use it to find the human Ensembl GRCh37 chr22 reference sequence.  Use less to look at some `.gtf` files for these genomes and see how many exons the gene PCA3 has?
+Now lets look at another directory. Change to this directory: `/tools/references`.  What reference organisms are available?  Use tab completion to find the hg19 whole genome reference sequence.  Now use it to find the human Ensembl GRCh37 chr22 reference sequence.  Now use less to look at some `.gtf` files for this genome and see how many exons the gene PCA3 has?
 
 
 
@@ -256,7 +256,7 @@ tar zxvf myFile.tar.gz
 Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/rnaseq_sampledata.tar.gz`.  Now unpack it into your working directory into a directory called `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
 
 
-
+TODO: Add question asking them to 'less' and then 'fix' a file with bad line endings...
 
 
 ### What are wildcards?
@@ -333,7 +333,12 @@ grep 'var' file.txt | grep 'car' >> saveFile.txt
 
 #### __Exercise L3:__ 
 
-TODO: need an idea about what people can do with pipes, cat and grep.
+Once again explore the GTF file for GRCh37 from exercise #1.  This time use grep to both extract lines from the file that mention the 'PCA3' gene and to count how many lines are like that in the file.
+
+Now enter the data directory that you unpacked from exercise #2 (sampledata) and use `zcat` to view the first two read records of a file (in fastq format each read corresponds to exactly 4 lines of data)
+
+Now use `zcat`, `pipe` and `grep` along with `wc` to determine how many reads are there in the first library?
+
 
 
 
@@ -519,6 +524,25 @@ tar -zxvf rnaseq_sampledata.tar.gz
 ```
 
 ##### __Answer for Question L3:__
+
+```
+cd /tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes
+grep PCA3 genes.gtf
+grep PCA3 genes.gtf| wc -l
+```
+
+Enter the data directory and view the first two read records of a file (in fastq format each read corresponds to 4 lines of data)
+
+```
+cd ~/sampledata/rnaseq/data
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 8
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_2.fastq.gz | head -n 8
+```
+
+Decompress file on the fly with 'zcat', pipe into 'grep', search for the read name prefix and pipe into 'wc' to do a word count ('-l' gives lines)
+```
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep -P "^\@HWI" | wc -l
+```
 
 
 ##### __Answer for Question L4:__

@@ -70,7 +70,7 @@ Include table of Reserved Characters and their function ( in work)
 
 
 
-### pwd, / and ~/
+### Using __`pwd`__, __`/`__ and __`~/`__
 
 This is how you know where you are:
 
@@ -88,7 +88,7 @@ The root of a unix filesystem always starts with `/`.  So when you run `pwd`, yo
 Directories are for storing stuff, executables do things to stuff and files are stuff.  In Linux a full directory path will start with root and end with another `/` and use more `/`'s in between as separators for each subdirectory.  On most command lines directories will be colored to indicate that they are different from the files.  And in linux most executables are stored somewhere else, so you won't normally see those unless you are invoking them as commands.
 
 
-### cd, . and ..
+### Using __`cd`__, __`.`__ and __`..`__
 
 `cd` means change directory.  You call that command followed by a single argument to indicate which directory you want to change to.  
 
@@ -97,7 +97,7 @@ Directories are for storing stuff, executables do things to stuff and files are 
 And `..` means one directory up from here.
 
 
-### ls
+### Using __`ls`__
 
 `ls` is used to list a directory.  Which directory does it list?  That would be the second argument.  For example, the following command would list the contents of the root directory
 
@@ -122,7 +122,7 @@ ls -alh
 Which translates to: list the directory, but list all the files (even hidden ones), and use the long format, and make the sizes human readable.  How did I ever learn to do that?
 
 
-### man
+### Using __`man`__
 
 Well I used the man command to learn more about `ls`.  You can use the man command to pull up a manual about any linux command like this:
 
@@ -163,14 +163,14 @@ Based on this, we can see that for the file above the permissions are set to be 
 Display the working directory of your home directory.  Now look around to see if you can find the working directories for the other users.  Are you allowed to see the contents of those directories?  How do you know?
 
 
-### mkdir
+### Using __`mkdir`__
 
 Sometimes you will need to make a new directory.  For that there is the mkdir command.
 ```
 mkdir myDir
 ```
 
-### touch
+### Using __`touch`__
 
 And sometimes you will just need to create an empty file.  Maybe later on you want to write something to it, but right now you just want to reserve that filename.  For that you can use the `touch` command.  Here we use touch to create a file inside of our new directory:
 
@@ -191,7 +191,7 @@ That command will launch the nano editor.  Once inside you will be able to type 
 `^X` means `control-X`.  It's a hint about how to give that command.  Do it now to exit out of nano and feel free to save your work on the way.
 
 
-### less is more
+### __`less`__ is __`more`__
 
 Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at large text files.  And `less` does the same basic job as `more`.  So now that you know that, you should expect that the following command will let you look at the file `myFile.txt`:
 
@@ -201,7 +201,7 @@ less myFile.txt
 
 And when you were done you could exit by again pressing `q`.  Why the similarity to `man`?  Because man is actually using `less` to display the contents of the manual pages.  It's not the only time you will see that happen either.  Tools in Linux gets reused a lot.
 
-### cp, mv and rm
+### Using __`cp`__, __`mv`__ and __`rm`__
 
 `cp` copies a file to another place.  `mv` moves a file (and so does not leave the original behind).  Here is an example of each of these:
 
@@ -227,14 +227,26 @@ rm -r myDir
 Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So be caregful!
 
 
-### dos2unix
+### Fixing bad line endings with __`dos2unix`__
 
-dos2unix is a useful command to know about. Text files from windows will typically have different line endings from text files from unix. And that can be a problem if you need to parse files by line. dos2unix fixes files that have been formatted for windows so that the line endings are the same.  So the following command will fix the `myFile.txt`.
+`dos2unix` is a useful command to know about. Text files from windows will typically have different line endings from text files from unix. And that can be a problem if you need to parse files by line. `dos2unix` fixes files that have been formatted for windows so that the line endings are the same.  So the following command will fix the `myFile.txt`.
 
 ```
 dos2unix myFile.txt
 ```
 
+
+### Compression and decompression with __`tar`__
+
+`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. The good news is you can use tar to unpack those with ease:
+
+```
+tar zxvf myFile.tar.gz
+```
+
+ 
+ 
+ 
 
 
 #### __Exercise L2:__ 
@@ -254,7 +266,7 @@ mv *.txt /myDir
 Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with commands like rm, you might end up wishing that you could rewind time.
  
 
-### cat
+### Using __`cat`__
 
 Cat is useful for streaming the contents of a file.  As a quick example the following use of cat would dump the contents of `myFile.txt` to the screen.  So by itself `cat` is not so useful.
 
@@ -278,7 +290,7 @@ Here cat is streaming the contents of myFile "in" to a pipe.  Where doed the dat
 Ok, I will admit that the example above could be a lot more interesting.  Right now you are probably wondering why not just use less on the file like a normal person?  But just wait till we show you some other tricks that you can use with pipe.  I promise we will make this worth your time...
 
 
-### grep
+### Finding in file matches with __`grep`__
 
 The grep command is usually used to find strings in text files. For example you could search a file called `file.txt` for the string `var` like this:
 
@@ -301,7 +313,7 @@ grep 'var' file.txt | grep 'car' | less
 
 
 
-### > and >>
+### Using __`>`__ and __`>>`__
 
 What happens if you link together a set of pipes that does something useful?  Then you might want to save the out put.  This is when you would use the "bent pipe" or `>`
 
@@ -322,15 +334,15 @@ TODO: need an idea about what people can do with pipes, cat and grep.
 
 
 
-### split
+### Dividing files with __`split`__
 
 Sometimes you may have a really big file that you need to split into smaller pieces.  the `split` command will let you easily do that.
 
-### head and tail
+### Using __`head`__ and __`tail`__ to see both sides of things
 
 Another thing that happens with large files is that you may only want to see (or process) the first few lines.  The `head` and `tail` commands will allow you to look at the first or last few lines of any given file.
 
-### sort
+### Using __`sort`__
 
 Need to put the contents of a command into a particular order?  The `sort` command is your friend for this task.
 
@@ -339,7 +351,7 @@ sort test.txt
 ```
 
 
-### uniq
+### Using __`uniq`__
 Want to filter out rows that are not unique?  Use the `uniq` command.
 
 ```
@@ -347,7 +359,7 @@ sort test.txt | uniq
 ```
 
 
-### cut
+### Using __`cut`__
 
 Cut is especially useful if you have to deal with delimited files.  It allows you to get data by specifying a delimiter and then extract only a piece of interest.  For example, the following gets the 2nd column from a tab delimited file
 
@@ -355,7 +367,7 @@ Cut is especially useful if you have to deal with delimited files.  It allows yo
 cut -f 2- testTabs.txt
 ```
 
-### wc
+### Using __`wc`__
 
 The `wc` command is the word count command.  This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, if you wanted to know how many things were in the current directory you could do this:
 
@@ -365,7 +377,7 @@ ls | wc
 
 
 
-### find
+### Using __`find`__
 
 The find command is for finding files in the filesystem.  But it is actually VERY powerful because like everything else today it can be paired with the other toys in the Linux toybox.  The find command takes a couple of arguments. The 1st is the part of the directory to search in and the secons is what to look for.  A common way to use find is to find a file with a specific name.  So to find a file named `bob.txt` in your local directory could could do this
 
@@ -383,14 +395,14 @@ TODO: need an idea about what people can do with pipes and the other fun stuff h
 
 
 
-### who and top
+### Using __`who`__ and __`top`__
 
 Sometimes you want to know who else is logged in. IOW, if there are multiple machines to work on, you might prefer to work on a less crowded one...
 
 Other times when you log into a computer you might be wondering what it is doing overall.  This is what the top command is for.  If you call top, you will get a high level overview of what the computer is doing right now.  Top will tell you what processes are running, and how many resources they are using.  And by using it you can spot problems.  For example, you might want to know about long running processes that are consuming up all the system resources and slowing you down.
 
 
-### ps and kill
+### Using __`ps`__ and __`kill`__
 
 Top is useful for seeing whether there is a problem, but it updates frequently and only tends to display long running processes that are using a lot of resources.  Sometimes you just want to see all the things that you are running.  `ps` is a good way to list all the processes that you have running.  This command will list all the processed run by a particular user:
 
@@ -427,7 +439,7 @@ TODO: need an idea of how they can start a bad process and then find and kill it
 
 
 
-### echo
+### Using __`echo`__
 
 Sometimes you may need to look at the contents of shell variables.  Linux systems will often use environment variables and sometimes you might need to see what these have been set to.  The `echo` command will let you see what these values are.  When you use the echo command, you have to prefix any variable names with `$`.
 

@@ -236,6 +236,14 @@ Where myDir and everything in it will be deleted.  Obviously using the -r flag w
 dos2unix myFile.txt
 ```
 
+If you are wondering whether your file has the wrong kind of line endings, you can see them by either looking at the file using the emacs text editor OR by feeding them through cat and using the -v flag like this:
+
+```
+cat -v myFile
+```
+
+If when you do the above command, a file with windows style line endings will have ^M on the end of all the lines.  
+
 
 ### Compression and decompression with __`tar`__
 
@@ -255,19 +263,9 @@ Change to this directory: `/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotat
 
 Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/rnaseq_sampledata.tar.gz`.  Now unpack it into your working directory into a directory called `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
 
+In the sampledata inspect the file `badtextfile.txt` for windows style line endings.  If you see them, fix the file and then look again to make sure that the problem has been cleared up.
 
-TODO: Add question asking them to 'less' and then 'fix' a file with bad line endings...
 
-
-### What are wildcards?
-
-In linux you can use `*` as a wildcard to indicate more broadly which things you mean.  So for example, if I have to files that both end with `.txt` then I can move them both into myDir by doing this:
-
-```
-mv *.txt /myDir
-```
-
-Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with commands like rm, you might end up wishing that you could rewind time.
  
 
 ### Using __`cat`__ and __`zcat`__
@@ -331,6 +329,21 @@ And sometimes, you might want to simply append to an existing file without overw
 grep 'var' file.txt | grep 'car' >> saveFile.txt
 ```
 
+### Using __`head`__ and __`tail`__ to see both sides of things
+
+Another thing that happens with large files is that you may only want to see (or process) the first few lines.  The `head` and `tail` commands will allow you to look at the first or last few lines of any given file.
+
+
+### Using __`wc`__
+
+The `wc` command is the word count command.  This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, if you wanted to know how many things were in the current directory you could do this:
+
+```
+ls | wc
+```
+
+
+
 #### __Exercise L3:__ 
 
 Once again explore the GTF file for GRCh37 from exercise #1.  This time use grep to both extract lines from the file that mention the 'PCA3' gene and to count how many lines are like that in the file.
@@ -342,14 +355,20 @@ Now use `zcat`, `pipe` and `grep` along with `wc` to determine how many reads ar
 
 
 
+### What are wildcards?
+
+In linux you can use `*` as a wildcard to indicate more broadly which things you mean.  So for example, if I have to files that both end with `.txt` then I can move them both into myDir by doing this:
+
+```
+mv *.txt /myDir
+```
+
+Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with commands like rm, you might end up wishing that you could rewind time.
+
 
 ### Dividing files with __`split`__
 
 Sometimes you may have a really big file that you need to split into smaller pieces.  the `split` command will let you easily do that.
-
-### Using __`head`__ and __`tail`__ to see both sides of things
-
-Another thing that happens with large files is that you may only want to see (or process) the first few lines.  The `head` and `tail` commands will allow you to look at the first or last few lines of any given file.
 
 ### Using __`sort`__
 
@@ -376,15 +395,6 @@ Cut is especially useful if you have to deal with delimited files.  It allows yo
 cut -f 2- testTabs.txt
 ```
 
-### Using __`wc`__
-
-The `wc` command is the word count command.  This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, if you wanted to know how many things were in the current directory you could do this:
-
-```
-ls | wc
-```
-
-
 
 ### Using __`find`__
 
@@ -399,10 +409,15 @@ But as I stated before find is quite powerful.  You can also do partial matches,
 
 #### __Exercise L4:__ 
 
-TODO: need an idea about what people can do with pipes and the other fun stuff here like find, uniq and word count.
+Use the ls command with the * and > operators to create a file containing a list of all instances of the 'transcripts.gtf' file from all subdirectories
 
+What does the raw output from Cufflinks look like?  Now use cut to only display tracking_id, gene-id, and columns 7-13
 
+Go to `~/sampledata/rnaseq/de` and Take a peak at splicing, differential promoter usage and differential CDS results files.
 
+Now for each of those results files, sort the results by the p-value and view the top 10 isoforms, ignoring entries classified as 'LOWDATA'
+
+Now display the top 20 DE genes.
 
 ### Using __`who`__ and __`top`__
 
@@ -523,6 +538,10 @@ mkdir sampledata
 cd sampledata
 cp /tools/sampledata/rnaseq_sampledata.tar.gz .
 tar -zxvf rnaseq_sampledata.tar.gz
+
+cat -v badtextfile.txt | less
+dos2unix badtextfile.txt
+cat -v badtextfile.txt | less
 ```
 
 ##### __Answer for Question L3:__
@@ -548,6 +567,36 @@ zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep -P "^\@HWI" | wc -
 
 
 ##### __Answer for Question L4:__
+
+```
+cd ~/sampledata/rnaseq/expression
+ls *_cDNA*_lib2/transcripts.gtf > assembly_GTF_list.txt
+```
+
+```
+head Normal_cDNA1_lib2/isoforms.fpkm_tracking
+cut -f 1,4,7-13 Normal_cDNA1_lib2/isoforms.fpkm_tracking | less
+```
+
+```
+cd ~/sampledata/rnaseq/de
+head splicing.diff
+head promoters.diff
+head cds.diff
+```
+
+For each results file, we sort the results by the p-value and view the top 10 isoforms, ignoring entries classified as 'LOWDATA'
+```
+sort -k 12n splicing.diff | grep -v LOWDATA | head
+sort -k 12n promoters.diff | grep -v LOWDATA | head
+sort -k 12n cds.diff | grep -v LOWDATA | head
+```
+
+Display the top 20 DE genes:
+```
+grep -P "OK|gene_id" gene_exp.diff | sort -k 12n,12n | head -n 20 | cut -f 3,5,6,8,9,10,12,13,14
+```
+
 
 
 ##### __Answer for Question L5:__

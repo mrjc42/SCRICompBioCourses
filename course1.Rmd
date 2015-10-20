@@ -108,6 +108,8 @@ pwd
 `pwd` means print working directory.  It will always tell you where in the file system you are by giving you the full path starting with root. 
 
 
+### Other important locations: `/home`, `/tmp`, `/bin`, `/usr`, `/etc`
+
 ### Directories, executables and files
 
 Directories are for storing stuff, executables do things to stuff and files are stuff.  In Linux a full directory path will start with root and end with another `/` and use more `/`'s in between as separators for each subdirectory.  On most command lines directories will be colored to indicate that they are different from the files.  And in linux most executables are stored somewhere else, so you won't normally see those unless you are invoking them as commands.

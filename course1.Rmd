@@ -10,19 +10,7 @@ Welcome to the introductory course for computer resources here at SCRI.  This co
 
 Here is a list of topics that should be covered by the end of this course:
 
-# Introduction to Citrix:
-
-### What is Citrix?
-
-Citrix is a platform for having access to programs on many different machines. This allows a user to log in to any machine on the network and continue working on their projects without having to have the program installed on every machine. This is very useful for nurses and students who move between locations a lot. But why is this imporant?
-
-### Why Citrix?
-
-For most here at Research you likely avoid citrix like the plague and/or don't intentionally use it because of the old thought that citrix is bad. However when needed citrix provides a steady platform of available programs to help complete most work. This includes access to email, Microsoft Office, and share drives from home. Infact you can get access to log into your local machine via the citrix applications to utilize those programs specific to your computer!
-
-### Using Citrix safely?
-
-Most wouldn't guess that Citrix is actually being used by just shy of everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes the difference when it comes to citrix. Knowing how to use your citix can be the difference to having an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
+# Introduction to Citrix
 
 # Introduction to Linux: 
 
@@ -46,10 +34,21 @@ There are many flavors of unix, but most of them have the same basic directory s
 The command line is the main way that professional people interact with Unix.  You might be tempted to think that something so old cannot possibly be as good as a more modern graphical interface.  But the command line demonstrates how a simpler tool can often be superior to much more complicated solutions.  
 
 
+### Lets start by logging you in:
+
+To connect to a linux machine, one of the most common tools is `ssh` or 'secure shell'. You can use `ssh` to connect to a linux machine if you have permission to do do like this:
+
+```
+ssh user@hostname
+```
+
+Normally ssh is not the first command you would teach a new student of the linux command line, but in this case we want you to use this information to log into the sideswiper machine so that we can get started.
+
 
 ### What is tab-completion?
 
-Before you type anything, please locate the tab key in the upper left part of your keyboard. You are going to be hitting that key a lot. That is because in Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. Go ahead and try it!  Type `pw` and then hit the tab key for suggestions about what we might do next...
+Before you type anything, please locate the tab key in the upper left part of your keyboard. You are going to be hitting that key a lot. That is because in Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. One hit on the tab key will complete if you have typed enough characters to narrow things down to only one solution, but two quick tabs will actually list out all remaining possibilities for you (and prompt you first if it's a large amount). Go ahead and try it! Type `pw` and then hit the tab key for suggestions about what we might do next...
+
 
 ### Case sensitivity.
 
@@ -465,6 +464,31 @@ kill 5106
 ```
 
 The above command will kill the process where the PID = 5106.
+
+
+### Using __`bg`__ and the __`&`__ operator
+
+Sometimes you have a job that you want to run and you don't want to wait for it to finish before you get your terminal back.  When that happens you can hit [CTRL-Z] to get your command prompt back and then use the `bg` command to continue that process in the background.
+
+```
+commandThatTakesALongTimeToRun
+[CTRL-Z]
+bg
+```
+
+Or if you know something will run for a while, you can plan ahead and use the `&` operator.
+``` 
+commandThatTakesALongTimeToRun &
+```
+
+
+### Using __`hohup`__ 
+
+Sometimes you will want a job to run and you already know that it's going to take several hours. When that happens, you might worry that if you log out your job will not complete. For this circumstance you will want to use the `nohup` command (or: no hang up).  You can use it to run a command in the background.  `nohup` will keep running that process untill it either finishes or until someone kills it.  You can use `nohup` like this:
+
+```
+nohup command &
+```
 
 
 

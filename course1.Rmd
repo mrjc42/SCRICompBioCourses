@@ -10,7 +10,19 @@ Welcome to the introductory course for computer resources here at SCRI.  This co
 
 Here is a list of topics that should be covered by the end of this course:
 
-# Introduction to Citrix
+# Introduction to Citrix:
+
+### What is Citrix?
+
+Citrix is a platform for having access to programs on many different machines. This allows a user to log in to any machine on the network and continue working on their projects without having to have the program installed on every machine. This is very useful for nurses and students who move between locations a lot. But why is this imporant?
+
+### Why Citrix?
+
+For most here at Research you likely avoid citrix like the plague and/or don't intentionally use it because of the old thought that citrix is bad. However when needed citrix provides a steady platform of available programs to help complete most work. This includes access to email, Microsoft Office, and share drives from home. Infact you can get access to log into your local machine via the citrix applications to utilize those programs specific to your computer!
+
+### Using Citrix safely?
+
+Most wouldn't guess that Citrix is actually being used by just shy of everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes the difference when it comes to citrix. Knowing how to use your citix can be the difference to having an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
 
 # Introduction to Linux: 
 

@@ -167,7 +167,7 @@ Well I used the man command to learn more about `ls`.  You can use the man comma
 man ls
 ```
 
-When you are done looking at it, hit the `q` key.
+When you are done looking at it, hit the `q` key to exit.
 
 
 ### flags
@@ -184,14 +184,14 @@ Another thing you might have noticed about my longer form use of `ls` is that it
 -rw-r--r-- 1 username rleQAS_SCRI-Sudo 8.2K Oct  7 17:21 file.txt
 ```
 
-Permssions are used by Linux to control who can do things. They can be applied to (u)sers, (g)roups, (o)thers, or (a)ll.  (u)sers means the user who owns (created) the file while (g)roups mean the group that the file belongs to, and (o)thers means people who are not in these first two categories.  In Linux everything belongs to someone, so ownership and permission to act accordingly is a big deal.  Also true in Linux, is that groups of users are tracked and assigned to each file.  But each of these categories (user, group or other) can have separate permissions set to control whether people are allowed to (r)ead, (w)rite or e(x)ecute them.  Returning back to the mysterious string of ten characters mentioned above, it is actually broken into 4 sections: 
+Permissions are used by Linux to control who can do things. They can be applied to (u)sers, (g)roups, (o)thers, or (a)ll.  (u)sers means the user who owns (created) the file while (g)roups mean the group that the file belongs to, and (o)thers means people who are not in these first two categories.  In Linux everything belongs to someone, so ownership and permission to act accordingly is a big deal.  Also true in Linux, is that groups of users are tracked and assigned to each file.  But each of these categories (user, group or other) can have separate permissions set to control whether people are allowed to (r)ead, (w)rite or e(x)ecute them.  Returning back to the mysterious string of ten characters mentioned above, it is actually broken into 4 sections: 
 
 1) The very first character doesn't actually have to do with permissions.  It just indicates the kind of thing that something is. For example if it starts with `d`, then it's a directory etc.  In general, you won't need to spend a lot of time thinking about this first character.
 2) The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (u)ser
 3) The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (g)roup
 4) The last three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (o)thers
 
-Based on this, we can see that for the file above the permissions are set to be readable and writable for the owner of this file, but only readable by others.  If you ever need to change the permissions on a file, you would do that by using the `chmod` command.  Also, you may not be allowed to change permissions for some files and directories depending on who they belong to and what kind of access priveleges you have.
+Based on this, we can see that for the file above the permissions are set to be readable and writable for the owner of this file, but only readable by others.  If you ever need to change the permissions on a file, you would do that by using the `chmod` command.  Also, you may not be allowed to change permissions for some files and directories depending on who they belong to and what kind of access priveleges __you__ have.
 
 
 
@@ -209,7 +209,7 @@ mkdir myDir
 
 ### Using __`touch`__
 
-And sometimes you will just need to create an empty file.  Maybe later on you want to write something to it, but right now you just want to reserve that filename.  For that you can use the `touch` command.  Here we use touch to create a file inside of our new directory:
+And sometimes you will just need to create an empty file.  Maybe later on you want to write something to it, but right now you just want to reserve that filename. For that you can use the `touch` command. Here we use touch to create a file inside of our new directory:
 
 ```
 touch myDir/test.txt
@@ -217,7 +217,7 @@ touch myDir/test.txt
 
 ### text editors
 
-Linux is rife with powerful text editors.  Some of them (like vi or emacs) are so powerful that they could each have their own course.  Today lets look at a very simple and common one: `nano`.
+Linux is loaded with powerful text editors. Some of them (like vi or emacs) are so powerful that they could each have their own course.  Today lets look at a very simple and common one: `nano`.
 
 ```
 nano myFile.txt
@@ -225,18 +225,20 @@ nano myFile.txt
 
 That command will launch the nano editor.  Once inside you will be able to type in text of interest.  When you want to leave you can look at the bottom of the screen and you will see commands abbreviated like this: ^X 
 
-`^X` means `control-X`.  It's a hint about how to give that command.  Do it now to exit out of nano and feel free to save your work on the way.
+`^X` basically means 'CTRL-X'.  It's a hint about how to give that command.  Do it now to exit out of nano and feel free to save your work on the way.
 
 
 ### __`less`__ is __`more`__
 
-Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gignantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  So now that you know that, you should expect that the following command will let you look at the file `myFile.txt`:
+Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gigantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  So now that you know that, you should expect that the following command will let you look at the file `myFile.txt`:
 
 ```
 less myFile.txt
 ```
 
-And when you were done you could exit by again pressing `q`.  Why the similarity to `man`?  Because man is actually using `less` to display the contents of the manual pages.  It's not the only time you will see that happen either.  Tools in Linux gets reused a lot.  Another super useful thing to know about less is that you can search for a specific string while you have it open.  All you need to do is to type the `/` key while less is open and then you can type a string to search for and then hit enter.
+And when you were done looking around, you could exit by again pressing `q`.  Why the similarity to `man`?  Because the man command is actually using `less` to display the contents of the manual pages.  It's not the only time you will see that happen either.  Tools in Linux gets reused a lot.  
+
+Another super useful thing to know about less is that you can search for a specific string while you have it open.  All you need to do is to type the `/` key while less is open and then you can type a string to search for and then hit enter.
 
 ### Using __`cp`__, __`mv`__ and __`rm`__
 
@@ -247,9 +249,9 @@ cp file.txt filecopy.txt
 mv file.txt ..
 ```
 
-The first of these commands copies `file.txt` to another file with a different name `filecopy.txt` in the same directory.  The second command moves file.txt up a directory from where it is currently located.
+The first of these commands copies `file.txt` to another file with a different name `filecopy.txt` (in this example, the new file it would be in the same directory).  The second command moves file.txt up a directory from where it is currently located.
 
-But sometimes you just want to get rid of something altogether.  `rm` will do that for you.  Here is an example that just removed file.txt:
+But sometimes you may just want to get rid of something altogether.  `rm` will do that for you.  Here is an example that just removed file.txt:
 
 ```
 rm file.txt
@@ -261,7 +263,7 @@ Another common case with rm is when you have a directory and you want to remove 
 rm -r myDir
 ```
 
-Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So be caregful!
+Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So please be very careful!
 
 
 ### Fixing bad line endings with __`dos2unix`__
@@ -283,7 +285,7 @@ If when you do the above command, a file with windows style line endings will ha
 
 ### Compression and decompression with __`tar`__
 
-`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease:
+`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar:
 
 ```
 tar zxvf myFile.tar.gz

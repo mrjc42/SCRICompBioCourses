@@ -100,15 +100,15 @@ __root__ is not to be confused with __home__. A home directory is merely a defau
 When working with the command line, you will notice that your view of the filesystem is always based relative to the directory that you are currently in. So it is very important to be able to figure out where you are relative to root, how to look around and see what files and directories are nearby, and how to move yourself to different locations.
 
 This is how you know where you are:
-
+ 
 ```
 pwd
 ```
+ 
+`pwd` means print working directory.  It will tell you where in the file system you are by giving you the full path starting with root.
 
-`pwd` means print working directory.  It will always tell you where in the file system you are by giving you the full path starting with root. 
+As you explore around, you will notice that there are many directories contained in `root`, and you may wonder what these are for and if they are important to you. The short answer is that unless you know exactly what a directory is for, __anything outside of your home directory should probably be left alone.__ We will talk more about these directories and how you should (or should not) use them in Course 4. 
 
-
-### Other important locations: `/home`, `/tmp`, `/bin`, `/usr`, `/etc`
 
 ### Directories, executables and files
 

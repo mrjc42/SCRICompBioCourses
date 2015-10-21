@@ -355,7 +355,7 @@ grep 'var' file.txt | grep 'car' | less
 
 ### Using __`>`__ and __`>>`__
 
-What happens if you link together a set of pipes that does something useful?  Then you might want to save the out put.  This is when you would use the "bent pipe" or `>`
+What happens if you link together a set of pipes that does something useful?  In that case you might want to save the output.  This is when you would use the "bent pipe" or `>`
 
 ```
 grep 'var' file.txt | grep 'car' > saveFile.txt
@@ -401,12 +401,16 @@ In linux you can use `*` as a wildcard to indicate more broadly which things you
 mv *.txt /myDir
 ```
 
-Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with commands like rm, you might end up wishing that you could rewind time.
+Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with dangerous commands like `rm`, you might end up wishing that you could rewind time.
 
 
 ### Dividing files with __`split`__
 
-Sometimes you may have a really big file that you need to split into smaller pieces.  the `split` command will let you easily do that.
+Sometimes you may have a really big file that you need to split into smaller pieces.  the `split` command will let you easily do that. By default split will produce files that are 1000 lines long, but this is adjustable of course.
+
+```
+split myFile.txt
+```
 
 ### Using __`sort`__
 
@@ -415,7 +419,6 @@ Need to put the contents of a command into a particular order?  The `sort` comma
 ```
 sort test.txt
 ```
-
 
 ### Using __`uniq`__
 Want to filter out rows that are not unique?  Use the `uniq` command.
@@ -427,10 +430,10 @@ sort test.txt | uniq
 
 ### Using __`cut`__
 
-Cut is especially useful if you have to deal with delimited files.  It allows you to get data by specifying a delimiter and then extract only a piece of interest.  For example, the following gets the 2nd column from a tab delimited file
+Cut is especially useful if you have to deal with delimited files.  It allows you to extract only the columns that are of interest.  For example, the following gets the 2nd column from a tab delimited file
 
 ``` 
-cut -f 2- testTabs.txt
+cut -f2 testTabs.txt
 ```
 
 

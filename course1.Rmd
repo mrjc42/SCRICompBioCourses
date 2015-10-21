@@ -123,6 +123,16 @@ Directories are for storing stuff, executables do things to stuff and files are 
 
 And `..` means one directory up from here.
 
+So (for example), you could change to the root directory like this:
+```
+cd /
+```
+
+And then you could change back to your home directory like this:
+```
+cd ~/
+```
+
 
 ### Using __`ls`__
 

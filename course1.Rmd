@@ -437,7 +437,7 @@ But as I stated before find is quite powerful.  You can also do partial matches,
 
 Use the ls command with the * and > operators to create a file containing a list of all instances of the 'transcripts.gtf' file from all subdirectories
 
-What does the raw output from Cufflinks look like?  Now use cut to only display tracking_id, gene-id, and columns 7-13
+What does the raw output from Cufflinks look like? If you go to this directory: `~/sampledata/rnaseq/expression`, you will find example files there inside of subdirectories that are all named `transcripts.gtf`. Go there now and have a look.  Now use cut to only display tracking_id, gene-id, and columns 7-13
 
 Go to `~/sampledata/rnaseq/de` and Take a peak at splicing, differential promoter usage and differential CDS results files.
 
@@ -533,19 +533,20 @@ Here you can find answers to the questions posed above.
 
 ##### __Answer for Question L1:__
 
-Display the contents of home
+Display the contents of your home dir:
 
 ```
 cd ~/
 ls
 ```
 
-Find where other home dirs are located
+Find where other home dirs are located:
 ```
 pwd
 cd ..
 ls
 ```
+
 Are you allowed to see other working directories?
 
 ```
@@ -561,6 +562,7 @@ No: the permissions prevent this
 
 ##### __Answer for Question L2:__
 
+Change directories
 ```
 cd /tools/references
 ```
@@ -576,20 +578,35 @@ Use tab completion to find the human Ensembl GRCh37 chr22 reference sequence
 ```
 ls /tools/references/Homo_sapiens/Ensembl/GRCh37/Sequence/Chromosomes/
 ```
-Use the Ensembl GRCh37 most current gene annotation to discover how many exons does the gene PCA3 have?
+
+Now use the Ensembl GRCh37 most current gene annotation to discover how many exons does the gene PCA3 have?
 ```
 cd /tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes
+```
+Now look at the `.gtf` file with less:
+```
 less genes.gtf
 ```
+And while inside of `less`, use the / search feature to look for the string 'PCA3'
 
 
+Now use the copy command to pull down a tarball.  First go to your home directory and make a directory to put this stuff:
 ```
 cd ~
 mkdir sampledata
+```
+Now go into your new directory and copy the file there. 
+```
 cd sampledata
 cp /tools/sampledata/rnaseq_sampledata.tar.gz .
+```
+Then unpack it.
+```
 tar -zxvf rnaseq_sampledata.tar.gz
+```
 
+Now for the final part of this exercise, inspect 'badtextfile.txt' using `cat -v`, and then 'fix' the line endings to match what unix expects.
+```
 cat -v badtextfile.txt | less
 dos2unix badtextfile.txt
 cat -v badtextfile.txt | less
@@ -597,21 +614,28 @@ cat -v badtextfile.txt | less
 
 ##### __Answer for Question L3:__
 
+
+Lets have another look at that `.gtf` file.
 ```
 cd /tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes
+```
+Now use grep to look at just the lines that contain 'PCA3'
+```
 grep PCA3 genes.gtf
+```
+Now count how many of those lines there are...
+```
 grep PCA3 genes.gtf| wc -l
 ```
 
-Enter the data directory and view the first two read records of a file (in fastq format each read corresponds to 4 lines of data)
-
+Now enter the sampledata directory back in your working directory and view the first two read records of a file (in fastq format each read corresponds to 4 lines of data)
 ```
 cd ~/sampledata/rnaseq/data
 zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 8
 zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_2.fastq.gz | head -n 8
 ```
 
-Decompress file on the fly with 'zcat', pipe into 'grep', search for the read name prefix and pipe into 'wc' to do a word count ('-l' gives lines)
+Decompress file on the fly with 'zcat', pipe into 'grep', search for the read name prefix and pipe into 'wc' to do a word count ('-l' gives lines for word count)
 ```
 zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep -P "^\@HWI" | wc -l
 ```
@@ -619,16 +643,23 @@ zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep -P "^\@HWI" | wc -
 
 ##### __Answer for Question L4:__
 
+Use ls with * and > to make a new file that has all the different transcripts.gtf files.
 ```
 cd ~/sampledata/rnaseq/expression
 ls *_cDNA*_lib2/transcripts.gtf > assembly_GTF_list.txt
 ```
 
+Use head to look at the raw output from cufflinks in the isoforms.fpkm_tracking file.
 ```
 head Normal_cDNA1_lib2/isoforms.fpkm_tracking
+```
+
+Now use cut to extract just the columns that were requested
+```
 cut -f 1,4,7-13 Normal_cDNA1_lib2/isoforms.fpkm_tracking | less
 ```
 
+Now go to `~/sampledata/rnaseq/de` and look at the files mentioned
 ```
 cd ~/sampledata/rnaseq/de
 head splicing.diff
@@ -643,10 +674,11 @@ sort -k 12n promoters.diff | grep -v LOWDATA | head
 sort -k 12n cds.diff | grep -v LOWDATA | head
 ```
 
-Display the top 20 DE genes:
+How to display the top 20 DE genes:
 ```
 grep -P "OK|gene_id" gene_exp.diff | sort -k 12n,12n | head -n 20 | cut -f 3,5,6,8,9,10,12,13,14
 ```
+The above command is powerful.  But it is also getting a little carrried away.  Usually by the time you start doing things this complex, it starts to make sense to learn a high level programming language.  This will be the subject of course #2.
 
 
 

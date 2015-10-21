@@ -497,7 +497,7 @@ commandThatTakesALongTimeToRun &
 ```
 
 
-### Using __`hohup`__ 
+### Using __`nohup`__ 
 
 Sometimes you will want a job to run and you already know that it's going to take several hours. When that happens, you might worry that if you log out your job will not complete. For this circumstance you will want to use the `nohup` command (or: no hang up).  You can use it to run a command in the background.  `nohup` will keep running that process untill it either finishes or until someone kills it.  You can use `nohup` like this:
 

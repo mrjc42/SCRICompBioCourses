@@ -59,6 +59,9 @@ Normally ssh is not the first command you would teach a new student of the linux
 
 Before you type anything, please locate the tab key in the upper left part of your keyboard. You are going to be hitting that key a lot. That is because in Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. One hit on the tab key will complete if you have typed enough characters to narrow things down to only one solution, but two quick tabs will actually list out all remaining possibilities for you (and prompt you first if it's a large amount). Go ahead and try it! Type `pw` and then hit the tab key for suggestions about what we might do next...
 
+### Up and down arrows, 'CTRL-a' and 'CTRL-e'
+
+In unix, you can always get back to previous commands by hitting the up arrow.  If you step back too far, you can page the other way by hitting the down arrow.  Find yourself at the end of a very long command and want to get back to the beginning?  Hit 'CTRL-a'.  Want to get back to the end: 'CTRL-e'.
 
 ### Case sensitivity.
 

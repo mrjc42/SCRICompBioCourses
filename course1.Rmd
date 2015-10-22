@@ -527,9 +527,13 @@ nohup command &
 
 #### __Exercise L5:__ 
 
+Now launch the following command (which will not finish anytime soon):
 
-TODO: need an idea of how they can start a bad process and then find and kill it.
+```
+du -sh /tools
+```
 
+Now find that process and kill it.
 
 
 ### Using __`echo`__
@@ -702,3 +706,13 @@ The above command is powerful.  But it is also getting a little carrried away.  
 
 ##### __Answer for Question L5:__
 
+First you need to find the process
+```
+ps -U yourUsername
+```
+
+Then you have to get the pid and kill it like this (where pid is the process id listed on the left hand columns)
+
+```
+kill pid
+```

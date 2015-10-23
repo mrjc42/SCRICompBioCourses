@@ -26,11 +26,6 @@ The Files panel has many tabs.  The Files tab will let you look at the files in 
 
 
 
-
-#### What are all these panels for?
-#### Where is R?
-
-
 ### Getting help (not always as simple as it sounds!)
 #### Man pages
 #### vignettes

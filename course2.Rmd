@@ -35,9 +35,9 @@ Here is a list of topics that should be covered by the end of this course:
 
 
 ### Atomic vectors and other fun Data structures
-#### Vectors
+#### Vectors, length
 #### Lists
-#### data.frames
+#### data.frames, matrices, dim
 #### S4 objects
 
 
@@ -45,6 +45,12 @@ Here is a list of topics that should be covered by the end of this course:
 #### class()
 #### as.list() and friends
 #### subsetting operators [] vs [[]]
+#### data casting
+#### match(), %in%, unique()
+
+### Flow control
+#### if, else
+#### switch
 
 
 ### Exploring packages

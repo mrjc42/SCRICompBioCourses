@@ -26,10 +26,13 @@ The Files panel has many tabs.  The Files tab will let you look at the files in 
 
 
 
-### Getting help (not always as simple as it sounds!)
+### Getting help 
+If you forget everything else we teach you today, I want to make sure that you know how and where to look for help.
+
 #### Man pages
 #### vignettes
 #### example()
+#### Forums
 
 
 ### calling functions

@@ -7,12 +7,26 @@ output: html_document
 
 Welcome to the second course in our series of courses designed to help train Biologists who want to be able to analyze their own data.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
 
-
-Here is a list of topics that should be covered by the end of this course:
-
 # Introduction to R
 
 ### Getting familiar with RStudio
+First lets get you used to RStudio.  RStudio is one of the most popular tools for working with R today.  It normally has four main panels: 'Console', 'Source', 'Environment', and 'Files'.  Lets take a minute and look at each of these:
+
+#### Console panel:
+This panel is your actual R console.  This panel is basically what you would see if you were to run R at the command line without any of the RStudio bells and whistles.
+
+#### Source panel:
+The Source panel is where you can edit scripts and markdown documents etc.  It's primary function is to be a text editor.  You can use any text editor that you like to write R, but this one is nice because it comes pre-configured with sensible defaults for source code highlighting.  This makes it easier to read your source code.  Also convenient: if you highlight a command and then hit CTRL-ENTER keys, it will send the highlighted text directly to the console to be executed.
+
+#### Environment panel:
+This panel is where you will see important details about your R session.  Any local variables will be shown here, and there is also a tab to see your command history.  This can be convenient if you are debugging or need to look at what is in a local object.
+
+#### Files panel:
+The Files panel has many tabs.  The Files tab will let you look at the files in the current working directory.  And the plots tab is where RStudio will draw plots that you generate. The Packages tab will let you browse installed packages to look at their helpful vignettes, and the help tab is where RStudio will render manual pages that you open.  The Viewer tab has a similar role to the plots tab, except that it's usually used for looking at interactive shiny widgets when using RStudio.
+
+
+
+
 #### What are all these panels for?
 #### Where is R?
 

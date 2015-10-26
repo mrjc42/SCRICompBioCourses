@@ -23,7 +23,6 @@ For most here at Research you likely avoid citrix like the plague and/or don't i
 Most wouldn't guess that Citrix is actually being used by just shy of everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes the difference when it comes to citrix. Knowing how to use your citix can be the difference to having an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
 
 
-
 #### Citrix was determined to be a useful part of this Initiative in order to more accurately familiarize you with the tools at your disposal and how to safely use them.
 
 To start off please ensure you have completed the following:
@@ -88,6 +87,17 @@ a.	(Notice how there is no text document on the desktop?)
 Saving to the Citrix Desktop (the one with fewer icons), and closing out will cause you to lose what was saved there. This is because the Citrix window desktop is not actually an existing folder. Saving to the "O:\ Drive" or a department share is the single safest way to protect your data.
 
 
+# Computational Resources at SCRI
+
+The Research Informatics Team is engaged in *transforming* the way SCRI interacts with and handles big data. Part of this initiative is providing access to more scientific computing resources. The first systems to come on a line are a pair of high performance linux workstations. Keeping with the theme of "transforming research", these machines have been unofficially dubbed the Autobots, and been given the aliases Sunstreaker and Sideswiper. 
+
+Computer Name | Alias | Memory | Processor | Cores|Primary Function
+--------------|-------|--------|-----------|------|----------------
+EWRLNXRD28|Sunstreaker|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical| Worker nodes
+EWRLNXRD29|Sideswiper|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical | Worker nodes
+
+
+
 
 # Introduction to Linux: 
 
@@ -119,8 +129,23 @@ To connect to a linux machine, one of the most common tools is `ssh` or 'secure 
 ssh user@hostname
 ```
 
-Normally ssh is not the first command you would teach a new student of the linux command line, but in this case we want you to use this information to log into the sideswiper machine so that we can get started.
+Normally ssh is not the first command you would teach a new student of the linux command line, but in this case we want you to use this information to log into the sunstreaker machine so that we can get started.
 
+### The prompt
+
+When you first log in to a linux terminal, you will see (with various levels of consternation) the __command prompt__. Like the dashboard of a car, the command prompt may look slightly different depending on the system, but in general the prompt will look something like this:
+
+```
+userid@hostname:/workingdirectory $
+```
+The __userid__ is the user name that is logged in to the system, in this case your SCH user id. The __hostname__ is the name of the computer you are logged into. Note that it is the real name of the computer, not the alias. Refer to the table in the Computational Resources section. The __working directory__,as the name implies, is the directory that you are currently worrking in (see the section on `pwd` below). The prompt ends with the `$` character and finally the cursor. 
+
+One common early mistake is to assume that anytime you can see the cursor, you must be able to give the computer a command. Indeed, the system will let you type anything you want at the cursor, even if it is busy. If you do that, your command will not execute until the system finishes whatever it's last command was. You can know that the system is busy whenever you see the cursor, but not the command prompt. In other words: *unless you see the full command prompt in front of the cursor*, the system is busy and is not ready to take a command. 
+
+Sometimes you may see other types of characters that look 'command prompt-ish': 
+
+* `+` This character indicates that whatever command you entered is incomplete and the system is waiting for more information. You can either supply the missing information, or you can return to the command prompt by hitting `CTRL-c`.
+* `>` or `>>>`. These characters often indicate that you have entered into a different scripting environment, such as python or R. If you find yourself with this prompt and you didn't mean to, you can return to the command prompt by hitting `CTRL-c`.
 
 ### What is tab-completion?
 
@@ -151,12 +176,18 @@ And still other people prefer all lowercase like this:
 myfile.txt
 ```
 
-Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters...  And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be annoyed with you.
+Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters:
+
+```
+my\ file.txt
+```
+
+And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be annoyed with you.
 
 
 ### Reserved Characters (also called "Special")
 
-Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, \0 and \ which is the path separator.  Other reserved characters are allowed but special meaning to the system like the "-" which proceeds flags on the command line or "*" which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
+Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, \0 and \ which is the escape character.  Other reserved characters are allowed but special meaning to the system like the "-" which proceeds flags on the command line or "*" which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
 
 Include table of Reserved Characters and their function ( in work)
 
@@ -229,7 +260,7 @@ ls -alh
 Which translates to: list the directory, but list all the files (even hidden ones), and use the long format, and make the sizes human readable.  How did I ever learn to do that?
 
 
-### Using __`man`__
+### Using __`man`__ and __`--help`__
 
 Well I used the man command to learn more about `ls`.  You can use the man command to pull up a manual about any linux command like this:
 
@@ -238,6 +269,14 @@ man ls
 ```
 
 When you are done looking at it, hit the `q` key to exit.
+
+Because linux is open sourced, software gets contributed from many different programmers. Sometimes, the programmers elect to not include a `man` page. An alternative route is to try the `--help` flag:
+
+```
+ls --help
+```
+
+As you can see, this returns essentially the same information.
 
 
 ### flags
@@ -358,7 +397,7 @@ If when you do the above command, a file with windows style line endings will ha
 `tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar:
 
 ```
-tar zxvf myFile.tar.gz
+tar -zxvf myFile.tar.gz
 ```
 
  
@@ -369,12 +408,12 @@ Now lets look at another directory. Change to this directory: `/tools/references
 
 Change to this directory: `/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes`. Now use less to look at the `.gtf` file for this genome. Using less see if you can determine how many exons does the gene PCA3 have?
 
-Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/rnaseq_sampledata.tar.gz`.  Now unpack it into your working directory into a directory called `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
+Make a directory in your home directory called `sampledata`. Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/rnaseq_sampledata.tar.gz` into `sampledata`.  Now unpack it within `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
 
-In the sampledata inspect the file `badtextfile.txt` for windows style line endings.  If you see them, fix the file and then look again to make sure that the problem has been cleared up.
+In the sampledata directory inspect the file `badtextfile.txt` for windows style line endings.  If you see them, fix the file and then look again to make sure that the problem has been cleared up.
 
 
- 
+
 
 ### Using __`cat`__ and __`zcat`__
 

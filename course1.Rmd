@@ -37,9 +37,9 @@ Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Comp
 
 * VDI = Virtual Device Infrastructure really meaning a hardware device that runs a virtual machine.
 * VDS= Virtual Desktop Session is a session accessing software on a server.
-* ACL = Access Control List – Enables/Denies Communication between Computers and Servers.
+* ACL = Access Control List Enables/Denies Communication between Computers and Servers.
 * Xenapp = Server that is pushing apps to your account.
-* XenDesktop = Session loaded on VDI’s and when you log into https://desktops.seattlehchildrens.org/
+* XenDesktop = Session loaded on VDI's and when you log into https://desktops.seattlehchildrens.org/
 * Virtual Machine = Virtual Computer they are equal in meaning. It is a virtual computer running on a server off in a different location.
 
 

@@ -22,6 +22,15 @@ For most here at Research you likely avoid citrix like the plague and/or don't i
 
 Most wouldn't guess that Citrix is actually being used by just shy of everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes the difference when it comes to citrix. Knowing how to use your citix can be the difference to having an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
 
+# Computational Resources at SCRI
+
+The Research Informatics Team is engaged in *transforming* the way SCRI interacts with and handles big data. Part of this initiative is providing access to more scientific computing resources. The first systems to come on a line are a pair of high performance linux workstations. Keeping with the theme of "transforming research", these machines have been unofficially dubbed the Autobots, and been given the aliases Sunstreaker and Sideswiper. 
+
+Computer Name | Alias | Memory | Processor | Cores|Primary Function
+--------------|-------|--------|-----------|------|----------------
+EWRLNXRD28|Sunstreaker|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical| Worker nodes
+EWRLNXRD29|Sideswiper|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical | Worker nodes
+
 # Introduction to Linux: 
 
 ### What is Linux?  

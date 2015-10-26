@@ -76,8 +76,8 @@ One common early mistake is to assume that anytime you can see the cursor, you m
 
 Sometimes you may see other types of characters that look 'command prompt-ish': 
 
-* `+` This character indicates that whatever command you entered is incomplete and the system is waiting for more information. You can either supply the missing information, or you can return to the command prompt by entering typing `Ctrl c`.
-* `>` or `>>>`. These characters often indicate that you have entered into a different scripting environment, such as python or R. If you find yourself with this prompt and you didn't mean to, you can return to the command prompt by entering typing `Ctrl c`.
+* `+` This character indicates that whatever command you entered is incomplete and the system is waiting for more information. You can either supply the missing information, or you can return to the command prompt by hitting `CTRL-c`.
+* `>` or `>>>`. These characters often indicate that you have entered into a different scripting environment, such as python or R. If you find yourself with this prompt and you didn't mean to, you can return to the command prompt by hitting `CTRL-c`.
 
 ### What is tab-completion?
 
@@ -329,7 +329,7 @@ If when you do the above command, a file with windows style line endings will ha
 `tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar:
 
 ```
-tar zxvf myFile.tar.gz
+tar -zxvf myFile.tar.gz
 ```
 
  
@@ -340,12 +340,12 @@ Now lets look at another directory. Change to this directory: `/tools/references
 
 Change to this directory: `/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes`. Now use less to look at the `.gtf` file for this genome. Using less see if you can determine how many exons does the gene PCA3 have?
 
-Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/rnaseq_sampledata.tar.gz`.  Now unpack it into your working directory into a directory called `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
+Make a directory in your home directory called `sampledata`. Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/rnaseq_sampledata.tar.gz` into `sampledata`.  Now unpack it within `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
 
-In the sampledata inspect the file `badtextfile.txt` for windows style line endings.  If you see them, fix the file and then look again to make sure that the problem has been cleared up.
+In the sampledata directory inspect the file `badtextfile.txt` for windows style line endings.  If you see them, fix the file and then look again to make sure that the problem has been cleared up.
 
 
- 
+
 
 ### Using __`cat`__ and __`zcat`__
 

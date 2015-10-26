@@ -2,7 +2,7 @@
 title: "Intro To Citrix And Linux"
 author: "Bronson, Debbie, Sean and Marc"
 date: "10/7/2015"
-output: pdf_document
+output: html_document
 ---
 
 Welcome to the introductory course for computer resources here at SCRI.  This course will cover a basic introduction to the SCRI Citrix environment and also will introduce you to basic tools in linux.  If you have a bad case of CLAS (command line aversion syndrome), then this course should help you get on the road to recovery.
@@ -157,9 +157,9 @@ Whatever style you prefer, these all have one thing in common: no spaces.  You s
 
 ### Reserved Characters (also called "Special")
 
-Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, /0 and / which is the path separator.  Other reserved characters are allowed but special meaning to the system like the "-" which proceeds flags on the command line or "*" which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
+Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, \0 and \ which is the path separator.  Other reserved characters are allowed but special meaning to the system like the "-" which proceeds flags on the command line or "*" which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
 
-
+Include table of Reserved Characters and their function ( in work)
 
 
 ### Using __`pwd`__, __`/`__ and __`~/`__

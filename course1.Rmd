@@ -22,6 +22,27 @@ For most here at Research you likely avoid citrix like the plague and/or don't i
 
 Most wouldn't guess that Citrix is actually being used by just shy of everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes the difference when it comes to citrix. Knowing how to use your citix can be the difference to having an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
 
+
+
+#### Citrix was determined to be a useful part of this Initiative in order to more accurately familiarize you with the tools at your disposal and how to safely use them.
+
+To start off please ensure you have completed the following:
+
+1.	You have logged on the PDN : Directionhistoric
+2.	Navigated to https://desktops.seattlechildrens.org 
+3.	Logged in with Gemalto using your pin or dongle
+4.	Copied the Mobaxterm mobile app to your “O:\ Drive”
+
+Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Computer, XenDesktop, and XenApp. These are important to mention so you understand the differences.
+
+* VDI = Virtual Device Infrastructure really meaning a hardware device that runs a virtual machine.
+* VDS= Virtual Desktop Session is a session accessing software on a server.
+* ACL = Access Control List – Enables/Denies Communication between Computers and Servers.
+* Xenapp = Server that is pushing apps to your account.
+* XenDesktop = Session loaded on VDI’s and when you log into https://desktops.seattlehchildrens.org/
+* Virtual Machine = Virtual Computer they are equal in meaning. It is a virtual computer running on a server off in a different location.
+
+
 # Introduction to Linux: 
 
 ### What is Linux?  

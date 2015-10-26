@@ -42,6 +42,7 @@ Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Comp
 * XenDesktop = Session loaded on VDI’s and when you log into https://desktops.seattlehchildrens.org/
 * Virtual Machine = Virtual Computer they are equal in meaning. It is a virtual computer running on a server off in a different location.
 
+![Diagram 1](CitrixDiagram1.png)
 
 Using the “O:\ Drive” or your group share as a single point of access is the safest way to save and access data because it is not only accessible everywhere you go but it is also backed up. This cannot be stressed enough!
 

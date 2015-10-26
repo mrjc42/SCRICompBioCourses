@@ -42,12 +42,13 @@ Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Comp
 * XenDesktop = Session loaded on VDI's and when you log into https://desktops.seattlehchildrens.org/
 * Virtual Machine = Virtual Computer they are equal in meaning. It is a virtual computer running on a server off in a different location.
 
-
-
+### Diagram 1
 ![Diagram 1](CitrixDiagram1.png)
 
+### Diagram 2:
 ![Diagram 2](CitrixDiagram2.png)
 
+### Diagram 3:
 ![Diagram 3](CitrixDiagram3.png)
 
 

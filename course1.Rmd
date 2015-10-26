@@ -42,6 +42,8 @@ Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Comp
 * XenDesktop = Session loaded on VDI’s and when you log into https://desktops.seattlehchildrens.org/
 * Virtual Machine = Virtual Computer they are equal in meaning. It is a virtual computer running on a server off in a different location.
 
+
+
 ![Diagram 1](CitrixDiagram1.png)
 
 ![Diagram 2](CitrixDiagram2.png)
@@ -51,7 +53,8 @@ Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Comp
 
 Using the “O:\ Drive” or your group share as a single point of access is the safest way to save and access data because it is not only accessible everywhere you go but it is also backed up. This cannot be stressed enough!
 
-Exercise 1:
+
+#### __Exercise C1:__ 
 1.	Open “My Citrix Computer” From the desktop and pin it to the right of the screen. We will refer to this as “Citrix”
 2.	Create a file called textfile1.txt on your “O:\ Drive”
 3.	Open the “Computer” by Clicking Start > Computer and pin that Window to the left of your screen.
@@ -60,7 +63,8 @@ Exercise 1:
 a.	(Notice how there is a Denial symbol?) This is because you cannot transfer between your Local machine and Citrix. See Diagram 3
 b.	Leave both Windows open for Exercise 2.
 
-Exercise 2:
+
+#### __Exercise C2:__ 
 1.	Lower down the “local machine” window.
 2.	Open “Microsoft Outlook 2010” from your desktop. Pin it to the left side of your screen.
 3.	Locate the “Dummy Email” sent to you this morning. If you did not receive it let me know.
@@ -70,7 +74,8 @@ a.	(Notice how it allowed you to transfer the email there?)
 a.	(Notice how it attached properly?)
 Citrix can talk to Citrix and local can talk to local. If you have ever struggled to attach that word document or important grant to your email and had trouble it is likely that you were trying to use a mixed environment scenario.
 
-Exercise 3:
+
+#### __Exercise C3:__ 
 1.	Open both local and Citrix windows the same way as in Exercise 1. Local on the left, Citrix on the right.
 2.	Navigate to the “Desktop” on both. 
 a.	(Notice that the amount of icons is different on both?)

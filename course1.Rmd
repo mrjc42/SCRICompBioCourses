@@ -85,7 +85,7 @@ a.	(Notice that the amount of icons is different on both?)
 6.	Open “My Citrix Computer” Once again and navigate to the “Desktop”
 a.	(Notice how there is no text document on the desktop?)
 
-Saving to the Citrix Desktop, the one with less icons, and closing out will cause you to lose what was saved there. This is because the Citrix window desktop not actually an existing folder. Saving to the “O:\ Drive” or a department share is the single safest way to protect your data.
+Saving to the Citrix Desktop (the one with fewer icons), and closing out will cause you to lose what was saved there. This is because the Citrix window desktop is not actually an existing folder. Saving to the “O:\ Drive” or a department share is the single safest way to protect your data.
 
 
 

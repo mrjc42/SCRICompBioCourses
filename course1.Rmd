@@ -43,6 +43,41 @@ Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Comp
 * Virtual Machine = Virtual Computer they are equal in meaning. It is a virtual computer running on a server off in a different location.
 
 
+Using the “O:\ Drive” or your group share as a single point of access is the safest way to save and access data because it is not only accessible everywhere you go but it is also backed up. This cannot be stressed enough!
+
+Exercise 1:
+1.	Open “My Citrix Computer” From the desktop and pin it to the right of the screen. We will refer to this as “Citrix”
+2.	Create a file called textfile1.txt on your “O:\ Drive”
+3.	Open the “Computer” by Clicking Start > Computer and pin that Window to the left of your screen.
+4.	Navigate to the text document on your “O:\ Drive” in the left Window which we will call your local machine.
+5.	Try and drag it from your local machine to your Citrix.
+a.	(Notice how there is a Denial symbol?) This is because you cannot transfer between your Local machine and Citrix. See Diagram 3
+b.	Leave both Windows open for Exercise 2.
+
+Exercise 2:
+1.	Lower down the “local machine” window.
+2.	Open “Microsoft Outlook 2010” from your desktop. Pin it to the left side of your screen.
+3.	Locate the “Dummy Email” sent to you this morning. If you did not receive it let me know.
+4.	Drag the “Dummy Email” from Outlook to your “O:\ Drive” on “Citrix”
+a.	(Notice how it allowed you to transfer the email there?)
+5.	Open a new email and drag the text document from your “O:\ Drive” on “Citrix” to the new email.
+a.	(Notice how it attached properly?)
+Citrix can talk to Citrix and local can talk to local. If you have ever struggled to attach that word document or important grant to your email and had trouble it is likely that you were trying to use a mixed environment scenario.
+
+Exercise 3:
+1.	Open both local and Citrix windows the same way as in Exercise 1. Local on the left, Citrix on the right.
+2.	Navigate to the “Desktop” on both. 
+a.	(Notice that the amount of icons is different on both?)
+3.	Navigate to the “O:\ Drive” on your Citrix Desktop and Copy the “New Text File1.txt” that you saved earlier.
+4.	Now Navigate back to the “Desktop” in the Citrix window as before and paste the “NewTextFile1.txt” 
+5.	Close out of the Citrix window.
+6.	Open “My Citrix Computer” Once again and navigate to the “Desktop”
+a.	(Notice how there is no text document on the desktop?)
+
+Saving to the Citrix Desktop, the one with less icons, and closing out will cause you to lose what was saved there. This is because the Citrix window desktop not actually an existing folder. Saving to the “O:\ Drive” or a department share is the single safest way to protect your data.
+
+
+
 # Introduction to Linux: 
 
 ### What is Linux?  

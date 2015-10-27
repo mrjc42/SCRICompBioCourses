@@ -190,7 +190,7 @@ And this is a huge inconvenience.  So if you give someone a file like this in li
 
 ### Reserved Characters (also called "Special")
 
-Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, `\0` and `\` which is the escape character.  Other reserved characters are allowed but special meaning to the system like the `-` which proceeds flags on the command line or `*` which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
+Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, `\0` and `/` which is the path separator.  Other reserved characters are allowed but special meaning to the system like the `-` which proceeds flags on the command line or `*` which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
 
 
 

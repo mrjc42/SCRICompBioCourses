@@ -91,6 +91,8 @@ someFun(val1, val2, val3)
 
 #### OR by name
 
+TODO: replace these with real examples...
+
 ```{r, eval=FALSE}
 someFun(arg1=val1, arg2=val2, arg3=val3)
 ```
@@ -105,11 +107,15 @@ someFun(arg1, arg2, arg3=val3)
 #### Remember to always check the man page
 Some functions may not behave in the way you expect.
 
+#### __Exercise R1:__ 
+
 
 ### Getting data into R 
 #### read.table
 #### scan
 #### Other options: Databases, URIs, REST, HDF5 and many more
+
+#### __Exercise R2:__ 
 
 
 ### Atomic vectors and other fun Data structures
@@ -119,6 +125,9 @@ Some functions may not behave in the way you expect.
 #### S4 objects
 
 
+#### __Exercise R3:__ 
+
+
 ### Data object management
 #### class()
 #### as.list() and friends
@@ -126,9 +135,15 @@ Some functions may not behave in the way you expect.
 #### data casting
 #### match(), %in%, unique()
 
+#### __Exercise R4:__ 
+
+
 ### Flow control
 #### if, else
 #### switch
+
+
+#### __Exercise R5:__ 
 
 
 ### Exploring packages

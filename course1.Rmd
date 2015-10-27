@@ -405,13 +405,13 @@ tar -zxvf myFile.tar.gz
 
 #### __Exercise L2:__ 
 
-Now lets look at another directory. Change to this directory: `/tools/references`.  What reference organisms are available?  Use tab completion to find the hg19 whole genome reference sequence.  Now use it to find the human Ensembl GRCh37 chr22 reference sequence.  
+Now lets look at another directory. Change to this directory: `/tools/references`.  What reference organisms are available?  Use tab completion to find the human UCSC hg19 whole genome reference sequence.  Now use it to find the human Ensembl GRCh37 chr22 reference sequence.  
 
-Change to this directory: `/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes`. Now use less to look at the `.gtf` file for this genome. Using less see if you can determine how many exons does the gene PCA3 have?
+Change to this directory: `/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes`. Now use `less` to look at the `.gtf` file for this genome. Using `less` and `/` see if you can determine how many exons are in the gene PCA3?
 
-Make a directory in your home directory called `sampledata`. Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/rnaseq_sampledata.tar.gz` into `sampledata`.  Now unpack it within `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
+Make a directory in your home directory called `sampledata`. Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/sampledata.tar.gz` into `sampledata`.  Now unpack it within `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
 
-In the sampledata directory inspect the file `badtextfile.txt` for windows style line endings.  If you see them, fix the file and then look again to make sure that the problem has been cleared up.
+In the sampledata directory navigate to the `examples` directory, and inspect the file `badtextfile.txt` for windows style line endings.  If you see them, fix the file and then look again to make sure that the problem has been cleared up.
 
 
 
@@ -495,7 +495,7 @@ ls | wc
 
 #### __Exercise L3:__ 
 
-Once again explore the GTF file for GRCh37 from exercise #1.  This time use grep to both extract lines from the file that mention the 'PCA3' gene and to count how many lines are like that in the file.
+Once again explore the GTF file for GRCh37 from exercise #1.  This time use `grep` to extract lines from the file that mention the 'PCA3' gene. Now use `grep` and `wc` and to return a count of how many lines are like that in the file.
 
 Now enter the data directory that you unpacked from exercise #2 (sampledata) and use `zcat` to view the first two read records of a file (in fastq format each read corresponds to exactly 4 lines of data)
 
@@ -561,15 +561,15 @@ But as I stated before find is quite powerful.  You can also do partial matches,
 
 #### __Exercise L4:__ 
 
-Use the ls command with the * and > operators to create a file containing a list of all instances of the 'transcripts.gtf' file from all subdirectories
+Go to `~/sampledata/rnaseq/expression`. Take a look at the contents of this directory. Note that there are several subdirectories for different sample libraries. Each of these contains a gene annotation file (`.gtf`). Later in the course we will see that we will want to pass each of these into the `cuffmerge` program, which is expecting a text file with a list of all annotations to merge. Use the ls command with the * and > operators to create a file containing a list of all instances of the 'transcripts.gtf' file from all subdirectories.
 
-What does the raw output from Cufflinks look like? If you go to this directory: `~/sampledata/rnaseq/expression`, you will find example files there inside of subdirectories that are all named `transcripts.gtf`. Go there now and have a look.  Now use cut to only display tracking_id, gene-id, and columns 7-13
+What does the raw output from Cufflinks look like? If you go to this directory: `~/sampledata/rnaseq/expression`, you will find example files there inside of subdirectories that are all named `isoforms.fpkm_tracking`. Go there now and have a look at one of these files. Note the column headers.  Now use cut to only display tracking_id, gene-id, and columns 7-13
 
-Go to `~/sampledata/rnaseq/de` and Take a peak at splicing, differential promoter usage and differential CDS results files.
+Go to `~/sampledata/rnaseq/de` and take a peak at differential splicing, differential promoter usage and differential CDS results files (HINT: these all have a `.diff` extension).
 
 Now for each of those results files, sort the results by the p-value and view the top 10 isoforms, ignoring entries classified as 'LOWDATA'
 
-Now display the top 20 DE genes.
+The file `gene_exp.diff` contains a list of differentially expressed genes. See if you can display the top 20 DE genes.
 
 ### Using __`who`__ and __`top`__
 
@@ -728,15 +728,16 @@ mkdir sampledata
 Now go into your new directory and copy the file there. 
 ```
 cd sampledata
-cp /tools/sampledata/rnaseq_sampledata.tar.gz .
+cp /tools/sampledata/sampledata.tar.gz .
 ```
 Then unpack it.
 ```
-tar -zxvf rnaseq_sampledata.tar.gz
+tar -zxvf sampledata.tar.gz
 ```
 
 Now for the final part of this exercise, inspect 'badtextfile.txt' using `cat -v`, and then 'fix' the line endings to match what unix expects.
 ```
+cd examples
 cat -v badtextfile.txt | less
 dos2unix badtextfile.txt
 cat -v badtextfile.txt | less
@@ -808,7 +809,7 @@ How to display the top 20 DE genes:
 ```
 grep -P "OK|gene_id" gene_exp.diff | sort -k 12n,12n | head -n 20 | cut -f 3,5,6,8,9,10,12,13,14
 ```
-The above command is powerful.  But it is also getting a little carrried away.  Usually by the time you start doing things this complex, it starts to make sense to learn a high level programming language.  This will be the subject of course #2.
+The above command is powerful.  But it is also getting a little carrried away. The first part uses a fancy search statement that includes the perl-style `OR` operator: `|`. So it is looking for lines that contain 'OK' OR 'gene_id'. This filters the list to include genes that are differentially expressed but also includes the column headers. The next bit sorts on the 12th column Usually by the time you start doing things this complex, it starts to make sense to learn a high level programming language.  This will be the subject of course #2.
 
 
 

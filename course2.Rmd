@@ -85,20 +85,20 @@ Now that we have discussed how to get help lets talk about basic R functions.
 
 #### For R functions, arguments can either be passed in to them "in order"
 
-```{r}
+```{r, eval=FALSE}
 someFun(val1, val2, val3)
 ```
 
 #### OR by name
 
-```{r}
+```{r, eval=FALSE}
 someFun(arg1=val1, arg2=val2, arg3=val3)
 ```
 
 
 #### OR as a mixture (but once you start using names, you had better stick with it).
 
-```{r}
+```{r, eval=FALSE}
 someFun(arg1, arg2, arg3=val3)
 ```
 

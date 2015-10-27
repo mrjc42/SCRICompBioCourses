@@ -27,12 +27,52 @@ The Files panel has many tabs.  The Files tab will let you look at the files in 
 
 
 ### Getting help 
-If you forget everything else we teach you today, I want to make sure that you know how and where to look for help.
+If you forget everything else we teach you today, I want to make sure that you know how and where to look for help. The next set of topics will cover that because R has a large number of ways that new users can get assistance for learning about it.
 
 #### Man pages
-#### vignettes
+The manual page is usually the first place you will look if you are wondering what an R command will do.  R man pages will explain both what something is, and how to use it  You can usually pull up a manual page for a command by typing `?` followed by the command.  Like this:
+
+```{r, eval=FALSE}
+?data.frame
+```
+
+However a good habit is to wrap the thing you want help on in quotes like this:
+
+```{r, eval=FALSE}
+?'data.frame'
+```
+
+Why?  Because those quotes will allow you to search for help on strings that have special characters like dashes in them.  Why would you want to do that when this is not allowed for function names?  Consider the following:
+
+```{r, eval=FALSE}
+ ?'GenomicRanges-class'
+```
+
+The above will take you to the help page for the GenomicFeatures S4 class.  It's a very useful man page, but you can't get there if you leave out the quotes.
+
+Alternatively, you could choose to just use the `help` command.  But that is three extra letters of typing (and you would still have to quote the arguement)...
+
 #### example()
+One of the more useful (and often overlooked functions) for exploring a new function is the `example` function.  
+
+
+
+#### vignettes
+
+
+#### Workflows
+
+
+
+
+
 #### Forums
+
+
+#### Cheat sheets and Google
+
+
+
 
 
 ### calling functions

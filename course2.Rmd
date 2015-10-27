@@ -60,6 +60,8 @@ example('data.frame')
 d
 ```
 
+
+
 #### vignettes
 One step up from manual pages are vignettes.  There are two kinds of vignettes for any R package.  One is the automatically generated kind.  This kind consists of all the manual pages collated together under a table of contents.  This kind of vignette is not especially useful.  The second kind of vignette though is very useful.  This second kind of vignette gives an overview of how the various kinds of functions and objects were intended to be used.  Many of the best R packages will contain this second, more useful kind of vignette.  When they are available, these are a great way to see what the package authors intention was.
 
@@ -69,14 +71,26 @@ Sometimes communities will organize around a series of packages that work well t
 #### Forums
 All software has bugs.  But open sourced software often will allow you to write to a community of like minded users (which often includes the package authors) to get help.  There are many valuable forums where you can get questions answered about software.  Always search first though.  Most of the time you will find that someone else has already asked your question and gotten an answer.
 
-#### Cheat sheets and Google
+#### Cheat sheets
+One of the most challenging things for new users of R is not getting help on commands that they know about.  It's usually knowing what the command is called in the first place (so that you can start to look for some help about it).  A number of R 'cheat sheets' are available online that can help with this problem.  Here is one of the more popular ones:
 
-
-
+```
+http://
+```
 
 
 ### calling functions
+Now that we have discussed how to get help lets talk about basic R functions. 
+
 #### arguments can be named or passed "in order"
+
+#### OR by name
+
+
+#### OR as a mixture...
+
+
+
 #### always check the man page
 
 

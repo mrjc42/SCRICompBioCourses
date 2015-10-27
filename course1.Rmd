@@ -1,7 +1,7 @@
 ---
 title: "Intro To Citrix And Linux"
 author: "Bronson, Debbie, Sean and Marc"
-date: "10/7/2015"
+date: "10/25/2015"
 output: pdf_document
 ---
 
@@ -295,6 +295,8 @@ Another thing you might have noticed about my longer form use of `ls` is that it
 ```
 
 Permissions are used by Linux to control who can do things. They can be applied to (u)sers, (g)roups, (o)thers, or (a)ll.  (u)sers means the user who owns (created) the file while (g)roups mean the group that the file belongs to, and (o)thers means people who are not in these first two categories.  In Linux everything belongs to someone, so ownership and permission to act accordingly is a big deal.  Also true in Linux, is that groups of users are tracked and assigned to each file.  But each of these categories (user, group or other) can have separate permissions set to control whether people are allowed to (r)ead, (w)rite or e(x)ecute them.  Returning back to the mysterious string of ten characters mentioned above, it is actually broken into 4 sections: 
+
+![permissions](permissions.PNG)
 
 1. The very first character doesn't actually have to do with permissions.  It just indicates the kind of thing that something is. For example if it starts with `d`, then it's a directory etc.  In general, you won't need to spend a lot of time thinking about this first character.
 2. The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (u)ser

@@ -811,7 +811,7 @@ How to display the top 20 DE genes:
 ```
 grep -P "OK|gene_id" gene_exp.diff | sort -k 12n,12n | head -n 20 | cut -f 3,5,6,8,9,10,12,13,14
 ```
-The above command is powerful.  But it is also getting a little carrried away. The first part uses a fancy search statement that includes the perl-style `OR` operator: `|`. So it is looking for lines that contain 'OK' OR 'gene_id'. This filters the list to include genes that are differentially expressed but also includes the column headers. The next bit sorts on the 12th column Usually by the time you start doing things this complex, it starts to make sense to learn a high level programming language.  This will be the subject of course #2.
+The above command is powerful.  But it is also getting a little carrried away and uses a few more advanced concepts. The first part uses a fancy search statement that includes the perl-style `OR` operator: `|`. So it is looking for lines that contain 'OK' OR 'gene_id'. This filters the list to include genes that are differentially expressed but also includes the column headers. The next bit sorts on the 12th column, then take the top 20, and then display only certain columns. Usually by the time you start doing things this complex, it starts to make sense to learn a high level programming language.  This will be the subject of course #2.
 
 
 

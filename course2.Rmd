@@ -57,7 +57,6 @@ One of the more useful (and often overlooked) functions for exploring a new func
 
 ```{r}
 example('data.frame')
-d
 ```
 
 
@@ -75,23 +74,36 @@ All software has bugs.  But open sourced software often will allow you to write 
 One of the most challenging things for new users of R is not getting help on commands that they know about.  It's usually knowing what the command is called in the first place (so that you can start to look for some help about it).  A number of R 'cheat sheets' are available online that can help with this problem.  Here is one of the more popular ones:
 
 ```
-http://
+https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 ```
+ 
+This cheat sheet is valuable enough for new students that I plan to give you a copy of this cheat sheet, but there are many, many others on the web that cover a range of topics...
 
 
 ### calling functions
 Now that we have discussed how to get help lets talk about basic R functions. 
 
-#### arguments can be named or passed "in order"
+#### For R functions, arguments can either be passed in to them "in order"
+
+```{r}
+someFun(val1, val2, val3)
+```
 
 #### OR by name
 
+```{r}
+someFun(arg1=val1, arg2=val2, arg3=val3)
+```
 
-#### OR as a mixture...
 
+#### OR as a mixture (but once you start using names, you had better stick with it).
 
+```{r}
+someFun(arg1, arg2, arg3=val3)
+```
 
-#### always check the man page
+#### Remember to always check the man page
+Some functions may not behave in the way you expect.
 
 
 ### Getting data into R 

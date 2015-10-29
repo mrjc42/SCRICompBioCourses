@@ -80,40 +80,102 @@ https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 This cheat sheet is valuable enough for new students that I plan to give you a copy of this cheat sheet, but there are many, many others on the web that cover a range of topics...
 
 
-### calling functions
+### Calling functions
 Now that we have discussed how to get help lets talk about basic R functions. 
 
 #### For R functions, arguments can either be passed in to them "in order"
 
-```{r, eval=FALSE}
-someFun(val1, val2, val3)
+```{r}
+grepl('A', LETTERS)
 ```
 
 #### OR by name
 
-TODO: replace these with real examples...
-
-```{r, eval=FALSE}
-someFun(arg1=val1, arg2=val2, arg3=val3)
+```{r}
+grepl(pattern='A', x=LETTERS)
 ```
 
 
 #### OR as a mixture (but once you start using names, you had better stick with it).
 
-```{r, eval=FALSE}
-someFun(arg1, arg2, arg3=val3)
+```{r}
+grepl('A', x=LETTERS)
 ```
 
-#### Remember to always check the man page
-Some functions may not behave in the way you expect.
+
+
+### Using external libraries
+
+Part of what makes R so powerful is the way that it leverages the code of an entire community of other software engineers.  It can do this because R makes it very straightforward to make or use external package libraries.  An external package library is just a collection of R functions and objects that do something useful.  To use an external package all you need to do is to load it with the library command.  Here is how you can load the MASS package:
+
+```{r}
+library(MASS)
+```
+
+Now that you have loaded a package, lets talk about the search path.  The search path is how R keeps track of everything that you have loaded into memory.  You can look at it by just calling the `search` command.  
+
+```{r}
+search()
+```
+
+This will print all the libraries/packages that your current R session has loaded as a single character vector.  This is an important thing to pay attention to since every time you add a new package to the search path, it adds another set of objects, functions and symbols for R to look at everytime you ask it to do something.  So your code will run faster if you load fewer things onto that path.
+
+To see the symbols in any elemnent of the search path, you can use the `ls` command like this:
+
+```{r}
+ls(2)
+```
+
+Or you can just look at the exact element explicitly like this:
+```{r}
+ls("package:MASS")
+```
+
+
 
 #### __Exercise R1:__ 
 
+Go look up the help page for the `help.start` function.  Now actually use that function to explore some package vignettes and man pages in one simple interface.  If this wasn't working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`.  Find an example package and explore each of these.
+
+
+
+
 
 ### Getting data into R 
+
 #### read.table
+One of the most common tools for reading data into R is the read.table command.  And actually, it's a family of commands.  If you look at the man page you will see a whole set of related commands.
+```{r}
+?read.table
+```
+
+The `read.table` command and it's friends are a good introduction to how you can load a popular kind of data format into R.  Specifically tabular data.
+
+
+```{r}
+```
+
+
+
 #### scan
+Sometimes you need to get data in at a more primitive level.  `scan` will let you do that and reads files in one line at a time.
+
+```{r}
+```
+
+
 #### Other options: Databases, URIs, REST, HDF5 and many more
+
+R also has a ton of alternate commands for reading in all manner of other file formats as R objects.  This topic could almost become it's own course.  Some popular options include, databases URIs, REST apis, HDF5 files (just to name a few).  Many of these capabilities are not baked in to base R but are instead available via packages.  Here is an example of the DBI interface which is useful for extracting data from a database file.  
+
+
+```{r}
+library(DBI)
+```
+
+
+
+
 
 #### __Exercise R2:__ 
 

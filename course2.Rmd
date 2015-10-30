@@ -25,6 +25,158 @@ This panel is where you will see important details about your R session.  Any lo
 The Files panel has many tabs.  The Files tab will let you look at the files in the current working directory.  And the plots tab is where RStudio will draw plots that you generate. The Packages tab will let you browse installed packages to look at their helpful vignettes, and the help tab is where RStudio will render manual pages that you open.  The Viewer tab has a similar role to the plots tab, except that it's usually used for looking at interactive shiny widgets when using RStudio.
 
 
+### What the heck is 'R'
+
+R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  R is a "high level"" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R also has a large existing collection of friendly and powerful software packages that you can harness to do useful work.
+
+
+#### Sample objects
+
+Some R objects are always available for demonstration.  An example of this is the `LETTERS` character vector.  These crop up in examples, but here I am going to use it to show you what a character vector looks like.
+
+```{r}
+LETTERS
+```
+
+Please notice a couple of things about this.  The 1st is that this is a vector of character elements.  But the 2nd is that there is a report at the start of each line to indicate which element number you are looking at...
+
+#### This is because in R: Vectors are atomic
+
+Because R is a statistical language, the vectors are atomic.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest container in R is still a vector.  
+
+
+#### Assignment operators 
+
+Now lets consider the case where we want to assign a simple variable.  In R there are TWO different symbols used as assignment operators.  I will demonnstrate both of them below:
+
+```{r}
+foo <- "yes"
+bar = "no"
+```
+
+Now lets look at the value for `foo`
+
+```{r}
+foo
+```
+
+Now you might be wondering: why would I have more than one way to assign values?  What is the difference between `=` and `<-`? The next section should shed some light on this...
+
+
+### Calling functions
+Now that we have discussed how to get help lets talk about basic R functions.  Languages like R use functions as a shortcut for doing specific sets of instructions over and over again.  And R has no shortage of helpful functions right out of the box.
+
+
+Lets look at at example function in action.  The `grepl` function always requires at least two arguments and it's role is to return a logical vector indicating where the 1st argument matched the contents of the second argument.
+
+
+#### For R functions, arguments can either be passed in to them "in order"
+
+```{r}
+grepl('A', LETTERS)
+```
+
+#### OR by name
+
+```{r}
+grepl(pattern='A', x=LETTERS)
+```
+
+
+#### OR as a mixture (but once you start using names, you had better stick with it).
+
+```{r}
+grepl('A', x=LETTERS)
+```
+
+
+
+
+### Using external libraries
+
+Part of what makes R so powerful is the way that it leverages the code of an entire community of other software engineers.  It can do this because R makes it very straightforward to make or use external package libraries.  An external package library is just a collection of R functions and objects that do something useful.  To use an external package all you need to do is to load it with the library command.  Here is how you can load the MASS package:
+
+```{r}
+library(MASS)
+```
+
+Now that you have loaded a package, lets talk about the search path.  The search path is how R keeps track of everything that you have loaded into memory.  You can look at it by just calling the `search` command.  
+
+```{r}
+search()
+```
+
+This will print all the libraries/packages that your current R session has loaded as a single character vector.  This is an important thing to pay attention to since every time you add a new package to the search path, it adds another set of objects, functions and symbols for R to look at everytime you ask it to do something.  So your code will run faster if you load fewer things onto that path.
+
+To see the symbols in any elemnent of the search path, you can use the `ls` command like this:
+
+```{r}
+ls(2)
+```
+
+Or you can just look at the exact element explicitly like this:
+```{r}
+ls("package:MASS")
+```
+
+
+
+
+
+
+
+
+
+### Atomic vectors and other fun Data structures
+#### Vectors, length
+#### Lists
+#### data.frames, matrices, dim
+#### S4 objects
+
+
+#### __Exercise R2:__ 
+
+
+
+
+
+### Getting data into R 
+
+#### read.table
+One of the most common tools for reading data into R is the read.table command.  And actually, it's a family of commands.  If you look at the man page you will see a whole set of related commands.
+```{r}
+?read.table
+```
+
+The `read.table` command and it's friends are a good introduction to how you can load a popular kind of data format into R.  Specifically tabular data.
+
+
+```{r}
+```
+
+
+
+#### scan
+Sometimes you need to get data in at a more primitive level.  `scan` will let you do that and reads files in one line at a time.
+
+```{r}
+```
+
+
+#### Other options: Databases, URIs, REST, HDF5 and many more
+
+R also has a ton of alternate commands for reading in all manner of other file formats as R objects.  This topic could almost become it's own course.  Some popular options include, databases URIs, REST apis, HDF5 files (just to name a few).  Many of these capabilities are not baked in to base R but are instead available via packages.  Here is an example of the DBI interface which is useful for extracting data from a database file.  
+
+
+```{r}
+library(DBI)
+```
+
+
+
+#### __Exercise R3:__ 
+
+
 
 ### Getting help 
 If you forget everything else we teach you today, I want to make sure that you know how and where to look for help. The next set of topics will cover that because R has a large number of ways that new users can get assistance for learning about it.
@@ -80,114 +232,10 @@ https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 This cheat sheet is valuable enough for new students that I plan to give you a copy of this cheat sheet, but there are many, many others on the web that cover a range of topics...
 
 
-### Calling functions
-Now that we have discussed how to get help lets talk about basic R functions. 
-
-#### For R functions, arguments can either be passed in to them "in order"
-
-```{r}
-grepl('A', LETTERS)
-```
-
-#### OR by name
-
-```{r}
-grepl(pattern='A', x=LETTERS)
-```
-
-
-#### OR as a mixture (but once you start using names, you had better stick with it).
-
-```{r}
-grepl('A', x=LETTERS)
-```
-
-
-
-### Using external libraries
-
-Part of what makes R so powerful is the way that it leverages the code of an entire community of other software engineers.  It can do this because R makes it very straightforward to make or use external package libraries.  An external package library is just a collection of R functions and objects that do something useful.  To use an external package all you need to do is to load it with the library command.  Here is how you can load the MASS package:
-
-```{r}
-library(MASS)
-```
-
-Now that you have loaded a package, lets talk about the search path.  The search path is how R keeps track of everything that you have loaded into memory.  You can look at it by just calling the `search` command.  
-
-```{r}
-search()
-```
-
-This will print all the libraries/packages that your current R session has loaded as a single character vector.  This is an important thing to pay attention to since every time you add a new package to the search path, it adds another set of objects, functions and symbols for R to look at everytime you ask it to do something.  So your code will run faster if you load fewer things onto that path.
-
-To see the symbols in any elemnent of the search path, you can use the `ls` command like this:
-
-```{r}
-ls(2)
-```
-
-Or you can just look at the exact element explicitly like this:
-```{r}
-ls("package:MASS")
-```
-
-
-
-#### __Exercise R1:__ 
+#### __Exercise RX:__ 
 
 Go look up the help page for the `help.start` function.  Now actually use that function to explore some package vignettes and man pages in one simple interface.  If this wasn't working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`.  Find an example package and explore each of these.
 
-
-
-
-
-### Getting data into R 
-
-#### read.table
-One of the most common tools for reading data into R is the read.table command.  And actually, it's a family of commands.  If you look at the man page you will see a whole set of related commands.
-```{r}
-?read.table
-```
-
-The `read.table` command and it's friends are a good introduction to how you can load a popular kind of data format into R.  Specifically tabular data.
-
-
-```{r}
-```
-
-
-
-#### scan
-Sometimes you need to get data in at a more primitive level.  `scan` will let you do that and reads files in one line at a time.
-
-```{r}
-```
-
-
-#### Other options: Databases, URIs, REST, HDF5 and many more
-
-R also has a ton of alternate commands for reading in all manner of other file formats as R objects.  This topic could almost become it's own course.  Some popular options include, databases URIs, REST apis, HDF5 files (just to name a few).  Many of these capabilities are not baked in to base R but are instead available via packages.  Here is an example of the DBI interface which is useful for extracting data from a database file.  
-
-
-```{r}
-library(DBI)
-```
-
-
-
-
-
-#### __Exercise R2:__ 
-
-
-### Atomic vectors and other fun Data structures
-#### Vectors, length
-#### Lists
-#### data.frames, matrices, dim
-#### S4 objects
-
-
-#### __Exercise R3:__ 
 
 
 ### Data object management

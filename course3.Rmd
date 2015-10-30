@@ -13,6 +13,13 @@ Here is a list of topics that should be covered by the end of this course:
 # How to create basic functions
 ### The basics
 
+### Flow control
+#### if, else
+#### switch
+
+
+#### __Exercise R:__ 
+
 
 # Writing good code in R
 ### check your arguments when writing functions

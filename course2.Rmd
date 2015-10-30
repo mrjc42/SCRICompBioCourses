@@ -27,12 +27,12 @@ The Files panel has many tabs.  The Files tab will let you look at the files in 
 
 ### What the heck is 'R'
 
-R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  R is a "high level"" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R also has a large existing collection of friendly and powerful software packages that you can harness to do useful work.
+R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  R is often called a "high level" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R already has a large existing collection of friendly and powerful software packages that you can harness to do useful work.
 
 
 #### Sample objects
 
-Some R objects are always available for demonstration.  An example of this is the `LETTERS` character vector.  These crop up in examples, but here I am going to use it to show you what a character vector looks like.
+Some R objects are always available for demonstration.  An example of this is the `LETTERS` character vector.  These crop up in examples, but here I am going to use it just to show you what a character vector looks like.
 
 ```{r}
 LETTERS
@@ -47,7 +47,7 @@ Because R is a statistical language, the vectors are atomic.  What does that mea
 
 #### Assignment operators 
 
-Now lets consider the case where we want to assign a simple variable.  In R there are TWO different symbols used as assignment operators.  I will demonnstrate both of them below:
+Now lets consider the case where we want to assign a simple variable.  In R there are TWO different symbols used as assignment operators.  I will demonnstrate each of them below:
 
 ```{r}
 foo <- "yes"
@@ -60,30 +60,47 @@ Now lets look at the value for `foo`
 foo
 ```
 
-Now you might be wondering: why would I have more than one way to assign values?  What is the difference between `=` and `<-`? The next section should shed some light on this...
+Now you might be wondering: why would I have more than one way to assign values?  What is the difference between `=` and `<-`? Hold that thought. Because the next section should shed some light on this...
 
 
 ### Calling functions
-Now that we have discussed how to get help lets talk about basic R functions.  Languages like R use functions as a shortcut for doing specific sets of instructions over and over again.  And R has no shortage of helpful functions right out of the box.
+Now lets talk about basic R functions.  Languages like R use functions as a shortcut for doing specific sets of instructions over and over again.  And R has no shortage of helpful functions right out of the box.  But before you start using them there are a few things you might want to know.  This section will attempt to set you up for success.
+
+One of the simplest functions in R is the help function.    The help function only requires one argument to use and that is the topic you would like to look up information on.  Lets call it now to look up the man page for another function called `grepl`:
+
+```{r, eval=FALSE}
+help('grepl')
+```
+
+If you look at this help page, you will notice that the `grepl` function can take multiple different arguments.  But it always requires at least two arguments.  You know this beccause there are not default arguments set for the first two arguments when looking at its 'Usage' statement.  Reading further in the manual page, you should notice that it's role is to return a logical vector indicating where the 1st argument matched the contents of the second argument.  But in terms of passing these arguments to the function: R is pretty flexible about how it will interpret your attempts to call a function.
 
 
-Lets look at at example function in action.  The `grepl` function always requires at least two arguments and it's role is to return a logical vector indicating where the 1st argument matched the contents of the second argument.
+#### Arguments can be passed in "in order"
 
-
-#### For R functions, arguments can either be passed in to them "in order"
+The quickest way to get R to do this is to just pass in the correct arguments in the correct order like this:
 
 ```{r}
 grepl('A', LETTERS)
 ```
 
-#### OR by name
+But this assumes that you remember the exact order that the arguments were designated in the original function, and that you pass them in in that exact same order.  This method is faster in the sense that it requires less typing.
+
+#### Alternatively, arguments can be passed in by name
+
+Sometimes instead you may wish to be more explicit and actually refer to the function arguments by name.  In that case, you can call the function like this:
 
 ```{r}
-grepl(pattern='A', x=LETTERS)
+grepl(x=LETTERS, pattern='A')
 ```
 
+Notice how I did not have to list the arguments in order this time?  This is a good approach if you are unsure about the order, but it is also a good idea for writing code that is more robust over time.  This method requires more typing, but in the event that someone changes the function you are calling, this method is more likely to keep working.  So this method is more a more robust way to write scripts and functions.
 
-#### OR as a mixture (but once you start using names, you had better stick with it).
+Also please notice the use of the `=` sign to indicate argument names.  This is the reason why a lot of people prefer to type `<-` for assignment operations instead of `=`.  Because if you use `<-` instead of `=`, it meanns that you can do an assignment right in the middle of a function call (which is sometimes convenient).
+
+
+#### You can also use as a mixture of named and un-named arguments.
+
+But once you start using named arguments in your function call, you had better stick with it.  This is because R can only guess the un-named arguments if they are still in the correct order left to right.  R is pretty smart, but it can't actually read your mind.
 
 ```{r}
 grepl('A', x=LETTERS)

@@ -114,7 +114,7 @@ grepl('A', x=LETTERS)
 Part of what makes R so powerful is the way that it leverages the code of an entire community of other software engineers.  It can do this because R makes it very straightforward to make or use external package libraries.  An external package library is just a collection of R functions and objects that do something useful.  To use an external package all you need to do is to load it with the library command.  Here is how you can load the MASS package:
 
 ```{r}
-library(MASS)
+library("stats4")
 ```
 
 Now that you have loaded a package, lets talk about the search path.  The search path is how R keeps track of everything that you have loaded into memory.  You can look at it by just calling the `search` command.  
@@ -125,15 +125,15 @@ search()
 
 This will print all the libraries/packages that your current R session has loaded as a single character vector.  This is an important thing to pay attention to since every time you add a new package to the search path, it adds another set of objects, functions and symbols for R to look at everytime you ask it to do something.  So your code will run faster if you load fewer things onto that path.
 
-To see the symbols in any elemnent of the search path, you can use the `ls` command like this:
+To see the symbols in any elemnent of the search path, you can use the list objects or `ls` command.  The `ls` command can either take an index value like this:
 
 ```{r}
 ls(2)
 ```
 
-Or you can just look at the exact element explicitly like this:
+Or you can just look at the exact element by passing in a character string explicitly like this:
 ```{r}
-ls("package:MASS")
+ls("package:stats4")
 ```
 
 

@@ -240,16 +240,21 @@ The `read.table` command and it's friends are a good introduction to how you can
 
 TODO: supply a tabular file (preferably one from before)
 ```{r}
-#read.table(file=)
+filename = '/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes/refFlat.txt.gz'
+foo = read.table(file=filename, nrows = 10)
 ```
 
 
 
 #### scan
-Sometimes you need to get data in at a more primitive level.  `scan` will let you do that and reads files in one line at a time.
+Sometimes you need to get data in and your file may not be as nicely formatted.  `readLines` will let you get the data in and reads files in one line at a time.  `readLines` is also worth showing because unlike a lot of other data import function in R, it does not take a file path directly, but requires that you pass it a connection object.  Here is an example of how that looks:
 
 ```{r}
+con <- file(filename)
+bar = readLines(con)
 ```
+
+Having said all that: mostly you won't need to use readLines.  But it's there if you need it.
 
 
 #### Other options: Databases, URIs, REST, HDF5 and many more

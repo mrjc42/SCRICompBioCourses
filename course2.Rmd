@@ -254,7 +254,7 @@ con <- file(filename)
 bar = readLines(con)
 ```
 
-Having said all that: mostly you won't need to use readLines.  But it's there if you need it.
+Having said all that: mostly you won't need to use readLines.  But it's there if you need it, and it's VERY fast.
 
 
 #### Other options: Databases, URIs, REST, HDF5 and many more
@@ -271,7 +271,9 @@ library(DBI)
 
 
 ### Data object management
-#### class()
+
+Once you have an object in R, there are a TON of fun ways that you can manipulate it.
+
 #### as.list() and friends
 #### subsetting operators [] vs [[]]
 #### data casting

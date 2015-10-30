@@ -180,16 +180,49 @@ length(lst)
 
 #### data.frames, matrices, dim
 
-Now lets introduce matrices and data.frames
+Sometimes you want 'square' data.  We have all seen excel sheets anb tables before.  For this kind of data, R has matrices and data.frames.  A matrix is usually used when you have simple 'square' data like a grid of numbers.  Lets have a quick look at an example of a matrix as constructed from a numeric vector:
 
+```{r}
+numVec <- c(1,2,3,11,12,13)
+numVec
+mat <- matrix(numVec, nrow = 2, ncol = 3, byrow = TRUE)
+mat
+```
 
+Once you have a matrix you can see how big it is with the dimnetions command: `dim`.
+
+```{r}
+dim(mat)
+```
+
+You can also get the length of a matrix, but note that the result of length makes a lot less sense for matrices since it just represents the length if you collapsed the whole thing into a single vector:
+
+```{r}
+length(mat)
+```
+
+You will likely see matrices a lot in R.  But even more common you will see data.frames.  data.frames are usually used for when you have 'square' data and when the different columns are different from each other.  They are popular, because this happens all the time.  Lets look at an example so that you can know what I mean by the columns being different from each other:
+
+```{r}
+df <- data.frame(number = 1:4, letter = c('A','B','C','D'))
+df
+```
+
+There are some obvious differences between a data.frame and a matrix.  But there are some more subtle ones as well.  For example, look at what happens if I look at the `dim` and the `length`:
+
+```{r}
+dim(df)
+length(df)
+```
+
+The results for dim look like 'square' data, but the length is now the number of columns.  In this sense (and in others) a data.frame object is actually more like the 'square' version of a `list` while a matrix is more like the 'square version of a `vector`.
 
 
 #### S4 objects
 
 
 
-#### __Exercise R2:__ 
+#### __Exercise R:__ 
 
 
 
@@ -205,8 +238,9 @@ One of the most common tools for reading data into R is the read.table command. 
 
 The `read.table` command and it's friends are a good introduction to how you can load a popular kind of data format into R.  Specifically tabular data.
 
-
+TODO: supply a tabular file (preferably one from before)
 ```{r}
+#read.table(file=)
 ```
 
 
@@ -227,9 +261,18 @@ R also has a ton of alternate commands for reading in all manner of other file f
 library(DBI)
 ```
 
+#### __Exercise R:__ 
 
 
-#### __Exercise R3:__ 
+
+### Data object management
+#### class()
+#### as.list() and friends
+#### subsetting operators [] vs [[]]
+#### data casting
+#### match(), %in%, unique()
+
+#### __Exercise R:__ 
 
 
 
@@ -287,28 +330,11 @@ https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 This cheat sheet is valuable enough for new students that I plan to give you a copy of this cheat sheet, but there are many, many others on the web that cover a range of topics...
 
 
-#### __Exercise RX:__ 
+#### __Exercise R:__ 
 
 Go look up the help page for the `help.start` function.  Now actually use that function to explore some package vignettes and man pages in one simple interface.  If this wasn't working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`.  Find an example package and explore each of these.
 
 
-
-### Data object management
-#### class()
-#### as.list() and friends
-#### subsetting operators [] vs [[]]
-#### data casting
-#### match(), %in%, unique()
-
-#### __Exercise R4:__ 
-
-
-### Flow control
-#### if, else
-#### switch
-
-
-#### __Exercise R5:__ 
 
 
 ### Exploring packages

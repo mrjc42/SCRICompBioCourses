@@ -220,7 +220,25 @@ The results for dim look like 'square' data, but the length is now the number of
 
 #### S4 objects
 
+Sometimes your data is not simple and does not fit into a simple container. For these instances R has what is called the "S4 class system"" that allows for the creation of custom data containers.  In this course there will not be time to learn the mechanisms for defining these, but many many such containers exist and it is often convenient to use them.  Here is an example of one of these in action that I will load up using the `data` function
 
+
+```{r, eval=TRUE, echo=FALSE, message=FALSE}
+## Secret chunk to silently load this package  :)
+library(Biobase)
+```
+
+```{r}
+library(Biobase)
+data(sample.ExpressionSet)
+sample.ExpressionSet
+```
+
+This is a complex object that was originally created to hold microarray data but has since been adapted for many other uses.  It has several main components that are probably best described by looking at the man page.
+
+```{r}
+?'ExpressionSet'
+```
 
 #### __Exercise R:__ 
 
@@ -259,12 +277,17 @@ Having said all that: mostly you won't need to use readLines.  But it's there if
 
 #### Other options: Databases, URIs, REST, HDF5 and many more
 
-R also has a ton of alternate commands for reading in all manner of other file formats as R objects.  This topic could almost become it's own course.  Some popular options include, databases URIs, REST apis, HDF5 files (just to name a few).  Many of these capabilities are not baked in to base R but are instead available via packages.  Here is an example of the DBI interface which is useful for extracting data from a database file.  
+R also has a ton of alternate commands for reading in all manner of other file formats as R objects.  This topic could almost become it's own course.  Some popular options include, databases URIs, REST apis, HDF5 files (just to name a few).  Many of these capabilities are not baked in to base R but are instead available via packages.  Here is a very simplified example of how you can use the DBI interface which is useful for extracting data from a database file.  
 
 
 ```{r}
-library(DBI)
+library(org.Hs.eg.db)
+con <- org.Hs.eg_dbconn()
+dbGetQuery(con, "SELECT * FROM gene_info limit 10")
 ```
+
+We won't go into how those commands work in the context of this course, but I wanted you to see an example of how other packages can allow you to interface with wildly different data sources after typing just a couple lines of R code...
+
 
 #### __Exercise R:__ 
 
@@ -274,10 +297,89 @@ library(DBI)
 
 Once you have an object in R, there are a TON of fun ways that you can manipulate it.
 
-#### as.list() and friends
+#### Data coercion
+The 1st type of manipulation are coercion methods (sometimes called casting).  These methods allow you to take data from one format and convery it into another format.  For example, a lot of data can be coerced to a list using the `as.list` function.  Think of our data.frame object from before and imaging if you could make each column into an element in a list like object instead.  You can do that just like this.
+
+```{r}
+as.list(df)
+```
+
+Or: you could take that same data.frame and make it into a matrix like this:
+
+```{r}
+as.matrix(df)
+```
+
+Or you can take it all the way down to a simple character vector by first casting it to a matrix and then casting that matrix to a vector:
+
+```{r}
+as.vector(as.matrix(df))
+```
+
+
 #### subsetting operators [] vs [[]]
-#### data casting
+
+One of the most powerful things in R are the subsetting operators.  Lets start with: what is an operator?  In R an operator is just a function where the syntax to invoke it is something other than the usual `functionName()` syntax that we have seen so far.  So for example the `+` operator works like this:
+
+```{r}
+1 + 2
+```
+
+As you use R you will learn that there are many other operators that you can leverage, and for most of them the way you use them is very straightforward.  But the subsetting operators are particularly powerful for extracting data from objects.  The most commons subsetting operator is the single bracket operator.  For most R objects, if you apply the single bracket operator, you will get a piece of whatever was in the original object.  Lets look at some simple examples to illustrate:
+
+You can subset by supplying index values:
+
+```{r}
+LETTERS[1]
+LETTERS[1:3]
+LETTERS[c(1,3)]
+LETTERS[c(4,2)]
+```
+Notice that in the last case, I can even use the subset to also "re-order" the values.
+
+Or you can subset by logical position
+```{r}
+shortLetters <- LETTERS[1:4]
+shortLetters[c(FALSE, TRUE, TRUE, FALSE)]
+```
+But logical vectors do not allow me to "re-order" the vector, only to subset it.
+
+
+And: you can also subset by name (_if_ there are names):
+
+```{r}
+names(shortLetters) <- c('foo','bar','baz','bob')
+names(shortLetters)
+shortLetters
+shortLetters['foo']
+shortLetters[c('bob','bar')]
+```
+Be sure to notice how when I want to indicate several names or indices that are not in any order, I have to supply a character vector using `c` that has those values in it.  Notice that just like using an index to subset, you can use names to "re-order" the vector as you are extracting values.
+
+
 #### match(), %in%, unique()
+
+Another very common thing to want to do with data objects is to match elements.  There are a couple of methods for doing this.  One is the `match` function.  The `match` function will give you a vector with indices that match a 'table' of 'x' values.  So for example:
+
+```{r}
+match(shortLetters, c('C','A'))
+```
+
+Notice though that the index refers to the position in the 'table' argument and not the position in 'x'.
+
+This brings us to the `%in%` operator.  The `%in%` operator lets you get a simple logical vector indicating whether or not the values in 'x' match the values in 'table'.
+
+```{r}
+shortLetters %in% c('C','A')
+```
+
+Between these two methods, the `%in%` is usually easier for subsetting since it does not require you to filter out NA values in the event that something doesn't match.  But match is potentially more useful if you need to return things in an order that matches your table.  But pay attention because `match` will only return the 1st element that matches, so if there are multiple matches in 'x', it will only tell you about the first one...  This is another reason why the `%in%` operator is usually better if your aim is just to subset the data.  IOW:
+
+```{r}
+c(shortLetters,shortLetters) %in% c('C','A')
+```
+
+
 
 #### __Exercise R:__ 
 

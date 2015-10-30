@@ -138,17 +138,55 @@ ls("package:stats4")
 
 
 
-
-
-
-
-
-
 ### Atomic vectors and other fun Data structures
+Because R is a data centric statistical language it has a lot of fun ways to represent data.
+
 #### Vectors, length
+
+So we already talked about how vectors are the most basic data structure in R.  What we didn't spend as much time on is that they come in different flavors or classes.  You can see what class a vector is by passing it to the class() function like this:
+
+```{r}
+class(LETTERS)
+```
+
+```{r}
+class(pi)
+```
+
+The most common types of vectors are: character, numeric, logical, and integer.  Another important function is length().  You can always use length to see how many elements are in a vector.  For example:
+
+```{r}
+length(LETTERS)
+```
+
+There are 26 letters in the alphabet
+
+
 #### Lists
+
+Sometimes you want to put more than just one flavor of data into a vector like object.  For those times you need a much more flexible kind of container.  That is what lists are for.  Lets look an an example of a list:
+
+```{r}
+lst <- list(a=1, b='foo')
+lst
+```
+
+And this allows us to put pretty much anything into our list.  So in this very simple example, we have placed a character vector and a numeric vector.  But we could also have placed a large range of different object types.  And as with vectors, you have a length function you can call:
+
+```{r}
+length(lst)
+```
+
+
 #### data.frames, matrices, dim
+
+Now lets introduce matrices and data.frames
+
+
+
+
 #### S4 objects
+
 
 
 #### __Exercise R2:__ 

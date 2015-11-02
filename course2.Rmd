@@ -73,25 +73,13 @@ Let's look at another built in object.
 LETTERS
 ```
 
-Here you can see that the object is storing more than one element, namely each letter of the alphabet. This type of structure is called a __vector__. You will be tempted to think of a vector as a list. That's OK in the beginning, but not quite true. It's really a little more like an array: 
+Here you can see that the object is storing more than one element, namely each letter of the alphabet. This type of structure is called a __vector__. A vector is basically a special type of list. It has the constraint that every element of the list be of the same "type" (e.g. numeric, string, logical, etc). 
 
-
-
-$$\mathbf{LETTERS} = \left[\begin{array}
-{rrr}
-'A' & 'B' & 'C' \\
-'D' & 'E' & 'F' \\
-'G' & 'H' & 'I'
-\end{array}\right]
-$$
-
-An vector is basically a single object with many elements. Operations performed on the object are performed on all elements simultaneously.
-
-Look back again at the output from `LETTERS`. Please notice a couple of things about this.  The 1st is that this is a vector of character elements.  But the 2nd is that there is a report at the start of each line to indicate which element number you are looking at...
+Compare the output from `LETTERS` and `pi`. One thing you will notice is that `pi` is a numeric object, whereas `LETTERS` is a character vector (as indicated by the quotes around each letter). You will also notice that in each case, there is a report (in brackets) at the start of each line to indicate which element number is at the start of each line. Why is this necessary for `pi` when it only has a single element?
 
 #### This is because in R: Vectors are atomic
 
-Because R is a statistical language, the vectors are atomic.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest container in R is still a vector.  
+This is because `pi` is also a vector. Vectors can theoretically hold any number of elements, including only one or even zero. So `pi` is a vector of length one, or a list with only one element. In R, vectors are 'atomic'.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest or simplest container in R is still a vector.  
 
 
 

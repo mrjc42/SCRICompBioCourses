@@ -30,20 +30,25 @@ The Files panel has many tabs.  The Files tab will let you look at the files in 
 R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  R is often called a "high level" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R already has a large existing collection of friendly and powerful software packages that you can harness to do useful work.
 
 
+#### Object oriented programming
+
+R, like many other languages, has the concept of "objects". Objects are like variables in algegra, i.e. they are merely symbolic variables that can be used to represent values or other bits of information. That information can be simple, such as a numerical value, a string of text, or a logical (computer talk for `TRUE` or `FALSE`). Objects can also represent much more complicated data structures such as lists, tables, and high dimensional matrices. We will discuss these in more detail later in the course. For now, lets stick with some fairly simple objects.
+
 #### Sample objects
 
-Some R objects are always available for demonstration.  An example of this is the `LETTERS` character vector.  These crop up in examples, but here I am going to use it just to show you what a character vector looks like.
+Some R objects are always available for demonstration.  An example of this is a simple variable called `pi`
 
 ```{r}
-LETTERS
+pi
 ```
 
-Please notice a couple of things about this.  The 1st is that this is a vector of character elements.  But the 2nd is that there is a report at the start of each line to indicate which element number you are looking at...
+This is handy. You can use the `pi` variable in any operation where you want to use the value of pi.
 
-#### This is because in R: Vectors are atomic
+```{r}
+pi * 2
+```
 
-Because R is a statistical language, the vectors are atomic.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest container in R is still a vector.  
-
+What if you wanted to create your own variables?
 
 #### Assignment operators 
 
@@ -61,6 +66,34 @@ foo
 ```
 
 Now you might be wondering: why would I have more than one way to assign values?  What is the difference between `=` and `<-`? Hold that thought. Because the next section should shed some light on this...
+
+#### Vectors
+Let's look at another built in object. 
+```{r}
+LETTERS
+```
+
+Here you can see that the object is storing more than one element, namely each letter of the alphabet. This type of structure is called a __vector__. You will be tempted to think of a vector as a list. That's OK in the beginning, but not quite true. It's really a little more like an array: 
+
+
+
+$$\mathbf{LETTERS} = \left[\begin{array}
+{rrr}
+'A' & 'B' & 'C' \\
+'D' & 'E' & 'F' \\
+'G' & 'H' & 'I'
+\end{array}\right]
+$$
+
+An vector is basically a single object with many elements. Operations performed on the object are performed on all elements simultaneously.
+
+Look back again at the output from `LETTERS`. Please notice a couple of things about this.  The 1st is that this is a vector of character elements.  But the 2nd is that there is a report at the start of each line to indicate which element number you are looking at...
+
+#### This is because in R: Vectors are atomic
+
+Because R is a statistical language, the vectors are atomic.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest container in R is still a vector.  
+
+
 
 
 ### Calling functions

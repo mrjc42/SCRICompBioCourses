@@ -397,9 +397,24 @@ Between these two methods, the `%in%` is usually easier for subsetting since it 
 c(shortLetters,shortLetters) %in% c('C','A')
 ```
 
+Please also take note that you can reverse the meaning of a vector of TRUE/FALSE values by using the negation operator.  For example, compare
 
-####  <span style="color:blue">__Exercise R:__</span> 
+```{r}
+shortLetters %in% c('C','A')
+```
 
+To:
+
+```{r}
+!shortLetters %in% c('C','A')
+```
+
+
+
+
+####  <span style="color:blue">__Exercise R4:__</span> 
+
+Use the `month.abb` vector with the `grepl` function to determine which elements start with the letter 'J'.  Now subset the `month.abb` vector so that you only see those months.  Now do the same thing, but this time use `%in%` instead of `grepl` and look for every month __except__ Jun.
 
 
 
@@ -629,6 +644,23 @@ Use read.table to read in the file that you unpacked earlier called `genesFile.t
 myTable <- read.table(file='/home/mcarl7/genesFile.txt', header=TRUE)
 
 class(myTable)
+```
+
+
+
+####  <span style="color:blue">__Exercise R4:__</span> 
+
+Use the `month.abb` vector with the `grepl` function to determine which elements start with the letter 'J'.  Now subset the `month.abb` vector so that you only see those months.  Now do the same thing, but this time use `%in%` instead of `grepl` and look for every month __except__ Jun.
+
+
+#####  <span style="color:blue">__Answer for Exercise R4:__</span> 
+
+```{r}
+grepl('J',month.abb)
+
+month.abb[grepl('J',month.abb)]
+
+month.abb[!month.abb %in% 'Jun']
 ```
 
 

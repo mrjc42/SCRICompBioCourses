@@ -25,7 +25,7 @@ This panel is where you will see important details about your R session.  Any lo
 The Files panel has many tabs.  The Files tab will let you look at the files in the current working directory.  And the plots tab is where RStudio will draw plots that you generate. The Packages tab will let you browse installed packages to look at their helpful vignettes, and the help tab is where RStudio will render manual pages that you open.  The Viewer tab has a similar role to the plots tab, except that it's usually used for looking at interactive shiny widgets when using RStudio.
 
 
-### What the heck is 'R'
+### What is R?
 
 R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  R is often called a "high level" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R already has a large existing collection of friendly and powerful software packages that you can harness to do useful work.
 
@@ -140,6 +140,17 @@ grepl('A', x=LETTERS)
 ```
 
 
+####  <span style="color:blue">__Exercise R1:__</span> 
+
+You need to create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
+
+```{r, echo=FALSE}
+paste(month.name, "1",sep='_')
+```
+
+To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
+
+
 
 
 ### Using external libraries
@@ -176,7 +187,7 @@ Because R is a data centric statistical language it has a lot of fun ways to rep
 
 #### Vectors, length
 
-So we already talked about how vectors are the most basic data structure in R.  What we didn't spend as much time on is that they come in different flavors or classes.  You can see what class a vector is by passing it to the class() function like this:
+So we already talked about how vectors are the most basic data structure in R.  What we didn't spend as much time on is that they come in different flavors or classes.  You can see what class an object is by passing it to the class() function like this:
 
 ```{r}
 class(LETTERS)
@@ -209,6 +220,11 @@ And this allows us to put pretty much anything into our list.  So in this very s
 ```{r}
 length(lst)
 ```
+
+####  <span style="color:blue">__Exercise R2:__</span> 
+
+Make the list `lst` from the example above and then make a second list `ls2` that contains both `lst` and the LETTERS vector.  How long is this list?
+
 
 
 #### data.frames, matrices, dim
@@ -273,7 +289,6 @@ This is a complex object that was originally created to hold microarray data but
 ?'ExpressionSet'
 ```
 
-#### __Exercise R:__ 
 
 
 
@@ -293,6 +308,7 @@ TODO: supply a tabular file (preferably one from before)
 ```{r}
 filename = '/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes/refFlat.txt.gz'
 foo = read.table(file=filename, nrows = 10)
+foo
 ```
 
 
@@ -322,7 +338,9 @@ dbGetQuery(con, "SELECT * FROM gene_info limit 3")
 We won't go into how those commands work in the context of this course, but I wanted you to see an example of how other packages can allow you to interface with wildly different data sources after typing just a couple lines of R code...
 
 
-#### __Exercise R:__ 
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+Use read.table to read in the file `genesFile.txt`.  Be sure to capture the results of this into a local variable called `myTable`.  What kind of object is `myTable`?  How do you know?  How can you read in the table so that the header is ignored?
 
 
 
@@ -411,6 +429,10 @@ Between these two methods, the `%in%` is usually easier for subsetting since it 
 ```{r}
 c(shortLetters,shortLetters) %in% c('C','A')
 ```
+
+
+####  <span style="color:blue">__Exercise R:__</span> 
+
 
 
 
@@ -502,8 +524,7 @@ So as you can see, you can use the subset operators in R to slice data in all so
 
 
 
-
-#### __Exercise R:__ 
+####  <span style="color:blue">__Exercise R:__</span> 
 
 
 
@@ -561,7 +582,9 @@ https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 This cheat sheet is valuable enough for new students that I plan to give you a copy of this cheat sheet, but there are many, many others on the web that cover a range of topics...
 
 
-#### __Exercise R:__ 
+
+####  <span style="color:blue">__Exercise R:__</span> 
+
 
 Go look up the help page for the `help.start` function.  Now actually use that function to explore some package vignettes and man pages in one simple interface.  If this wasn't working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`.  Find an example package and explore each of these.
 
@@ -593,5 +616,52 @@ http://bioconductor.org/help/workflows/
 ```
 
 
+
+
+####  <span style="color:blue">__Exercise R1:__</span> 
+
+You need to create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
+
+```{r, echo=FALSE}
+paste(month.name, "1",sep='_')
+```
+
+To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
+
+#####  <span style="color:blue">__Answer for Exercise R1:__</span> 
+
+You can use the paste function like this:
+
+```{r, eval=FALSE}
+paste(month.name, "1", sep='_')
+```
+
+
+
+####  <span style="color:blue">__Exercise R2:__</span> 
+
+Make the list `lst` from the example above and then make a second list `ls2` that contains both `lst` and the LETTERS vector.
+
+#####  <span style="color:blue">__Answer for Exercise R2:__</span> 
+
+```{r}
+lst2 <- list(lst, LETTERS)
+lst2
+
+length(lst2)
+```
+
+
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+Use read.table to read in the file that you unpacked earlier called `genesFile.txt`.  Be sure to capture the results of this into a local variable called `myTable`.  What kind of object is `myTable`?  How do you know?  How can you read in the table so that the header is ignored?
+
+#####  <span style="color:blue">__Answer for Exercise R3:__</span> 
+
+```{r}
+myTable <- read.table(file='/home/mcarl7/genesFile.txt', header=TRUE)
+
+class(myTable)
+```
 
 

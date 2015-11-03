@@ -2,7 +2,7 @@
 title: "Introduction to R and interactive programming"
 author: "Marc, Sean, Bronson and Debbie"
 date: "10/7/2015"
-output: pdf_document
+output: html_document
 ---
 
 Welcome to the second course in our series of courses designed to help train Biologists who want to be able to analyze their own data.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
@@ -289,7 +289,7 @@ sample.ExpressionSet
 
 This is a complex object that was originally created to hold microarray data but has since been adapted for many other uses.  It has several main components that are probably best described by looking at the man page.
 
-```{r}
+```{r, eval=FALSE}
 ?'ExpressionSet'
 ```
 
@@ -302,7 +302,7 @@ This is a complex object that was originally created to hold microarray data but
 
 #### read.table
 One of the most common tools for reading data into R is the read.table command.  And actually, it's a family of commands.  If you look at the man page you will see a whole set of related commands.
-```{r}
+```{r, eval=FALSE}
 ?read.table
 ```
 

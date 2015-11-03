@@ -73,27 +73,31 @@ Let's look at another built in object.
 LETTERS
 ```
 
-Here you can see that the object is storing more than one element, namely each letter of the alphabet. This type of structure is called a __vector__. You will be tempted to think of a vector as a list. That's OK in the beginning, but not quite true. It's really a little more like an array: 
+Here you can see that the object is storing more than one element, namely each letter of the alphabet. This type of structure is called a __vector__. A vector is basically a special type of list. It has the constraint that every element of the list be of the same "type" (e.g. numeric, string, logical, etc). 
 
-
-
-$$\mathbf{LETTERS} = \left[\begin{array}
-{rrr}
-'A' & 'B' & 'C' \\
-'D' & 'E' & 'F' \\
-'G' & 'H' & 'I'
-\end{array}\right]
-$$
-
-An vector is basically a single object with many elements. Operations performed on the object are performed on all elements simultaneously.
-
-Look back again at the output from `LETTERS`. Please notice a couple of things about this.  The 1st is that this is a vector of character elements.  But the 2nd is that there is a report at the start of each line to indicate which element number you are looking at...
+Compare the output from `LETTERS` and `pi`. One thing you will notice is that `pi` is a numeric object, whereas `LETTERS` is a character vector (as indicated by the quotes around each letter). You will also notice that in each case, there is a report (in brackets) at the start of each line to indicate which element number is at the start of each line. Why is this necessary for `pi` when it only has a single element?
 
 #### This is because in R: Vectors are atomic
 
-Because R is a statistical language, the vectors are atomic.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest container in R is still a vector.  
+This is because `pi` is also a vector. Vectors can theoretically hold any number of elements, including only one or even zero. So `pi` is a vector of length one, or a list with only one element. In R, vectors are 'atomic'.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest or simplest container in R is still a vector.  
 
+#### Creating vectors
 
+There are two ways to create vectors. If you are creating an numeric vector, one simple way is to use the `:` operator. You specify the first digit and the last digit, and R will fill in the rest in increments of one.
+
+```{r}
+numbers <- 1:10
+numbers
+```
+
+To create numeric vectors with different step sizes, you can use the `seq` function.
+
+The second way to create vectors is by using the *concatenate* function. It technically just combines vectors rather than creating them. But given that single elements are just vectors of length 1, it amounts to the same thing. Use this to create character vectors and vectors of other types:
+
+```{r}
+string <- c('The', 'lazy', 'brown', 'fox')
+string
+```
 
 
 ### Calling functions
@@ -139,19 +143,19 @@ But once you start using named arguments in your function call, you had better s
 grepl('A', x=LETTERS)
 ```
 
-
+****
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
-You need to create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
+You need to create a vector of names based on the months of the year. You want the name to start with the month number followed by the month name. So the final vector should look like this:
 
 ```{r, echo=FALSE}
-paste(month.name, "1",sep='_')
+paste(1:12, month.name, sep='_')
 ```
 
-To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
+To do this, you will want a vector that has each month number (1-12) and a vector that has all the months.  R has such a vector already called: `month.name`.  Using those two vectors and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
 
 
-
+****
 
 ### Using external libraries
 
@@ -678,7 +682,7 @@ To do this, you will want a string that has all the months.  R has such a string
 You can use the paste function like this:
 
 ```{r, eval=FALSE}
-paste(month.name, "1", sep='_')
+paste(1:12, month.name, sep='_')
 ```
 
 

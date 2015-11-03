@@ -5,7 +5,7 @@ date: "10/7/2015"
 output: html_document
 ---
 
-Welcome to our third course which aims to take you from a basic ability to interact with the language to one where you are able to write some real code.  From the outset we will try to warn you about bad habits so that you will avoid making some of the mistakes that most other people make when they start programming in R.
+Welcome to our third course which aims to take you from a basic ability to interact with the language to one where you are able to write your own code.  From the outset we will try to warn you about bad habits so that you will avoid making some of the mistakes that most other people make when they start programming in R.
 
 Here is a list of topics that should be covered by the end of this course:
 
@@ -14,12 +14,12 @@ Here is a list of topics that should be covered by the end of this course:
 ### The basics
 
 ### Flow control
+
 #### if, else
+
 #### switch
 
-
 #### __Exercise R:__ 
-
 
 # Writing good code in R
 ### check your arguments when writing functions
@@ -47,6 +47,7 @@ Here is a list of topics that should be covered by the end of this course:
 
 # version control.
 ### So you don't lose your mind
+
 
 
 # Write good packages (this is likely a whole other course)

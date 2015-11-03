@@ -677,7 +677,7 @@ Use read.table to read in the file that you unpacked earlier called `genesFile.t
 
 #####  <span style="color:blue">__Answer for Exercise R3:__</span> 
 
-```{r, eval=FALSE}
+```{r}
 myTable <- read.table(file='/home/mcarl7/genesFile.txt', header=TRUE)
 
 class(myTable)

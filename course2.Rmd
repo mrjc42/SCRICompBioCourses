@@ -2,7 +2,7 @@
 title: "Introduction to R and interactive programming"
 author: "Marc, Sean, Bronson and Debbie"
 date: "10/7/2015"
-output: html_document
+output: pdf_document
 ---
 
 Welcome to the second course in our series of courses designed to help train Biologists who want to be able to analyze their own data.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
@@ -143,7 +143,7 @@ But once you start using named arguments in your function call, you had better s
 grepl('A', x=LETTERS)
 ```
 
-****
+
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
 You need to create a vector of names based on the months of the year. You want the name to start with the month number followed by the month name. So the final vector should look like this:
@@ -155,7 +155,7 @@ paste(1:12, month.name, sep='_')
 To do this, you will want a vector that has each month number (1-12) and a vector that has all the months.  R has such a vector already called: `month.name`.  Using those two vectors and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
 
 
-****
+
 
 ### Using external libraries
 
@@ -779,7 +779,7 @@ lst2
 
 ####  <span style="color:blue">__Exercise R6:__</span> 
 
-Go look up the help page for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn’t working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`. Find an example package and explore each of these.
+Go look up the help page for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`. Find an example package and explore each of these.
 
 
 #####  <span style="color:blue">__Answer for Exercise R6:__</span> 

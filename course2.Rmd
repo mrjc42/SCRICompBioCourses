@@ -2,7 +2,7 @@
 title: "Introduction to R and interactive programming"
 author: "Marc, Sean, Bronson and Debbie"
 date: "10/7/2015"
-output: html_document
+output: pdf_document
 ---
 
 Welcome to the second course in our series of courses designed to help train Biologists who want to be able to analyze their own data.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
@@ -310,7 +310,7 @@ The `read.table` command and it's friends are a good introduction to how you can
 
 TODO: supply a tabular file (preferably one from before)
 ```{r}
-filename = '/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes/refFlat.txt.gz'
+filename = 'refFlat.txt.gz'
 foo = read.table(file=filename, nrows = 3)
 foo
 ```
@@ -708,7 +708,7 @@ Use read.table to read in the file that you unpacked earlier called `genesFile.t
 #####  <span style="color:blue">__Answer for Exercise R3:__</span> 
 
 ```{r}
-myTable <- read.table(file='/home/mcarl7/genesFile.txt', header=TRUE)
+myTable <- read.table(file='genesFile.txt', header=TRUE)
 
 class(myTable)
 ```

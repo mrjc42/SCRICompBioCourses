@@ -81,7 +81,23 @@ Compare the output from `LETTERS` and `pi`. One thing you will notice is that `p
 
 This is because `pi` is also a vector. Vectors can theoretically hold any number of elements, including only one or even zero. So `pi` is a vector of length one, or a list with only one element. In R, vectors are 'atomic'.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest or simplest container in R is still a vector.  
 
+#### Creating vectors
 
+There are two ways to create vectors. If you are creating an numeric vector, one simple way is to use the `:` operator. You specify the first digit and the last digit, and R will fill in the rest in increments of one.
+
+```{r}
+numbers <- 1:10
+numbers
+```
+
+To create numeric vectors with different step sizes, you can use the `seq` function.
+
+The second way to create vectors is by using the *concatenate* function. It technically just combines vectors rather than creating them. But given that single elements are just vectors of length 1, it amounts to the same thing. Use this to create character vectors and vectors of other types:
+
+```{r}
+string <- c('The', 'lazy', 'brown', 'fox')
+string
+```
 
 
 ### Calling functions
@@ -127,19 +143,19 @@ But once you start using named arguments in your function call, you had better s
 grepl('A', x=LETTERS)
 ```
 
-
+****
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
-You need to create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
+You need to create a vector of names based on the months of the year. You want the name to start with the month number followed by the month name. So the final vector should look like this:
 
 ```{r, echo=FALSE}
-paste(month.name, "1",sep='_')
+paste(1:12, month.name, sep='_')
 ```
 
-To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
+To do this, you will want a vector that has each month number (1-12) and a vector that has all the months.  R has such a vector already called: `month.name`.  Using those two vectors and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
 
 
-
+****
 
 ### Using external libraries
 
@@ -636,7 +652,7 @@ To do this, you will want a string that has all the months.  R has such a string
 You can use the paste function like this:
 
 ```{r, eval=FALSE}
-paste(month.name, "1", sep='_')
+paste(1:12, month.name, sep='_')
 ```
 
 
@@ -661,7 +677,7 @@ Use read.table to read in the file that you unpacked earlier called `genesFile.t
 
 #####  <span style="color:blue">__Answer for Exercise R3:__</span> 
 
-```{r}
+```{r, eval=FALSE}
 myTable <- read.table(file='/home/mcarl7/genesFile.txt', header=TRUE)
 
 class(myTable)

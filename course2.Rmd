@@ -307,13 +307,13 @@ The `read.table` command and it's friends are a good introduction to how you can
 TODO: supply a tabular file (preferably one from before)
 ```{r}
 filename = '/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes/refFlat.txt.gz'
-foo = read.table(file=filename, nrows = 10)
+foo = read.table(file=filename, nrows = 3)
 foo
 ```
 
 
 
-#### scan
+#### readLines
 Sometimes you need to get data in and your file may not be as nicely formatted.  `readLines` will let you get the data in and reads files in one line at a time.  `readLines` is also worth showing because unlike a lot of other data import function in R, it does not take a file path directly, but requires that you pass it a connection object.  Here is an example of how that looks:
 
 ```{r}
@@ -495,51 +495,81 @@ Notice how in both cases, the subset operator gets you the contents of the same 
 
 Something that we didn't mention above is that for 'square' data, the single bracker operator can take another argument.  What this means is that you can extract both columns and rows at the same time.  What is confusing though, is that when you use the second argument, the first argument will now apply to rows while the second argument applies to columns.  Lets look at some examples:
 
-The Whole object
+The whole object (matrix)
 ```{r}
 mat
 ```
 
-The 1st row, 1st column
+The 1st row, 1st column (matrix)
 ```{r}
 mat[1,1]
 ```
 
-1st two rows, 2nd column
+1st two rows, 2nd column (matrix)
 ```{r}
 mat[1:2,2]
 ```
 
-2nd row, columns 1:3
+2nd row, columns 1:3 (matrix)
 ```{r}
 mat[2, 1:3]
 ```
 
-Whole object
+Now lets look these same operations but with data.frame objects:
+
+
+Whole object (data.frame)
 ```{r}
 df
 ```
 
-1st row, 1st column
+1st row, 1st column  (data.frame)
 ```{r}
 df[1,1]
 ```
 
-1st three rows, 1st column
+1st three rows, 1st column  (data.frame)
 ```{r}
 df[1:3,1]
 ```
 
-Third row, columns 1:2
+Third row, columns 1:2  (data.frame)
 ```{r}
 df[3,1:2]
 ```
 
-So as you can see, you can use the subset operators in R to slice data in all sorts of useful different ways.
+#### When R gets too smart for it's own good (automatic casting):
+So as you can see, you can use the subset operators in R to slice data in all sorts of useful different ways.  But there is another thing that was happening for a lot of these subsets that you might not have noticed.  Lets take a quick look at that:
+
+```{r}
+class(df)
+class(df[3,1:2])
+class(df[1,1])
+```
+Notice how in that last case the class changed from a data.frame to a simple integer vector?  That's because R is assuming that if you are working interactively you might find that cast convenient.  However, in many cases it will NOT be convenient to have your data objects automatically changing types on you.  So please be aware that this can happen.  But how can you avoid it?  Well the single bracket subset operator when applied to a data.frame has a third argument that you can use called `drop`.  If you set `drop` to be FALSE, then R will stop trying to cast your data for you:
+
+```{r}
+class(df[1,1, drop=FALSE])
+```
+
+
+####  <span style="color:blue">__Exercise R5:__</span> 
+
+#####   <span style="color:blue">__Exercise R5 part 1:__</span> 
+Remember that list (`lst2`) we made in exercise R2?  Well go back to that list now and extract out the original list (`lst`) by using the appropriate subsetting operator.  Assign that recovered value into a variable called `recoveredLst`.  How do you know which kind of operator to choose?  How can you verify whether your `recoverdLst` is now the correct thing?
+
+#####   <span style="color:blue">__Exercise R5 part 2:__</span> 
+Now lets look at the `myTable` data.frame object we created when we used the `read.table` function.  Using what we just learned about subset operators, extract out a vector of gene symbols.  Now make those symbols unique with the `unique` function and assign the resulting value to a variable called `symbols`.  If you look at the value for `symbols`, you will notice that it's not a character vector but is instead something called a factor.  Convert it to a character vector using as.character().  Now that you have done this, do it another way (you should know at least two different ways to subset at a data.frame in order to extract a specific column).
+
+Now, using what you understand about subsetting operators, see if you can figure out a convenient way to store the value of `symbols` inside of a third element for `lst2`...
+
+#### What are these 'factors' about?
+
+Because R is a statistical language, it is often useful to have categorical data like 'gender'.  For data like this, R has a special kind of vector called a `factor`.  Don't worry too much about factors today, but be aware that they are out there, and you might notice that in many cases your character data will by default be assumed to be this kind of data.  Because of this, a lot of import functions like `read.table` will have a special argument called `stringsAsFactors` that can let you decide how your data will be treated after importing.  
 
 
 
-####  <span style="color:blue">__Exercise R:__</span> 
+
 
 
 
@@ -695,5 +725,59 @@ month.abb[grepl('J',month.abb)]
 
 month.abb[!month.abb %in% 'Jun']
 ```
+
+
+####  <span style="color:blue">__Exercise R5:__</span> 
+
+#####   <span style="color:blue">__Exercise R5 part 1:__</span> 
+Remember that list (`lst2`) we made in exercise R2?  Well go back to that list now and extract out the original list (`lst`) by using the appropriate subsetting operator.  Assign that recovered value into a variable called `recoveredLst`.  How do you know which kind of operator to choose?  How can you verify whether your `recoverdLst` is now the correct thing?
+
+#####   <span style="color:blue">__Exercise R5 part 2:__</span> 
+Now lets look at the `myTable` data.frame object we created when we used the `read.table` function.  Using what we just learned about subset operators, extract out a vector of gene symbols.  Now make those symbols unique with the `unique` function and assign the resulting value to a variable called `symbols`.  If you look at the value for `symbols`, you will notice that it's not a character vector but is instead something called a factor.  Convert it to a character vector using as.character().
+
+Now, using what you understand about subsetting operators, see if you can figure out a convenient way to store the value of `symbols` inside of a third element for `lst2`...
+
+
+
+#####  <span style="color:blue">__Answers for Exercise R5:__</span> 
+
+######  <span style="color:blue">__Answer for Exercise R5 (part 1):__</span> 
+
+```{r}
+recoveredLst <- lst2[[1]]
+
+class(recoveredLst)
+```
+######  <span style="color:blue">__Answer for Exercise R5 (part 2):__</span> 
+At this point you now know at least two different ways to do this:
+```{r}
+symbols <- unique(myTable[[2]])
+symbols <- as.character(symbols)
+```
+And this:
+```{r}
+symbols <- unique(myTable[,2])
+symbols <- as.character(symbols)
+```
+And just for fun here is a third way:
+```{r}
+symbols <- unique(myTable$symbol)
+symbols <- as.character(symbols)
+```
+To append another element into your list, there are many ways to do it.  But one very 'R-ish' way is this:
+```{r}
+lst2[[3]] <- symbols
+lst2
+```
+
+
+
+
+####  <span style="color:blue">__Exercise R6:__</span> 
+
+Go look up the help page for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn’t working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`. Find an example package and explore each of these.
+
+
+#####  <span style="color:blue">__Answer for Exercise R6:__</span> 
 
 

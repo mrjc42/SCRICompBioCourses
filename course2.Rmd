@@ -2,7 +2,7 @@
 title: "Introduction to R and interactive programming"
 author: "Marc, Sean, Bronson and Debbie"
 date: "10/7/2015"
-output: html_document
+output: pdf_document
 ---
 
 Welcome to the second course in our series titled: 'Computational Biology for Biologists'.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.

@@ -5,7 +5,7 @@ date: "10/7/2015"
 output: html_document
 ---
 
-Welcome to the second course in our series of courses designed to help train Biologists who want to be able to analyze their own data.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
+Welcome to the second course in our series titled: 'Computational Biology for Biologists'.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
 
 # Introduction to R
 
@@ -27,7 +27,9 @@ The Files panel has many tabs.  The Files tab will let you look at the files in 
 
 ### What is R?
 
-R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  R is often called a "high level" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R already has a large existing collection of friendly and powerful software packages that you can harness to do useful work.
+R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  R is often called a "high level" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R already has a large existing collection of friendly and powerful software packages that you can harness to do useful work.  
+
+Also important: R is written entirely as an open source piece of software. This is very good for scientific computing since it means that don't have to blindly trust anyone else that R will work as advertised.  If for some reason you find something with the software that you think is a bug, you can find and bother the people who authored it or even explore the source code for yourself.  This is important because while all software has bugs: only open sourced software allows you easy access to discover and fix them.
 
 
 #### Object oriented programming
@@ -52,7 +54,15 @@ What if you wanted to create your own variables?
 
 #### Assignment operators 
 
-Now lets consider the case where we want to assign a simple variable.  In R there are TWO different symbols used as assignment operators.  I will demonnstrate each of them below:
+Before I explain about assignment.  Lets start with: what is an operator?  In R an operator is a way of succinctly indicating a specific kind of event.  For those who already know what a function is, an operator is just a special kind of function.  For those who don't konw what a function is: just hang on a few more minutes and we will explaing those too.  :)  As as example of an operator the `+` operator works like this:
+
+```{r}
+1 + 2
+```
+
+As you use R you will learn that there are many other operators that you can leverage, and for most of them the way you use them is very straightforward.  Here we are goign to learn about the assignment operators.
+
+Now lets consider the case where we want to assign a simple variable.  In R there are actually __two__ different symbols used as assignment operators.  I will demonnstrate each of them below:
 
 ```{r}
 foo <- "yes"
@@ -60,7 +70,6 @@ bar = "no"
 ```
 
 Now lets look at the value for `foo`
-
 ```{r}
 foo
 ```
@@ -79,7 +88,7 @@ Compare the output from `LETTERS` and `pi`. One thing you will notice is that `p
 
 #### This is because in R: Vectors are atomic
 
-This is because `pi` is also a vector. Vectors can theoretically hold any number of elements, including only one or even zero. So `pi` is a vector of length one, or a list with only one element. In R, vectors are 'atomic'.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest or simplest container in R is still a vector.  
+Therefore `pi` is also a vector. Vectors can theoretically hold any number of elements, including only one or even zero. So `pi` is a vector of length one, similar to a list with only one element. In R, vectors are 'atomic'.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest or simplest container in R is still just a short vector.  
 
 #### Creating vectors
 
@@ -90,9 +99,9 @@ numbers <- 1:10
 numbers
 ```
 
-To create numeric vectors with different step sizes, you can use the `seq` function.
+To create vectors quickly, you can also use the `seq` or `rep` functions.
 
-The second way to create vectors is by using the *concatenate* function. It technically just combines vectors rather than creating them. But given that single elements are just vectors of length 1, it amounts to the same thing. Use this to create character vectors and vectors of other types:
+The second way to create vectors is by using the _concatenate_ function. It technically just combines vectors rather than creating them. But given that single elements are just vectors of length 1, it amounts to the same thing. Use this to create character vectors and vectors of other types:
 
 ```{r}
 string <- c('The', 'lazy', 'brown', 'fox')
@@ -130,7 +139,7 @@ Sometimes instead you may wish to be more explicit and actually refer to the fun
 grepl(x=LETTERS, pattern='A')
 ```
 
-Notice how I did not have to list the arguments in order this time?  This is a good approach if you are unsure about the order, but it is also a good idea for writing code that is more robust over time.  This method requires more typing, but in the event that someone changes the function you are calling, this method is more likely to keep working.  So this method is more a more robust way to write scripts and functions.
+Notice how I did not have to list the arguments in order this time?  This is a good approach if you are unsure about the order, but it is also a good idea for writing code that is more robust over time.  This method requires more typing, but in the event that someone changes the function you are calling, this method is more likely to keep working.  So this method represents a more robust way to write scripts and functions.
 
 Also please notice the use of the `=` sign to indicate argument names.  This is the reason why a lot of people prefer to type `<-` for assignment operations instead of `=`.  Because if you use `<-` instead of `=`, it meanns that you can do an assignment right in the middle of a function call (which is sometimes convenient).
 
@@ -165,7 +174,7 @@ Part of what makes R so powerful is the way that it leverages the code of an ent
 library("stats4")
 ```
 
-Now that you have loaded a package, lets talk about the search path.  The search path is how R keeps track of everything that you have loaded into memory.  You can look at it by just calling the `search` command.  
+Now that you have loaded a package, lets talk about the search path.  The search path is how R keeps track of everything that you have loaded into memory.  You can look at it by just calling the `search` function.  
 
 ```{r}
 search()
@@ -173,7 +182,7 @@ search()
 
 This will print all the libraries/packages that your current R session has loaded as a single character vector.  This is an important thing to pay attention to since every time you add a new package to the search path, it adds another set of objects, functions and symbols for R to look at everytime you ask it to do something.  So your code will run faster if you load fewer things onto that path.
 
-To see the symbols in any elemnent of the search path, you can use the list objects or `ls` command.  The `ls` command can either take an index value like this:
+To see the symbols in any elemnent of the search path, you can use the list objects or `ls` function.  The `ls` function can either take an index value like this:
 
 ```{r}
 ls(2)
@@ -186,7 +195,7 @@ ls("package:stats4")
 
 
 
-### Atomic vectors and other fun Data structures
+### Atomic vectors and other fun data structures
 Because R is a data centric statistical language it has a lot of fun ways to represent data.
 
 #### Vectors, length
@@ -227,13 +236,13 @@ length(lst)
 
 ####  <span style="color:blue">__Exercise R2:__</span> 
 
-Make the list `lst` from the example above and then make a second list `ls2` that contains both `lst` and the LETTERS vector.  How long is this list?
+Make the list `lst` from the example above and then make a second list `lst2` that contains both `lst` and the LETTERS vector.  How long is this list?
 
 
 
 #### data.frames, matrices, dim
 
-Sometimes you want 'square' data.  We have all seen excel sheets anb tables before.  For this kind of data, R has matrices and data.frames.  A matrix is usually used when you have simple 'square' data like a grid of numbers.  Lets have a quick look at an example of a matrix as constructed from a numeric vector:
+Sometimes you need to represent 'square' data.  We have all seen excel sheets anb tables before.  For this kind of data, R has matrices and data.frames.  A matrix is usually used when you have simple 'square' data like a grid of numbers.  Lets have a quick look at an example of a matrix as constructed from a numeric vector:
 
 ```{r}
 numVec <- c(1,2,3,11,12,13)
@@ -242,7 +251,7 @@ mat <- matrix(numVec, nrow = 2, ncol = 3, byrow = TRUE)
 mat
 ```
 
-Once you have a matrix you can see how big it is with the dimnetions command: `dim`.
+Once you have a matrix you can see how big it is with the dimentions function: `dim`.
 
 ```{r}
 dim(mat)
@@ -301,7 +310,7 @@ This is a complex object that was originally created to hold microarray data but
 ### Getting data into R 
 
 #### read.table
-One of the most common tools for reading data into R is the read.table command.  And actually, it's a family of commands.  If you look at the man page you will see a whole set of related commands.
+One of the most common tools for reading data into R is the read.table function.  And actually, it's a family of commands.  If you look at the man page you will see a whole set of related commands.
 ```{r, eval=FALSE}
 ?read.table
 ```
@@ -325,12 +334,12 @@ con <- file(filename)
 bar = readLines(con)
 ```
 
-Having said all that: mostly you won't need to use readLines.  But it's there if you need it, and it's VERY fast.
+Having said all that: mostly you won't need to use readLines.  But it's there if you need it, and it's _very_ fast.
 
 
 #### Other options: Databases, URIs, REST, HDF5 and many more
 
-R also has a ton of alternate commands for reading in all manner of other file formats as R objects.  This topic could almost become it's own course.  Some popular options include, databases URIs, REST apis, HDF5 files (just to name a few).  Many of these capabilities are not baked in to base R but are instead available via packages.  Here is a very simplified example of how you can use the DBI interface which is useful for extracting data from a database file.  
+R also has a ton of alternate tools for reading in all manner of other file formats as R objects.  This topic could almost become it's own course.  Some popular options include, databases URIs, REST apis, HDF5 files (just to name a few).  Many of these capabilities are not baked in to base R but are instead available via open source packages.  Here is a very simplified example of how you can use the DBI interface which is useful for extracting data from a database file.  
 
 
 ```{r}
@@ -374,13 +383,7 @@ as.vector(as.matrix(df))
 
 #### single bracket subsetting operator `[` 
 
-One of the most powerful things in R are the subsetting operators.  Lets start with: what is an operator?  In R an operator is just a function where the syntax to invoke it is something other than the usual `functionName()` syntax that we have seen so far.  So for example the `+` operator works like this:
-
-```{r}
-1 + 2
-```
-
-As you use R you will learn that there are many other operators that you can leverage, and for most of them the way you use them is very straightforward.  But the subsetting operators are particularly powerful for extracting data from objects.  The most commons subsetting operator is the single bracket operator.  For most R objects, if you apply the single bracket operator, you will get a piece of whatever was in the original object.  Lets look at some simple examples to illustrate:
+One of the most powerful things in R are the subsetting operators.  And the most commons subsetting operator is the single bracket operator.  For most R objects, if you apply the single bracket operator, you will get a piece of whatever was in the original object.  Lets look at some simple examples to illustrate:
 
 You can subset by supplying index values:
 
@@ -444,6 +447,14 @@ To:
 
 ```{r}
 !shortLetters %in% c('C','A')
+```
+
+Another useful function is the `unique` function.  You can use `unique` whenever you have a vector or list like object that needs to be filtered down so that it only contains one instance of each element.  So just compare:
+
+```{r}
+c(shortLetters,shortLetters)
+
+unique(c(shortLetters,shortLetters))
 ```
 
 
@@ -601,13 +612,13 @@ Why?  Because those quotes will allow you to search for help on strings that hav
 
 The above will take you to the help page for the GenomicFeatures S4 class.  It's a very useful man page, but you can't get there if you leave out the quotes.
 
-Alternatively, you could choose to just use the `help` command.  But that is three extra letters of typing (and you would still have to quote the arguement)...
+Alternatively, you could choose to just use the `help` command.  But that is three extra letters of typing (and you would still have to quote the argument)...
 
 ##### example()
-One of the more useful (and often overlooked) functions for exploring a new function is the `example` function.  The `example` function takes advantage of the fact that most man pages have an example section.  So if instead of calling `help`, you call `example`, the examples from the corresponding manual page will be run for you in your R session.
+One of the more useful (and often overlooked) functions for exploring a new function is the `example` function.  The `example` function takes advantage of the fact that most man pages have an example section.  So if instead of calling `help`, you call `example`, the examples from the corresponding manual page will be run for you in your R session.  Here is an example of calling the `example` function:
 
 ```{r}
-example('data.frame')
+example('as.numeric')
 ```
 
 

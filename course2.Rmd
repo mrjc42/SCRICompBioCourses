@@ -2,7 +2,7 @@
 title: "Introduction to R and interactive programming"
 author: "Marc, Sean, Bronson and Debbie"
 date: "10/7/2015"
-output: html_document
+output: pdf_document
 ---
 
 Welcome to the second course in our series titled: 'Computational Biology for Biologists'.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
@@ -796,7 +796,7 @@ Go look up the help page for the `help.start` function. Now actually use that fu
 
 #####   <span style="color:blue">__Exercise R6 part 2:__</span> 
 
-
+Lets look more closely at the help page for data.frames.  Notice the first argument?  This is a special argument that allows for multiple comma separated values to be passed in.  Because of the nature of this argument, all subsequent arguments will require being named.  Now scroll down and look at the other arguments.  Which arguments have default values?  How can you tell?
 
 
 #####  <span style="color:blue">__Answer for Exercise R6:__</span> 
@@ -805,4 +805,4 @@ Go look up the help page for the `help.start` function. Now actually use that fu
 There is no single correct answer for this question.
 
 ######  <span style="color:blue">__Answer for Exercise R6 (part 2):__</span> 
-
+This is a tricky question, but you can probably see what the answer is by looking closely at the manual page. You can tell which values have default values by looking at the usage statement.  If the usage statement has a value assigned within it, then that is the default for that argument and will be used if an alternative value is not supplied.

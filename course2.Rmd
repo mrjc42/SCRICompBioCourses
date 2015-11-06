@@ -7,6 +7,34 @@ output: pdf_document
 
 Welcome to the second course in our series titled: 'Computational Biology for Biologists'.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
 
+# A quick review
+
+Before we begin, lets have a quick review of what we learned last week by doing something that will help us out this week.  First log into the sideswiper by using the ssh command:
+
+```
+ssh username@sideswiper
+```
+
+Now copy the following tarball down to your home directory with the copy command:
+
+```
+cp /tools/??? .
+```
+
+And now unpack that tarball so that the files are available for use during todays coursework:
+
+```
+tar zxvf course2Files.tar.gz
+```
+
+This will create a folder called course2Files, but for today, we want those files to be in our home directory, so lets move them out of there:
+
+```
+mv course2Files/* .
+```
+If this all seems like we could have made it 'easier' for you, please remember that we are trying to teach you how to do this stuff.  ;)
+
+
 # Introduction to R
 
 ### Getting familiar with RStudio

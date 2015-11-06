@@ -18,7 +18,7 @@ ssh username@sideswiper
 Now copy the following tarball down to your home directory with the copy command:
 
 ```
-cp /tools/??? .
+cp /tools/sampledata/ .
 ```
 
 And now unpack that tarball so that the files are available for use during todays coursework:

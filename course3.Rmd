@@ -16,7 +16,6 @@ Here is a list of topics that should be covered by the end of this course:
 ### Flow control
 
 #### if, else
-
 #### switch
 
 #### __Exercise R:__ 
@@ -39,14 +38,25 @@ Here is a list of topics that should be covered by the end of this course:
 ### Reproducible research
 
 
-# How to write S4 methods (and why)
+# version control.
+### So you don't lose your mind
+
+
+
+# Bioconductor. 
+## How to find good packages for your problem (biocviews)
+
+## How to use workflows
+
+
+## Fun Examples of thigns you can do: (RNA-seq, chip-seq, etc.)
+
+
+
+# How to write S4 methods (and when)
 ### methods are not the same thing as functions
 ### Why would you do this? (elegant dispatch)
 ### What is a Generic and when do I need to care?
-
-
-# version control.
-### So you don't lose your mind
 
 
 

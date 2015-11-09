@@ -1,0 +1,94 @@
+---
+title: "Additional Topics: The SCRI Linux Environment"
+author: "Sean, Marc, Debbie, Bronson"
+date: "11/6/2015"
+output: html_document
+---
+
+This document expands on some important topics from Course 1 that will be important for you to know as you navigate your way around the linux environment within SCRI. This module will help you understand how the file system is organized, what things you can, cannot, and should not access, and other policies and best practices that will make your life easier as you use these resources.
+
+# The Linux file structure
+
+### Root
+
+If you are used to interfacing with your computer via a graphical user interface such as Finder (Mac) or Windows Explorer (PC), the concept of a __root directory__ may be somewhat vague. The root directory is simply the most inclusive folder on the system, or in other words, the folder that contains all other folders and files. When working with the command line, no matter what system you use, you can designate an absolute path by describing its location relative to root. For Window's users, each disk drive has it's own root, for example `C:`, `D:`, etc. Unix based systems, including Mac OS X and Linux, have a single root designated simply by `/`.
+
+***
+####  <span style="color:blue">__Exercise L1:__</span>
+* Using the `cd` command, navigate to the root directory. <Hint: the root directory is designated by `/`.
+* Using the `ls` command, take a look at the contents of root. Just for fun, try adding the `-a` and `-l` flags, seperately and together. What files do you see? Can you tell if these are actual files or directories?
+
+***
+
+### Common system directories
+
+In the last example, you noticed that there are many directories contained in `root`, and you may wonder what these are for and if they are important to you. Most of these are system directories that are common to nearly every linux OS. __They have specific functions, and unless you really know what they are for and are authorized to change them, it is best to leave these alone.__ To satisfy your curiosity, here is a brief description of some of the common ones:
+
+* __`/bin`__: This directory contains many *binary* files for the common commands such as `ls`, `mv`, `cp`, etc.
+
+* __`/dev`__: This directory contains system files related to any attached *devices*, such as hard drives, dvd drives, modems, speakers, etc.
+
+* __`/etc`__: This stands for *et cetera*. But that doesn't mean that the contents are miscellaneous, although it's likely it once meant that. Now, this drive contains all system related configuration files. It is considered the nerve center of the system.
+
+* __`/home`__: We will talk about *home* later.
+
+* __`/lib`__: This directory contains the system *library*. Libraries are modules of code that provide key functionality. Think of them as mini code repositories.
+
+* __`/usr`__: This directory often contains the largest share of data. `usr` stands for *User System Resources* (not 'User'). This directory contains many more binaries, libraries and configuration files for all the additional, non-system applications that have been installed on the computer.
+
+* __`/tmp`__: This directory contains mostly files that are only required *temporarily*. Just because they are temporary though doesn't mean they aren't important. Many of these files are important for currently running programs and deleting them may result in a system crash.
+
+### Home
+
+__`/home`__ deserves a little special attention. __home__ is not to be confused with __root__. A home directory is merely a default location to store personal account settings and user-specific files. Note however, that home is not root. In linux, your home directory is always located at `/home/username`. Because this is a common stop for so many functions, a convenient short hand is used to designate home: `~/`.
+
+Because `/home` belongs to you, it is one of the few places where you can explore and play around without crashing the system (usually). Because it has a convenient short cut when using `cd`, it is a conveneint place to create links to other locations in your system. It is a very tempting place to set up shop and store all of your data. Afterall, when you first log in to the system, this is where you land. Even in our exercises, we had you start dumping the example files here. Be aware though, that in our system, `/home` is not very big. __You only have 10 GB of space alloted to your `/home` directory.__ For that reason, you really don't want to store your data in `/home`. Below, we will discuss some better alternatives.
+
+***
+####  <span style="color:blue">__Exercise L2:__</span>
+* Navigate to your home directory using the `cd` command. <Hint: the home directory is given the special designation `~`.>
+* Find out how much disk space you are using in your home directory by typing the following command:
+```
+du -sh
+```
+
+***
+
+### SCRI-specific directories
+
+There are two directories in `root` that are specific to the SCRI environment and that will be key to successfully working with the autobots:
+
+* __`/tools`__ The tools directory contains a collection of bioinformatics related applications, programs and tools that we have precompiled for your use. You will see a few programs of interest here, such as `GATK`, `freebayes`, `snpEFF`. I want to briefly point out a few interesting locations:
+
+    + __`/tools/BioBuilds-2014.04/bin`__: Most of the bioinformatics tools that you will need have been obtained through a software bundle called __`BioBuilds`__. Inside this directory is a `bin` directory that contains a bunch of executables for many common bioinformatics tools. If you want, you can look at inside and see what is available. In practice though, you should never really need to physically look around in here. If you want to know if a particular program is available, such as the BWA aligner, the easiest thing to do is to use the `which` command. 
+```
+which bwa
+```
+
+    + __`/tools/BioBuilds-2014.04/share/java`__: One of the more useful utilities included in BioBuilds is `picard`. It is a java script `jar` file, which means that it executes a little differently than other programs. It has to be called from `java` and you will have to supply the full path to it. So in case you are wondering, here is how you call picard:
+```
+java -jar /tools/BioBuilds-2015.04/share/java/picard/picard.jar
+```
+    + __`/tools/references`__. As you saw in the Course 1 exercises, this directory contains reference sequences and genome annotations for a number of model organisms. If there are additional tools or references that you think you may need frequently and that could be of interest to others generally, you can request that they be added by sending an email to ResearchScientificComputing@seattlechildrens.org.
+
+
+* __`/data`__ The data directory provides some local scratch space for users. The term __"local"__ just means that that space is physically located on the computer you are using. Therefore the read/write speed to this disk is relatively fast compared to a mounted (remote) file system. The term __"scratch space"__ means that the space is not intended to keep anything permanently. It is a temporary holding spot. The data directory provides you a convenient local place to temporarily stash files that you are actively working on. When you are done with them, they should be moved elsewhere to free up this space for others. The `/data` directory provides 2 TB of shared space. __Note: You should not use your `home` directory for scratch space. Use `/data` instead.__ 
+
+***
+####  <span style="color:blue">__Exercise L3:__</span>
+* Using the `which` command, discover if the tools `tophat` and `velvet` are available.
+* Navigate to `/data`. Feel free to make a new directory there with your user id. <Hint: use the `mkdir` command.>
+
+*** 
+
+### The best place to read and write
+You may be asking "If I can't stash stuff in my home directory because it's too small and the data directory is only for scratch space, then where am I supposed to store my stuff?" The answer is that this is the intended use of your departmental share drives. These drives can be mounted (or mapped to use the Windows phrase) on the linux system and accessed directly. __The best practice for doing work on these machines is to read from and write directly to your departmental share drives.__
+
+In order to accomplish this, we have written a helper program that will mount the share for you.
+
+***
+####  <span style="color:blue">__Exercise L4:__</span>
+
+* Steps to follow here.
+
+*** 

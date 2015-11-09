@@ -46,7 +46,7 @@ We will be using a program called __RStudio__ to interface with R. RStudio is cu
 ####  <span style="color:blue">__Exercise R0:__</span> 
 
 * Open a browser window. Firefox and chrome work great. Internet Explorer 9 has some issues. 
-* In the address bar, type __http://sideswiper:8787__
+* In the address bar, type http://sideswiper:8787
 * Enter your SCH userid and password
 
 ***

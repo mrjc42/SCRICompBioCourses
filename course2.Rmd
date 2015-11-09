@@ -180,7 +180,7 @@ But once you start using named arguments in your function call, you had better s
 grepl('A', x=LETTERS)
 ```
 
-
+***
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
 You need to create a vector of names based on the months of the year. You want the name to start with the month number followed by the month name. So the final vector should look like this:
@@ -191,6 +191,7 @@ paste(1:12, month.name, sep='_')
 
 To do this, you will want a vector that has each month number (1-12) and a vector that has all the months.  R has such a vector already called: `month.name`.  Using those two vectors and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
 
+***
 
 
 
@@ -262,10 +263,12 @@ And this allows us to put pretty much anything into our list.  So in this very s
 length(lst)
 ```
 
+***
 ####  <span style="color:blue">__Exercise R2:__</span> 
 
 Make the list `lst` from the example above and then make a second list `lst2` that contains both `lst` and the LETTERS vector.  How long is this list?
 
+***
 
 
 #### data.frames, matrices, dim
@@ -378,11 +381,12 @@ dbGetQuery(con, "SELECT * FROM gene_info limit 3")
 
 We won't go into how those commands work in the context of this course, but I wanted you to see an example of how other packages can allow you to interface with wildly different data sources after typing just a couple lines of R code...
 
-
+***
 ####  <span style="color:blue">__Exercise R3:__</span> 
 
 Use read.table to read in the file `genesFile.txt`.  Be sure to capture the results of this into a local variable called `myTable`.  What kind of object is `myTable`?  How do you know?  How can you read in the table so that the header is ignored?
 
+***
 
 
 ### Data object management
@@ -487,11 +491,12 @@ unique(c(shortLetters,shortLetters))
 
 
 
-
+***
 ####  <span style="color:blue">__Exercise R4:__</span> 
 
 Use the `month.abb` vector with the `grepl` function to determine which elements start with the letter 'J'.  Now subset the `month.abb` vector so that you only see those months.  Now do the same thing, but this time use `%in%` instead of `grepl` and look for every month __except__ Jun.
 
+***
 
 
 #### double bracket subsetting operator `[[` 
@@ -595,7 +600,7 @@ Notice how in that last case the class changed from a data.frame to a simple int
 class(df[1,1, drop=FALSE])
 ```
 
-
+***
 ####  <span style="color:blue">__Exercise R5:__</span> 
 
 #####   <span style="color:blue">__Exercise R5 part 1:__</span> 
@@ -605,6 +610,9 @@ Remember that list (`lst2`) we made in exercise R2?  Well go back to that list n
 Now lets look at the `myTable` data.frame object we created when we used the `read.table` function.  Using what we just learned about subset operators, extract out a vector of gene symbols.  Now make those symbols unique with the `unique` function and assign the resulting value to a variable called `symbols`.  If you look at the value for `symbols`, you will notice that it's not a character vector but is instead something called a factor.  Convert it to a character vector using as.character().  Now that you have done this, do it another way (you should know at least two different ways to subset at a data.frame in order to extract a specific column).
 
 Now, using what you understand about subsetting operators, see if you can figure out a convenient way to store the value of `symbols` inside of a third element for `lst2`...
+
+***
+
 
 #### What are these 'factors' about?
 
@@ -670,13 +678,18 @@ https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 This cheat sheet is valuable enough for new students that I plan to give you a copy of this cheat sheet, but there are many, many others on the web that cover a range of topics...
 
 
+***
+####  <span style="color:blue">__Exercise R6:__</span> 
 
-####  <span style="color:blue">__Exercise R:__</span> 
+#####   <span style="color:blue">__Exercise R6 part 1:__</span> 
 
+Go look up the help page for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`. Find an example package and explore each of these.
 
-Go look up the help page for the `help.start` function.  Now actually use that function to explore some package vignettes and man pages in one simple interface.  If this wasn't working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`.  Find an example package and explore each of these.
+#####   <span style="color:blue">__Exercise R6 part 2:__</span> 
 
+Lets look more closely at the help page for data.frames.  Notice the first argument?  This is a special argument that allows for multiple comma separated values to be passed in.  Because of the nature of this argument, all subsequent arguments will require being named.  Now scroll down and look at the other arguments.  Which arguments have default values?  How can you tell?
 
+***
 
 
 ### Exploring packages

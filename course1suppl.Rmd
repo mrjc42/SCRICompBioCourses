@@ -11,7 +11,7 @@ This document expands on some important topics from Course 1 that will be import
 
 A question that came up and that perhaps you have asked, "Is this really worth it? Why should I invest my time in learning Linux?" The answer to this topic could be a course all by itself. Let us just try to point out what we think are a few of the advantages
 
-* Many of the 'industry standard' tools used to analyze today's data are only available in Linux. GATK, tophat, bwa, cufflinks, samtools, many of these are open source tools that are meant to be distributed for free. Therefor, they aren't readily available outside of the command-line environment
+* Many of the 'industry standard' tools used to analyze today's data are only available in Linux. GATK, tophat, bwa, cufflinks, samtools, many of these are open source tools that are meant to be distributed for free. These tools aren't readily available outside of the command-line environment
 
 * Fine control. Whenever you make a graphical user interface, it becomes very hard to expose all the options that the program is capable of in an easy way. Therefore, you usually make assumptions and lock in some defaults. At the command-line, you can more easily allow the user to specify parameters and gain fine control of the program.
 

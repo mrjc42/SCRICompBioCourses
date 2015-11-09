@@ -64,7 +64,6 @@ There are two directories in `root` that are specific to the SCRI environment an
 ```
 which bwa
 ```
-
     + __`/tools/BioBuilds-2014.04/share/java`__: One of the more useful utilities included in BioBuilds is `picard`. It is a java script `jar` file, which means that it executes a little differently than other programs. It has to be called from `java` and you will have to supply the full path to it. So in case you are wondering, here is how you call picard:
 ```
 java -jar /tools/BioBuilds-2015.04/share/java/picard/picard.jar

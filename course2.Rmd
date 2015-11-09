@@ -18,13 +18,15 @@ ssh username@sideswiper
 Now copy the following tarball down to your home directory with the copy command:
 
 ```
-cp /tools/sampledata/ .
+cp /tools/sampledata/course2Files.tar.gz .
 ```
+
+Remember that in linux `.` means 'current directory'. Since you just logged in your current directory should be your home directory. You can check this by looking for the `~` in your prompt. 
 
 And now unpack that tarball so that the files are available for use during todays coursework:
 
 ```
-tar zxvf course2Files.tar.gz
+tar -zxvf course2Files.tar.gz
 ```
 
 This will create a folder called course2Files, but for today, we want those files to be in our home directory, so lets move them out of there:
@@ -36,6 +38,19 @@ If this all seems like we could have made it 'easier' for you, please remember t
 
 
 # Introduction to R
+
+### Opening RStudio
+We will be using a program called __RStudio__ to interface with R. RStudio is currently hosted on the Sideswiper machine until a more permanant home can be found for it. You access RStudio from a web browser and log in using your SCH credentials. Behind the scenes, you will be using the R instance that is built onto Sideswiper.
+
+***
+####  <span style="color:blue">__Exercise R0:__</span> 
+
+* Open a browser window. Firefox and chrome work great. Internet Explorer 9 has some issues. 
+* In the address bar, type http://sideswiper:8787
+* Enter your SCH userid and password
+
+***
+
 
 ### Getting familiar with RStudio
 First lets get you used to RStudio.  RStudio is one of the most popular tools for working with R today.  It normally has four main panels: 'Console', 'Source', 'Environment', and 'Files'.  Lets take a minute and look at each of these:
@@ -120,7 +135,7 @@ Therefore `pi` is also a vector. Vectors can theoretically hold any number of el
 
 #### Creating vectors
 
-There are two ways to create vectors. If you are creating an numeric vector, one simple way is to use the `:` operator. You specify the first digit and the last digit, and R will fill in the rest in increments of one.
+There are two ways to create vectors. If you are creating a numeric vector, one simple way is to use the `:` operator. You specify the first digit and the last digit, and R will fill in the rest in increments of one.
 
 ```{r}
 numbers <- 1:10
@@ -129,7 +144,7 @@ numbers
 
 To create vectors quickly, you can also use the `seq` or `rep` functions.
 
-The second way to create vectors is by using the _concatenate_ function. It technically just combines vectors rather than creating them. But given that single elements are just vectors of length 1, it amounts to the same thing. Use this to create character vectors and vectors of other types:
+The second way to create vectors is by using the __concatenate__ function. It technically just combines vectors rather than creating them. But given that single elements are just vectors of length 1, it amounts to the same thing. Use this to create character vectors and vectors of other types:
 
 ```{r}
 string <- c('The', 'lazy', 'brown', 'fox')
@@ -146,7 +161,7 @@ One of the simplest functions in R is the help function.    The help function on
 help('grepl')
 ```
 
-If you look at this help page, you will notice that the `grepl` function can take multiple different arguments.  But it always requires at least two arguments.  You know this beccause there are not default arguments set for the first two arguments when looking at its 'Usage' statement.  Reading further in the manual page, you should notice that it's role is to return a logical vector indicating where the 1st argument matched the contents of the second argument.  But in terms of passing these arguments to the function: R is pretty flexible about how it will interpret your attempts to call a function.
+If you look at this help page, you will notice that the `grepl` function can take multiple different arguments.  But it always requires at least two arguments.  You know this because there are not default arguments set for the first two arguments when looking at its 'Usage' statement.  Reading further in the manual page, you should notice that it's role is to return a logical vector indicating where the 1st argument matched the contents of the second argument.  But in terms of passing these arguments to the function: R is pretty flexible about how it will interpret your attempts to call a function.
 
 
 #### Arguments can be passed in "in order"
@@ -169,7 +184,7 @@ grepl(x=LETTERS, pattern='A')
 
 Notice how I did not have to list the arguments in order this time?  This is a good approach if you are unsure about the order, but it is also a good idea for writing code that is more robust over time.  This method requires more typing, but in the event that someone changes the function you are calling, this method is more likely to keep working.  So this method represents a more robust way to write scripts and functions.
 
-Also please notice the use of the `=` sign to indicate argument names.  This is the reason why a lot of people prefer to type `<-` for assignment operations instead of `=`.  Because if you use `<-` instead of `=`, it meanns that you can do an assignment right in the middle of a function call (which is sometimes convenient).
+Also please notice the use of the `=` sign to indicate argument names.  This is the reason why a lot of people prefer to type `<-` for assignment operations instead of `=`.  Because if you use `<-` instead of `=`, it means that you can do an assignment right in the middle of a function call (which is sometimes convenient).
 
 
 #### You can also use as a mixture of named and un-named arguments.
@@ -250,7 +265,7 @@ There are 26 letters in the alphabet
 
 #### Lists
 
-Sometimes you want to put more than just one flavor of data into a vector like object.  For those times you need a much more flexible kind of container.  That is what lists are for.  Lets look an an example of a list:
+Sometimes you want to put more than just one flavor of data into a vector-like object.  For those times you need a much more flexible kind of container.  That is what lists are for.  Lets look an an example of a list:
 
 ```{r}
 lst <- list(a=1, b='foo')
@@ -273,7 +288,7 @@ Make the list `lst` from the example above and then make a second list `lst2` th
 
 #### data.frames, matrices, dim
 
-Sometimes you need to represent 'square' data.  We have all seen excel sheets anb tables before.  For this kind of data, R has matrices and data.frames.  A matrix is usually used when you have simple 'square' data like a grid of numbers.  Lets have a quick look at an example of a matrix as constructed from a numeric vector:
+Sometimes you need to represent 'square' data.  We have all seen excel sheets and tables before.  For this kind of data, R has matrices and data.frames.  A matrix is usually used when you have simple 'square' data like a grid of numbers.  Lets have a quick look at an example of a matrix as constructed from a numeric vector:
 
 ```{r}
 numVec <- c(1,2,3,11,12,13)
@@ -294,7 +309,7 @@ You can also get the length of a matrix, but note that the result of length make
 length(mat)
 ```
 
-You will likely see matrices a lot in R.  But even more common you will see data.frames.  data.frames are usually used for when you have 'square' data and when the different columns are different from each other.  They are popular, because this happens all the time.  Lets look at an example so that you can know what I mean by the columns being different from each other:
+You will likely see matrices a lot in R.  But even more common you will see __data.frames__.  data.frames are usually used for when you have 'square' data and when the different columns are different from each other.  They are popular, because this happens all the time.  Lets look at an example so that you can know what I mean by the columns being different from each other:
 
 ```{r}
 df <- data.frame(number = 1:4, letter = c('A','B','C','D'))
@@ -313,7 +328,7 @@ The results for dim look like 'square' data, but the length is now the number of
 
 #### S4 objects
 
-Sometimes your data is not simple and does not fit into a simple container. For these instances R has what is called the "S4 class system"" that allows for the creation of custom data containers.  In this course there will not be time to learn the mechanisms for defining these, but many many such containers exist and it is often convenient to use them.  Here is an example of one of these in action that I will load up using the `data` function
+Sometimes your data is not simple and does not fit into a simple container. For these instances R has what is called the "S4 class system" that allows for the creation of custom data containers.  In this course there will not be time to learn the mechanisms for defining these, but many many such containers exist and it is often convenient to use them.  Here is an example of one of these in action that I will load up using the `data` function
 
 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE}
@@ -348,7 +363,6 @@ One of the most common tools for reading data into R is the read.table function.
 
 The `read.table` command and it's friends are a good introduction to how you can load a popular kind of data format into R.  Specifically tabular data.
 
-TODO: supply a tabular file (preferably one from before)
 ```{r}
 filename = 'refFlat.txt.gz'
 foo = read.table(file=filename, nrows = 3)
@@ -415,7 +429,7 @@ as.vector(as.matrix(df))
 
 #### single bracket subsetting operator `[` 
 
-One of the most powerful things in R are the subsetting operators.  And the most commons subsetting operator is the single bracket operator.  For most R objects, if you apply the single bracket operator, you will get a piece of whatever was in the original object.  Lets look at some simple examples to illustrate:
+One of the most powerful things in R are the subsetting operators.  And the most common subsetting operator is the single bracket operator.  For most R objects, if you apply the single bracket operator, you will get a piece of whatever was in the original object.  Lets look at some simple examples to illustrate:
 
 You can subset by supplying index values:
 
@@ -494,14 +508,18 @@ unique(c(shortLetters,shortLetters))
 ***
 ####  <span style="color:blue">__Exercise R4:__</span> 
 
-Use the `month.abb` vector with the `grepl` function to determine which elements start with the letter 'J'.  Now subset the `month.abb` vector so that you only see those months.  Now do the same thing, but this time use `%in%` instead of `grepl` and look for every month __except__ Jun.
+* Use the `month.abb` vector with the `grepl` function to determine which elements start with the letter 'J'.  
+
+* Now subset the `month.abb` vector so that you only see those months.  
+
+* Now use `%in%` instead of `grepl` and look for every month __except__ Jun. <HINT: The negation operator is `!`>
 
 ***
 
 
 #### double bracket subsetting operator `[[` 
 
-In addition to the single bracket subsetting operator, some objects also support a double bracker subsetting operator.  This kind of operator is normally only used with list like objects such as `data.frame`s and `list`s.  The difference between the single and double bracket operator is in the type of data that is returned.  While the single bracket operator will try to return the same type of object as it was used on, the double bracket will return the type of thing that is 'in' the container.  Lets look again at our list example:
+In addition to the single bracket subsetting operator, some objects also support a double bracket subsetting operator.  This kind of operator is normally only used with list like objects such as `data.frame`s and `list`s.  The difference between the single and double bracket operator is in the type of data that is returned.  While the single bracket operator will try to return the same type of object as it was used on, the double bracket will return the type of thing that is 'in' the container.  Lets look again at our list example:
 
 Single bracket
 
@@ -539,7 +557,7 @@ Notice how in both cases, the subset operator gets you the contents of the same 
 
 
 
-#### using the single bracket operator to subset square data
+#### Using the single bracket operator to subset square data
 
 Something that we didn't mention above is that for 'square' data, the single bracker operator can take another argument.  What this means is that you can extract both columns and rows at the same time.  What is confusing though, is that when you use the second argument, the first argument will now apply to rows while the second argument applies to columns.  Lets look at some examples:
 

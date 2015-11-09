@@ -7,6 +7,22 @@ output: html_document
 
 This document expands on some important topics from Course 1 that will be important for you to know as you navigate your way around the linux environment within SCRI. This module will help you understand how the file system is organized, what things you can, cannot, and should not access, and other policies and best practices that will make your life easier as you use these resources.
 
+# Why Linux?
+
+A question that came up and that perhaps you have asked, "Is this really worth it? Why should I invest my time in learning Linux?" The answer to this topic could be a course all by itself. Let us just try to point out what we think are a few of the advantages
+
+* Many of the 'industry standard' tools used to analyze today's data are only available in Linux. GATK, tophat, bwa, cufflinks, samtools, many of these are open source tools that are meant to be distributed for free. Therefor, they aren't readily available outside of the command-line environment
+
+* Fine control. Whenever you make a graphical user interface, it becomes very hard to expose all the options that the program is capable of in an easy way. Therefore, you usually make assumptions and lock in some defaults. At the command-line, you can more easily allow the user to specify parameters and gain fine control of the program.
+
+* Modularity. With a command-line interface, you can string small programs together like legos and build your own custom workflows and programs that work exactly the way you want them to.
+
+* Reproducibility. When you use command-line and/or write scripts, you create a record of exactly what you did to your data. Anytime you re-run the commands you wrote, you will get the same result.
+
+* Speed. In the short-term, it may seem like a huge investement of time and energy to learn how to work in this environement and use these tools. The payoff comes though when you can write scripts to automate many tasks that once required hours of tedious repetition. Also, with linux, you can take better advantage of parallel processing to vastly speed up the processing time.
+
+* Scale. Most of the files that you may encounter, such as fasta, fastq, bam, etc, are enormous. Although they are often just simple text documents, most desktop computers simply can't handle them, so there is no way to open them or even 'take a peak' inside them. Hopefully you have seen how that those simple taskes are quite trivial with linux systems. Dealing with large files and scaling up your analyses are easy for linux.
+
 # The Linux file structure
 
 ### Root
@@ -91,3 +107,35 @@ In order to accomplish this, we have written a helper program that will mount th
 * Steps to follow here.
 
 *** 
+
+# Miscellaneous review
+
+### __`cat`__ vs __`less`__
+Both of these functions will open up a file and display it's contents. What is the difference between the two and when should you use one over the other?
+
+* `cat` opens a file and traverses row by row, sending the row's contents to *standard output*, which means that unless otherwise specified, it gets dumped onto your screen. That usually isn't very helpful, especially if it's a really big file. This usually isn't the best way to just take a peak. Typically, use `cat` when you want to stream the contents of the file row by row into some other function that will transform the data. 
+
+* `less` allows you to open a file, but it only shows you the first page. Because it doesn't ever load the whole thing into memory, it is a great way to 'take a peak' inside a very big text file. As you scroll down, it quietly loads more into the memory as needed. Notice that `less` opens an actual program. Unlike `cat` you actually have to quit the program to get back to the command prompt.
+
+### Choosing command flags, parameters, and using `--help`
+The behavior of each command can be modified by setting different parameters. Most commands have a default parameter setting that runs when nothing is specified. But this can be modified by specifying different options, parameters or settings. 
+
+* __flags__ are typically options that you can set to turn certain behaviors on or off. Because they are typically yes/no, they don't require any further arguments. In linux, flags are set using the minus sign `-` and are typically followed by a letter. You can set multiple flags at once by specifying multiple letters after the `-`. There's often a longform version of flags that is set using the double minus sign `--` followed by a word. The double minus usually distinguishes between a longform flag vs a set of multiple flags.
+```
+ls
+ls -a
+ls -l
+ls -al
+ls --all
+```
+
+* __parameters__ are special flags that require some additional input. For instance, you could specify the name of an input file or search string. Parameters are also typically designated with the minus sign `-` followed by a letter, `=` (or sometimes a space), and parameter value. As above, sometimes the parameter is designated with a word rather than a single letter. In this case, you would usually use a double minus `--`. (Just be aware that the double minus thing isn't a hard fast rule!)
+```
+cd /
+ls --ignore=tools
+```
+
+* __`--help`__ is how you find out what flags and parameters are available and how you use them.
+```
+ls --help
+```

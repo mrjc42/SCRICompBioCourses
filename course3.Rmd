@@ -175,10 +175,20 @@ centre(x, "median")
 
 
 # Writing good code in R
+R makes it easy to write functions.  But sometimes it seems that it makes it too easy.  You will find yourself thinking this someday when you have to decipher some horribly written R function that someone passes along to you.  Far worse though, is the realization that you yourself wrote an awful function years ago and now have to translate it today.  This section will attempt to help you avoid some of the misery associated with writing poor R code by giving you a few useful tips. 
+
 ### check your arguments when writing functions
+One of the most important things to do when writing functions is to check the arguments.  You can never trust your end users to pass in the kinds of things you were thinking when you first wrote the function.  In fact, this problem is so important that a lot of the more used R functions end up with a large proportion of code at the time written just to make sure that the arguments passed in are the correct types, lengths and contain the correct kind of information.  It is much more valuable to an end user to be told early on that one of their arguments is the wrong kind of data than to silently fail and pass along bad information back to them...
+
 ### write short functions
+Always try to write functions that only do one thing.  And if you must write a function that does multiple things, it should be written so that it calls several shorter (and simpler functions).  The best functions are the ones that do one thing well.  Why?  Because a simple function is more likely to be reusable.  And it is also a lot more likely to make sense when you have to decipher what it's original purpose was three months from now.
+
 ### Don't repeat yourself (DRY)
+Copying code is always a bad idea.  Inevitably, if you have two places in your code where the same thing is repeated, what will happen is that you will have to make a change and you will forget to keep them both in sync.  While that might be an interesting natural history experiment, it makes for a lot of engineering headaches down the road.  If you ever find yourself with the same code in more than one place do yourself a favor and write a short function (then call it in those two places).
+
 ### always check if someone else has solved the problem
+Even better than writing code is to discover that someone else has already solved the problem.  Always look before you write.
+
 
 ***
 ####  <span style="color:blue">__Exercise R:__</span> 
@@ -196,7 +206,25 @@ One of the common problems when writing code is working out how long something t
 system.time(date())
 ```
 
+### `browser`
 
+I don't really recommend using `browswer` for actual debugging.  But it's been around long enough that if you look into debugging someone will mention it.  Now I have too!  To make use of it, you just need to insert a function call to browser() into your source code.  If that sounds inconvenient, it's because it is.  :P
+
+### `debug` and `undebug`
+
+Instead I recommend starting your debug adventures with the `debug` function.  This will allow you to 'look inside' a function while it runs, pausing to look at the values of local variables as it proceeds.  This function will make a call to the browser() whenever you actually step into the marked function 'as if' you had modified your code by using the `browser` function.  And when you are done, you can call `undebug` so that future calls to that function will not get launch into the debugger.
+
+### `trace`
+
+The one big bummer about `debug` is that it doesn't work on methods.  This would not be a problem except that a lot of functions are actually S4 methods (so `debug` won't let you look inside of these).  The `trace` method is better in the sense that it works on everything, but it's worse in the sense that you have to use several arguments to get it to help you.  So it's not as convenient as `debug`.
+
+### Using RStudio to debug
+
+This is pretty nice and give you access to some of the nicer debugging tools that have traditionally been missing from R.  But it is also documented elsewhere.  Using RStudio you can set breakpoints so that you can stop your code with minimal fuss.  But this has all been documented before by the RStudio team:
+
+```
+https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
+```
 
 
 ***

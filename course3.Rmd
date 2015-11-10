@@ -10,10 +10,42 @@ Welcome to our third course which aims to take you from a basic ability to inter
 Here is a list of topics that should be covered by the end of this course:
 
 # Basic system tools
-### system.time
-### system()
-### getwd(), setwd()
-### dir(), file.remove(), file.rename()
+One of the useful parts of R is how it can interact directly with the OS that you have installed it on.  R can see what is in your local filesystem, it knows what kind of an OS you are running, and how to point the file separators.  And it can even launch command line tools right from R.  However, using these abilities can come at the cost of platform independence (the ability of your R scripts to be portable to other platforms).  So you should use these powers judiciously.
+
+### `getwd`, `setwd`
+
+The most basic R file system utility is probably `getwd` or "get working directory" function.  It means the same thing as the unix `pwd` command, except that instead of telling you where you are, it tells you where R is working from at the time.  If you don't like where R has defaulted to, you can use the `setwd` command to set the directory to something else.
+
+
+### `dir`, `file.remove`, `file.rename`
+
+R has a family of functions for basic file management.  `dir` will let you list the contents of a directory, `file.remove` will let you remove a file from the file system and `file.rename` will let you rename OR move a file to another location (whether you name it something new or not).
+
+
+### The powerful (but problematic) `system` command:
+
+One of the most complicated and powerful of R's basic utilities is the `system` command.  This will run any command line commands based on the interpretation of a string that you pass in.  This is obviously extremely powerful, but remember that if you use this function in a program your code will no longer work on any platform other than ones that support the exact system command that you are passing in.  So for example, the following command will only work on unix based systems:
+
+```{r}
+system('pwd')
+```
+
+### platform independence: `.Platform$file.sep`, `file.path` and `system.file`
+
+So how can you deal with the problem of platform independence?  There are many solutions to different problems that are created by the need to have portable R code.  One of the most common problems is: How do I read in a file when the file separators are different on different OS's?  
+
+To learn what the current OS is using as a file separator, you can look at the path.sep portion of the .Plaform object like this:
+```{r}
+.Platform$file.sep
+```
+
+Alternatively, maybe you have set things up so that you always have file 'bar.txt' that is contained inside of a 'foo' directory.  If that is the case you can always generate the correctly formatted file path by using the `file.path` function:
+
+```{r}
+file.path('foo','bar.txt')
+```
+
+Finally, if you have a file that is stored in an installed package, the `system.file` command is an ideal way to refer to resources like this (in a way that respects whatever OS you are using).
 
 
 ***
@@ -41,6 +73,26 @@ Here is a list of topics that should be covered by the end of this course:
 ***
 ####  <span style="color:blue">__Exercise R:__</span> 
 ***
+
+
+
+# Basic debugging tools
+
+### `system.time`
+
+One of the common problems when writing code is working out how long something takes.  The `system.time` command will tell you this information for any function or R expression.  This is a good tool to should reach for when you need to know which part of your script is taking too long to run.  So for example, this is how you can learn how long it takes to run the `date` function.
+
+```{r}
+system.time(date())
+```
+
+
+
+
+***
+####  <span style="color:blue">__Exercise R:__</span> 
+***
+
 
 
 # Some pitfalls specific to R

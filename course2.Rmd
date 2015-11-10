@@ -45,6 +45,7 @@ We will be using a program called __RStudio__ to interface with R. RStudio is cu
 ***
 ####  <span style="color:blue">__Exercise R0:__</span> 
 
+* Make sure that you are either in the Childrens network already (not just the PDN) OR use a Gemalto key to connect to a machine in the Childrens network. 
 * Open a browser window. Firefox and chrome work great. Internet Explorer 9 has some issues. 
 * In the address bar, type http://sideswiper:8787
 * Enter your SCH userid and password
@@ -59,7 +60,7 @@ First lets get you used to RStudio.  RStudio is one of the most popular tools fo
 This panel is your actual R console.  This panel is basically what you would see if you were to run R at the command line without any of the RStudio bells and whistles.
 
 #### Source panel:
-The Source panel is where you can edit scripts and markdown documents etc.  It's primary function is to be a text editor.  You can use any text editor that you like to write R, but this one is nice because it comes pre-configured with sensible defaults for source code highlighting.  This makes it easier to read your source code.  Also convenient: if you highlight a command and then hit CTRL-ENTER keys, it will send the highlighted text directly to the console to be executed.
+The Source panel is where you can edit scripts and markdown documents etc.  It's primary function is to be a text editor.  You can use any text editor that you like to write R, but this one is nice because it comes pre-configured with sensible defaults for source code highlighting.  This makes it easier to read your source code.  Also convenient: if you highlight a command and then hit CTRL-ENTER keys, it will send the highlighted text directly to the console to be executed.  If this panel is not open yet, you can activate it by opening a file.
 
 #### Environment panel:
 This panel is where you will see important details about your R session.  Any local variables will be shown here, and there is also a tab to see your command history.  This can be convenient if you are debugging or need to look at what is in a local object.
@@ -70,9 +71,9 @@ The Files panel has many tabs.  The Files tab will let you look at the files in 
 
 ### What is R?
 
-R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  R is often called a "high level" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R already has a large existing collection of friendly and powerful software packages that you can harness to do useful work.  
+R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  The R language is often called a "high level" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R already has a large existing collection of friendly and powerful software packages that you can harness to do useful work.  
 
-Also important: R is written entirely as an open source piece of software. This is very good for scientific computing since it means that don't have to blindly trust anyone else that R will work as advertised.  If for some reason you find something with the software that you think is a bug, you can find and bother the people who authored it or even explore the source code for yourself.  This is important because while all software has bugs: only open sourced software allows you easy access to discover and fix them.
+Also important: R is written entirely as an open source piece of software. This is very good for scientific computing since it means that don't have to blindly trust anyone else that R will work as advertised.  If for some reason you find something with the software that you think is a bug, you can find and bother the people who authored it or even explore the source code for yourself.  This is important because while all software has bugs: only open sourced software allows you easy access to discover and fix them.  All R packages have a DESCRIPTION file that lists both who wrote it and also provides information about who maintains it.
 
 
 #### Object oriented programming
@@ -97,7 +98,7 @@ What if you wanted to create your own variables?
 
 #### Assignment operators 
 
-Before I explain about assignment.  Lets start with: what is an operator?  In R an operator is a way of succinctly indicating a specific kind of event.  For those who already know what a function is, an operator is just a special kind of function.  For those who don't konw what a function is: just hang on a few more minutes and we will explaing those too.  :)  As as example of an operator the `+` operator works like this:
+Before I explain about assignment.  Lets start with: what is an operator?  In R an operator is a way of succinctly indicating a specific kind of event.  For those who already know what a function is, an operator is just a special kind of function.  For those who don't know what a function is: just hang on a few more minutes and we will explaing those too.  :)  As an example of an operator the `+` operator works like this:
 
 ```{r}
 1 + 2
@@ -131,7 +132,7 @@ Compare the output from `LETTERS` and `pi`. One thing you will notice is that `p
 
 #### This is because in R: Vectors are atomic
 
-Therefore `pi` is also a vector. Vectors can theoretically hold any number of elements, including only one or even zero. So `pi` is a vector of length one, similar to a list with only one element. In R, vectors are 'atomic'.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest or simplest container in R is still just a short vector.  
+Therefore `pi` is also a vector. Vectors can theoretically hold any number of elements, including only one or even zero. So `pi` is a vector of length one, similar to a list with only one element. In R, vectors are 'atomic'.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest or simplest data container in R is still just a short vector.  
 
 #### Creating vectors
 

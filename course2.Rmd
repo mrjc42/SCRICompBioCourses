@@ -2,7 +2,7 @@
 title: "Introduction to R and interactive programming"
 author: "Marc, Sean, Bronson and Debbie"
 date: "11/11/2015"
-output: html_document
+output: pdf_document
 ---
 
 Welcome to the second course in our series titled: 'Computational Biology for Biologists'.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
@@ -40,7 +40,7 @@ If this all seems like we could have made it 'easier' for you, please remember t
 # Introduction to R
 
 ### Opening RStudio
-We will be using a program called __RStudio__ to interface with R. RStudio is currently hosted on the Sideswiper machine until a more permanant home can be found for it. You access RStudio from a web browser and log in using your SCH credentials. Behind the scenes, you will be using the R instance that is built onto Sideswiper.
+We will be using a program called __RStudio__ to interface with R. RStudio is currently hosted on the Sideswiper machine until a more permanent home can be found for it. You access RStudio from a web browser and log in using your SCH credentials. Behind the scenes, you will be using the R instance that is built onto Sideswiper.
 
 ***
 ####  <span style="color:blue">__Exercise R0:__</span> 
@@ -78,7 +78,7 @@ Also important: R is written entirely as an open source piece of software. This 
 
 #### Object oriented programming
 
-R, like many other languages, has the concept of "objects". Objects are like variables in algegra, i.e. they are merely symbolic variables that can be used to represent values or other bits of information. That information can be simple, such as a numerical value, a string of text, or a logical (computer talk for `TRUE` or `FALSE`). Objects can also represent much more complicated data structures such as lists, tables, and high dimensional matrices. We will discuss these in more detail later in the course. For now, lets stick with some fairly simple objects.
+R, like many other languages, has the concept of "objects". Objects are like variables in algebra, i.e. they are merely symbolic variables that can be used to represent values or other bits of information. That information can be simple, such as a numerical value, a string of text, or a logical (computer talk for `TRUE` or `FALSE`). Objects can also represent much more complicated data structures such as lists, tables, and high dimensional matrices. We will discuss these in more detail later in the course. For now, lets stick with some fairly simple objects.
 
 #### Sample objects
 
@@ -98,15 +98,15 @@ What if you wanted to create your own variables?
 
 #### Assignment operators 
 
-Before I explain about assignment.  Lets start with: what is an operator?  In R an operator is a way of succinctly indicating a specific kind of event.  For those who already know what a function is, an operator is just a special kind of function.  For those who don't know what a function is: just hang on a few more minutes and we will explaing those too.  :)  As an example of an operator the `+` operator works like this:
+Before I explain about assignment.  Lets start with: what is an operator?  In R an operator is a way of succinctly indicating a specific kind of event.  For those who already know what a function is, an operator is just a special kind of function.  For those who don't know what a function is: just hang on a few more minutes and we will explaining those too.  :)  As an example of an operator the `+` operator works like this:
 
 ```{r}
 1 + 2
 ```
 
-As you use R you will learn that there are many other operators that you can leverage, and for most of them the way you use them is very straightforward.  Here we are goign to learn about the assignment operators.
+As you use R you will learn that there are many other operators that you can leverage, and for most of them the way you use them is very straightforward.  Here we are going to learn about the assignment operators.
 
-Now lets consider the case where we want to assign a simple variable.  In R there are actually __two__ different symbols used as assignment operators.  I will demonnstrate each of them below:
+Now lets consider the case where we want to assign a simple variable.  In R there are actually __two__ different symbols used as assignment operators.  I will demonstrate each of them below:
 
 ```{r}
 foo <- "yes"
@@ -225,9 +225,9 @@ Now that you have loaded a package, lets talk about the search path.  The search
 search()
 ```
 
-This will print all the libraries/packages that your current R session has loaded as a single character vector.  This is an important thing to pay attention to since every time you add a new package to the search path, it adds another set of objects, functions and symbols for R to look at everytime you ask it to do something.  So your code will run faster if you load fewer things onto that path.
+This will print all the libraries/packages that your current R session has loaded as a single character vector.  This is an important thing to pay attention to since every time you add a new package to the search path, it adds another set of objects, functions and symbols for R to look at every time you ask it to do something.  So your code will run faster if you load fewer things onto that path.
 
-To see the symbols in any elemnent of the search path, you can use the list objects or `ls` function.  The `ls` function can either take an index value like this:
+To see the symbols in any element of the search path, you can use the list objects or `ls` function.  The `ls` function can either take an index value like this:
 
 ```{r}
 ls(2)
@@ -298,7 +298,7 @@ mat <- matrix(numVec, nrow = 2, ncol = 3, byrow = TRUE)
 mat
 ```
 
-Once you have a matrix you can see how big it is with the dimentions function: `dim`.
+Once you have a matrix you can see how big it is with the dimensions function: `dim`.
 
 ```{r}
 dim(mat)
@@ -409,7 +409,7 @@ Use read.table to read in the file `genesFile.txt`.  Be sure to capture the resu
 Once you have an object in R, there are a TON of fun ways that you can manipulate it.
 
 #### Data coercion
-The 1st type of manipulation are coercion methods (sometimes called casting).  These methods allow you to take data from one format and convery it into another format.  For example, a lot of data can be coerced to a list using the `as.list` function.  Think of our data.frame object from before and imaging if you could make each column into an element in a list like object instead.  You can do that just like this.
+The 1st type of manipulation are coercion methods (sometimes called casting).  These methods allow you to take data from one format and convert it into another format.  For example, a lot of data can be coerced to a list using the `as.list` function.  Think of our data.frame object from before and imaging if you could make each column into an element in a list like object instead.  You can do that just like this.
 
 ```{r}
 as.list(df)
@@ -536,7 +536,7 @@ lst[[1]]
 class(lst[[1]])
 ```
 
-If you look closely, you will notice that these two operators are not returning the same thing.  A useful analogy is to think of your list of data.frame like it was a cargo train.  In this analogy, the single bracket will alway return to you a smaller train, but the double bracket will return to you the contents of a particular train car.
+If you look closely, you will notice that these two operators are not returning the same thing.  A useful analogy is to think of your list of data.frame like it was a cargo train.  In this analogy, the single bracket will always return to you a smaller train, but the double bracket will return to you the contents of a particular train car.
 
 Now lets look at our data.frame example:
 
@@ -560,7 +560,7 @@ Notice how in both cases, the subset operator gets you the contents of the same 
 
 #### Using the single bracket operator to subset square data
 
-Something that we didn't mention above is that for 'square' data, the single bracker operator can take another argument.  What this means is that you can extract both columns and rows at the same time.  What is confusing though, is that when you use the second argument, the first argument will now apply to rows while the second argument applies to columns.  Lets look at some examples:
+Something that we didn't mention above is that for 'square' data, the single bracket operator can take another argument.  What this means is that you can extract both columns and rows at the same time.  What is confusing though, is that when you use the second argument, the first argument will now apply to rows while the second argument applies to columns.  Lets look at some examples:
 
 The whole object (matrix)
 ```{r}
@@ -715,13 +715,13 @@ Lets look more closely at the help page for data.frames.  Notice the first argum
 One of the greatest strengths of R is the abundance of existing software that already exists.  Here are several places where you can expect to find a lot of software for use with R:
 
 #### CRAN 
-CRAN alone has thousands of freely available software packages for you to browse.  CRAN is one of the oldest of the R repositories and it's also one of the largest and most popular.  It's pretty easy to put a package on CRAN though, so a lot of what is there may not be terribly well documented.  Also a bummer is that CRAN does not make it easy for package authors to update their packages which means that packages on CRAN may have significant delays before being udpated for bugs etc.  But: CRAN is a great resource and home to many wonderful packages that are useful for many different things.
+CRAN alone has thousands of freely available software packages for you to browse.  CRAN is one of the oldest of the R repositories and it's also one of the largest and most popular.  It's pretty easy to put a package on CRAN though, so a lot of what is there may not be terribly well documented.  Also a bummer is that CRAN does not make it easy for package authors to update their packages which means that packages on CRAN may have significant delays before being updated for bugs etc.  But: CRAN is a great resource and home to many wonderful packages that are useful for many different things.
 
 #### Bioconductor
 Bioconductor is smaller than CRAN with only about 1000 software packages.  However all of them have been reviewed, are well documented, and are built and checked nightly to ensure that they are still in good working order.  Because the mission of Bioconductor is to help with computational Biology, their package repository is limited to packages that relate to that topic.  So if you need software that is designed for general statistical use you will usually learn that is has been stashed somewhere else (often on CRAN).
 
 #### github
-These days github has become a hotbed for open source softare.  Partly as a result of this, a lot of package authors are now storing their packages just on github.  This is fine except that github will not run regular checks to make sure that such packages work as advertised or do any policing to make sure that packages are well documented.
+These days github has become a hotbed for open source software.  Partly as a result of this, a lot of package authors are now storing their packages just on github.  This is fine except that github will not run regular checks to make sure that such packages work as advertised or do any policing to make sure that packages are well documented.
 
 
 ### Bioconductor
@@ -736,6 +736,9 @@ http://bioconductor.org/help/workflows/
 ```
 
 
+***
+***
+***
 
 
 ####  <span style="color:blue">__Exercise R1:__</span> 

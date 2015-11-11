@@ -243,7 +243,7 @@ ls("package:stats4")
 ### Atomic vectors and other fun data structures
 Because R is a data centric statistical language it has a lot of fun ways to represent data.
 
-#### class, length
+#### Vectors and introducing the `class` and `length` functions
 
 So we already talked about how vectors are the most basic data structure in R.  What we didn't spend as much time on is that they come in different flavors or classes.  You can see what class an object is by passing it to the class() function like this:
 
@@ -678,7 +678,7 @@ example('as.numeric')
 
 
 
-#### vignettes
+#### Vignettes
 One step up from manual pages are vignettes.  There are two kinds of vignettes for any R package.  One is the automatically generated kind.  This kind consists of all the manual pages collated together under a table of contents.  This kind of vignette is not especially useful.  The second kind of vignette though is very useful.  This second kind of vignette gives an overview of how the various kinds of functions and objects were intended to be used.  Many of the best R packages will contain this second, more useful kind of vignette.  When they are available, these are a great way to see what the package authors intention was.
 
 #### Workflows

@@ -53,6 +53,23 @@ Finally, if you have a file that is stored in an installed package, the `system.
 ***
 
 
+# Loops in R
+
+### the apply family 
+### lapply 
+### mclapply
+### map or mapply
+
+### for loops (for when apply is not possible)
+
+
+
+***
+####  <span style="color:blue">__Exercise R:__</span> 
+***
+
+
+
 # How to create basic functions
 
 Now we are ready to introduce the tools for how to write basic functions.  The good news is that writing functions is easy.  The bad news is that writing great functions takes practice.  Here we will introduce you to the basics and then we will give you some tips so that you can write useful functions.
@@ -232,17 +249,6 @@ https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
 ***
 
 
-
-# Some pitfalls specific to R
-#### forgetting to vectorize
-#### the loop with a big appetite
-#### hidden arguments and default behaviors [,drop=TRUE]
-
-***
-####  <span style="color:blue">__Exercise R:__</span> 
-***
-
-
 # Literate programming.
 ### What is an .Rmd file?
 ### Reproducible research
@@ -260,7 +266,24 @@ https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
 ***
 
 
-# Bioconductor. 
+
+***
+***
+***
+***
+
+
+# Some pitfalls specific to R
+#### forgetting to vectorize
+#### the loop with a big appetite
+#### hidden arguments and default behaviors [,drop=TRUE]
+
+***
+####  <span style="color:blue">__Exercise R:__</span> 
+***
+
+
+# Bioconductor. (kind of covered already)
 ### How to find good packages for your problem (biocviews)
 
 ### How to use workflows
@@ -268,12 +291,6 @@ https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
 
 ***
 ####  <span style="color:blue">__Exercise R:__</span> 
-***
-
-
-***
-***
-***
 ***
 
 

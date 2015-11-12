@@ -5,7 +5,7 @@ date: "11/6/2015"
 output: html_document
 ---
 
-This document expands on some important topics from Course 1 that will be important for you to know as you navigate your way around the linux environment within SCRI. This module will help you understand how the file system is organized, what things you can, cannot, and should not access, and other policies and best practices that will make your life easier as you use these resources.
+This document expands on some important topics from Course 1 that will be important for you to know as you navigate your way around the Linux environment within SCRI. This module will help you understand how the file system is organized, what things you can, cannot, and should not access, and other policies and best practices that will make your life easier as you use these resources.
 
 # Why Linux?
 
@@ -15,13 +15,13 @@ A question that came up and that perhaps you have asked, "Is this really worth i
 
 * Fine control. Whenever you make a graphical user interface, it becomes very hard to expose all the options that the program is capable of in an easy way. Therefore, you usually make assumptions and lock in some defaults. At the command-line, you can more easily allow the user to specify parameters and gain fine control of the program.
 
-* Modularity. With a command-line interface, you can string small programs together like legos and build your own custom workflows and programs that work exactly the way you want them to.
+* Modularity. With a command-line interface, you can string small programs together like Legos and build your own custom workflows and programs that work exactly the way you want them to.
 
 * Reproducibility. When you use command-line and/or write scripts, you create a record of exactly what you did to your data. Anytime you re-run the commands you wrote, you will get the same result.
 
-* Speed. In the short-term, it may seem like a huge investement of time and energy to learn how to work in this environement and use these tools. The payoff comes though when you can write scripts to automate many tasks that once required hours of tedious repetition. Also, with linux, you can take better advantage of parallel processing to vastly speed up the processing time.
+* Speed. In the short-term, it may seem like a huge investment of time and energy to learn how to work in this environment and use these tools. The payoff comes though when you can write scripts to automate many tasks that once required hours of tedious repetition. Also, with Linux, you can take better advantage of parallel processing to vastly speed up the processing time.
 
-* Scale. Most of the files that you may encounter, such as fasta, fastq, bam, etc, are enormous. Although they are often just simple text documents, most desktop computers simply can't handle them, so there is no way to open them or even 'take a peak' inside them. Hopefully you have seen how that those simple taskes are quite trivial with linux systems. Dealing with large files and scaling up your analyses are easy for linux.
+* Scale. Most of the files that you may encounter, such as fasta, fastq, bam, etc, are enormous. Although they are often just simple text documents, most desktop computers simply can't handle them, so there is no way to open them or even 'take a peak' inside them. Hopefully you have seen how that those simple tasks are quite trivial with Linux systems. Dealing with large files and scaling up your analyses are easy for Linux.
 
 # The Linux file structure
 
@@ -32,17 +32,17 @@ If you are used to interfacing with your computer via a graphical user interface
 ***
 ####  <span style="color:blue">__Exercise L1:__</span>
 * Using the `cd` command, navigate to the root directory. <Hint: the root directory is designated by `/`.
-* Using the `ls` command, take a look at the contents of root. Just for fun, try adding the `-a` and `-l` flags, seperately and together. What files do you see? Can you tell if these are actual files or directories?
+* Using the `ls` command, take a look at the contents of root. Just for fun, try adding the `-a` and `-l` flags, separately and together. What files do you see? Can you tell if these are actual files or directories?
 
 ***
 
 ### Common system directories
 
-In the last example, you noticed that there are many directories contained in `root`, and you may wonder what these are for and if they are important to you. Most of these are system directories that are common to nearly every linux OS. __They have specific functions, and unless you really know what they are for and are authorized to change them, it is best to leave these alone.__ To satisfy your curiosity, here is a brief description of some of the common ones:
+In the last example, you noticed that there are many directories contained in `root`, and you may wonder what these are for and if they are important to you. Most of these are system directories that are common to nearly every Linux OS. __They have specific functions, and unless you really know what they are for and are authorized to change them, it is best to leave these alone.__ To satisfy your curiosity, here is a brief description of some of the common ones:
 
 * __`/bin`__: This directory contains many *binary* files for the common commands such as `ls`, `mv`, `cp`, etc.
 
-* __`/dev`__: This directory contains system files related to any attached *devices*, such as hard drives, dvd drives, modems, speakers, etc.
+* __`/dev`__: This directory contains system files related to any attached *devices*, such as hard drives, DVD drives, modems, speakers, etc.
 
 * __`/etc`__: This stands for *et cetera*. But that doesn't mean that the contents are miscellaneous, although it's likely it once meant that. Now, this drive contains all system related configuration files. It is considered the nerve center of the system.
 
@@ -56,9 +56,9 @@ In the last example, you noticed that there are many directories contained in `r
 
 ### Home
 
-__`/home`__ deserves a little special attention. __home__ is not to be confused with __root__. A home directory is merely a default location to store personal account settings and user-specific files. Note however, that home is not root. In linux, your home directory is always located at `/home/username`. Because this is a common stop for so many functions, a convenient short hand is used to designate home: `~/`.
+__`/home`__ deserves a little special attention. __home__ is not to be confused with __root__. A home directory is merely a default location to store personal account settings and user-specific files. Note however, that home is not root. In Linux, your home directory is always located at `/home/username`. Because this is a common stop for so many functions, a convenient short hand is used to designate home: `~/`.
 
-Because `/home` belongs to you, it is one of the few places where you can explore and play around without crashing the system (usually). Because it has a convenient short cut when using `cd`, it is a conveneint place to create links to other locations in your system. It is a very tempting place to set up shop and store all of your data. Afterall, when you first log in to the system, this is where you land. Even in our exercises, we had you start dumping the example files here. Be aware though, that in our system, `/home` is not very big. __You only have 10 GB of space alloted to your `/home` directory.__ For that reason, you really don't want to store your data in `/home`. Below, we will discuss some better alternatives.
+Because `/home` belongs to you, it is one of the few places where you can explore and play around without crashing the system (usually). Because it has a convenient short cut when using `cd`, it is also a convenient place to create links to other locations in your system. It is a very tempting place to set up shop and store all of your data. After all, when you first log in to the system, this is where you land. Even in our exercises, we had you start dumping the example files here. Be aware though, that in our system, `/home` is not very big. __You only have 10 GB of space alloted to your `/home` directory.__ For that reason, while it is a good place to stash some small files that you want to persist on the system, you really don't want to store your actual data in `/home`. Below, we will discuss some better alternatives.
 
 ***
 ####  <span style="color:blue">__Exercise L2:__</span>
@@ -74,20 +74,26 @@ du -sh
 
 There are two directories in `root` that are specific to the SCRI environment and that will be key to successfully working with the autobots:
 
-* __`/tools`__ The tools directory contains a collection of bioinformatics related applications, programs and tools that we have precompiled for your use. You will see a few programs of interest here, such as `GATK`, `freebayes`, `snpEFF`. I want to briefly point out a few interesting locations:
+* __`/tools`__ The tools directory contains a collection of bioinformatics related applications, programs and tools that we have pre-compiled for your use. You will see a few programs of interest here, such as `GATK`, `freebayes`, `snpEFF`, etc. I want to briefly point out a few interesting locations:
 
-    + __`/tools/BioBuilds-2014.04/bin`__: Most of the bioinformatics tools that you will need have been obtained through a software bundle called __`BioBuilds`__. Inside this directory is a `bin` directory that contains a bunch of executables for many common bioinformatics tools. If you want, you can look at inside and see what is available. In practice though, you should never really need to physically look around in here. If you want to know if a particular program is available, such as the BWA aligner, the easiest thing to do is to use the `which` command. 
+    + __`/tools/BioBuilds-2014.04/bin`__: Most of the bioinformatics tools that you will need have been obtained through a software bundle called __`BioBuilds`__. This BioBuilds `bin` directory contains a bunch of executables for many common bioinformatics tools. If you want, you can look inside and see what is available. In practice though, you should never really need to physically look around in here. If you want to know if a particular program is available and ready to execute, such as the BWA aligner, the easiest thing to do is to use the `which` command. 
 ```
 which bwa
 ```
-    + __`/tools/BioBuilds-2014.04/share/java`__: One of the more useful utilities included in BioBuilds is `picard`. It is a java script `jar` file, which means that it executes a little differently than other programs. It has to be called from `java` and you will have to supply the full path to it. So in case you are wondering, here is how you call picard:
+The output of this will either tell you the path of where this command lives or will tell you that it couldn't find it in any of the expected locations (meaning it either isn't installed or it isn't ready to be executed easily).
+
+
+    + __`/tools/BioBuilds-2014.04/share/java`__: One of the more useful utilities included in BioBuilds is one called `picard`. `picard` is a collection of mini programs that allow you to manipulate sequence files and alignment files. It is a java script `jar` file, which means that it executes a little differently than other programs. It has to be called from `java` and you will have to supply the full path to it. So in case you are wondering, here is how you call picard:
 ```
 java -jar /tools/BioBuilds-2015.04/share/java/picard/picard.jar
 ```
+The output of this will be a list of all the mini programs available through `picard`. We will go over how to use some of these at another time, or as needed through drop-in office hours.
+
+
     + __`/tools/references`__. As you saw in the Course 1 exercises, this directory contains reference sequences and genome annotations for a number of model organisms. If there are additional tools or references that you think you may need frequently and that could be of interest to others generally, you can request that they be added by sending an email to ResearchScientificComputing@seattlechildrens.org.
 
 
-* __`/data`__ The data directory provides some local scratch space for users. The term __"local"__ just means that that space is physically located on the computer you are using. Therefore the read/write speed to this disk is relatively fast compared to a mounted (remote) file system. The term __"scratch space"__ means that the space is not intended to keep anything permanently. It is a temporary holding spot. The data directory provides you a convenient local place to temporarily stash files that you are actively working on. When you are done with them, they should be moved elsewhere to free up this space for others. The `/data` directory provides 2 TB of shared space. __Note: You should not use your `home` directory for scratch space. Use `/data` instead.__ 
+* __`/data`__ The data directory provides some local scratch space for users. The term __"local"__ just means that that space is physically located on the computer you are using. Therefore the read/write speed to this disk is relatively fast compared to a mounted (remote) file system. The term __"scratch space"__ means that the space is not intended to keep anything permanently. It is a temporary holding spot. The data directory provides you a convenient local place to temporarily stash files that you are actively working on. When you are done with them, they should be deleted or moved elsewhere to free up this space for others. The `/data` directory provides 2 TB of shared space. __Note: You should not use your `home` directory for scratch space. Use `/data` instead.__ 
 
 ***
 ####  <span style="color:blue">__Exercise L3:__</span>
@@ -97,14 +103,41 @@ java -jar /tools/BioBuilds-2015.04/share/java/picard/picard.jar
 *** 
 
 ### The best place to read and write
-You may be asking "If I can't stash stuff in my home directory because it's too small and the data directory is only for scratch space, then where am I supposed to store my stuff?" The answer is that this is the intended use of your departmental share drives. These drives can be mounted (or mapped to use the Windows phrase) on the linux system and accessed directly. __The best practice for doing work on these machines is to read from and write directly to your departmental share drives.__
+You may be asking "If I can't stash stuff in my home directory because it's too small and the data directory is only for scratch space, then where am I supposed to store my stuff?" The answer is that this is the intended use of your departmental share drives. 
 
-In order to accomplish this, we have written a helper program that will mount the share for you.
+Unlike your O drive, departmental share drives are not automatically issued. They are provisioned by request to departments, centers, or PIs, and access to a drive is controlled by permissions. It is likely that you already have access to one or more departmental shares through your lab. Share drives are backed up to tape on a daily basis, so the information stored there is very secure and easily recoverable. Also, share drives typically provide space enough for larger amounts of information, so they are really the best place to be storing your scientific data.  
+
+These drives can be mounted (or mapped to use the Windows phrase) on the Linux system and accessed directly. __The best practice for doing work on these machines is to read from and write directly to your departmental share drives.__ If performance is an issue, you can temporarily write to `/data`, but please remember to move or delete when finished. You should not regularly write output to `/home`.
+
+In order to get access to your share drives, we have written a helper program that will mount the share for you.
 
 ***
 ####  <span style="color:blue">__Exercise L4:__</span>
 
-* Steps to follow here.
+* Find out what departmental shares you have access to:
+    + Open 'My Citrix Computer' from your desktop.
+    + In the address bar, type `\\childrens.research\` and hit enter
+    + You will now see a list of departmental shares that you have access to.
+    
+* In your Linux terminal, run the following commands
+```
+cd ~
+Mountscript
+```
+Follow the prompts to add one or more of your departmental shares. Start with the one that you will primarily use to store your data. Be sure to follow the instructions regarding the use of forward slashes `/` for path separators.
+
+* If you have been successful, you will now see a series of new directories in your home drive: `share0`, `share1`, etc depending on how many drives you mounted. You will also see a new text file called `share_list`. This file simply records the names of the departmental shares that you have tried to mount. Try navigating through the file structure of your newly mounted shares
+```
+cd share0
+ls -l
+```
+
+* When you are done with your Linux session, it is good practice to unmount your drives before you log out. We are working on a way to do this automatically. In the meantime, you will want to manually unmount each drive as follows:
+```
+cd ~
+unmount share0
+```
+When you do this, you will see that `share0` is still there, but now it's contents are empty.
 
 *** 
 
@@ -120,7 +153,7 @@ Both of these functions will open up a file and display it's contents. What is t
 ### Choosing command flags, parameters, and using `--help`
 The behavior of each command can be modified by setting different parameters. Most commands have a default parameter setting that runs when nothing is specified. But this can be modified by specifying different options, parameters or settings. 
 
-* __flags__ are typically options that you can set to turn certain behaviors on or off. Because they are typically yes/no, they don't require any further arguments. In linux, flags are set using the minus sign `-` and are typically followed by a letter. You can set multiple flags at once by specifying multiple letters after the `-`. There's often a longform version of flags that is set using the double minus sign `--` followed by a word. The double minus usually distinguishes between a longform flag vs a set of multiple flags.
+* __flags__ are typically options that you can set to turn certain behaviors on or off. Because they are typically yes/no, they don't require any further arguments. In Linux, flags are set using the minus sign `-` and are typically followed by a letter. You can set multiple flags at once by specifying multiple letters after the `-`. There's often a long form version of flags that is set using the double minus sign `--` followed by a word. The double minus usually distinguishes between a long form flag vs a set of multiple flags.
 ```
 ls
 ls -a
@@ -139,3 +172,28 @@ ls --ignore=tools
 ```
 ls --help
 ```
+
+### Cheat sheets
+We have included some cheat sheets that could come in handy for you down the road. These were taken from a book called *Practical Computing for Biologists* by Steven Haddock and Casey Dunn. It is an excellent reference and highly recommended for anyone who would like to go deeper than what we have had time to do.
+
+#### Appendix 2: Regular Expressions
+Regular expressions are one of the most powerful tools for command line users. A startling number of problems you will encounter can be reformulated as some kind of simple text manipulation. These manipulations will follow patterns that easy for humans to define, but difficult for simple search and replace engines like you find in Excel or Word. For example, you may have a list of species as follows
+```
+Homo sapiens
+Drosophila melanogaster
+Caenorhabditis elegans
+Danio rerio
+```
+You would like to easily rename these to the more common short form
+```
+H. sapiens
+D. melanogaster
+C. elegans
+D. rerio
+```
+The pattern is easy enough: abbreviate the first word to the first letter, add a period, and retain the second word. But can you accomplish this with a simple search and replace in Excel? You would have to individually search for the strings *Homo*, then *Drosophila*, etc and replace each one, which is not very efficient.
+
+Regular expressions provide a powerful way to perform these sorts of pattern based search and replace queries. The above problem would be mind-blowingly trivial for a single regular expression query, even if the list were hundreds of species long. Using regular expressions could fill a course on its own. We will touch only briefly on these in Course 4, but we encourage you to explore them more on your own or come to office hours where we can spend more time on them.
+
+#### Appendix 3: Shell Commands
+A list of many of the most common shell commands. For most of you, these will cover ~95% of all of your Linux command needs, so they are worth spending time getting to know.

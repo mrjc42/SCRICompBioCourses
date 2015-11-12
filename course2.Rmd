@@ -2,7 +2,7 @@
 title: "Introduction to R and interactive programming"
 author: "Marc, Sean, Bronson and Debbie"
 date: "11/11/2015"
-output: pdf_document
+output: html_document
 ---
 
 Welcome to the second course in our series titled: 'Computational Biology for Biologists'.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
@@ -196,17 +196,34 @@ But once you start using named arguments in your function call, you had better s
 grepl('A', x=LETTERS)
 ```
 
+#### The special argument: '`...`'
+
+This is a special argument which indicates that a function can take multiple comma separated values (written in the function call _as if_ they were actually separate un-named arguments) _when in fact_ they will be treated by the function as if they were actually a single argument.  The function will require that any arguments given after the use of a `...` argument be named since otherwise R will have no way to know when you meant to stop passing in values that apply to the `...`.  To really understand how `...` works, you should do exercise R1.
+
+
 ***
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
-You need to create a vector of names based on the months of the year. You want the name to start with the month number followed by the month name. So the final vector should look like this:
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+First use the paste function to append a letter to a number. The output should look like this:
 
 ```{r, echo=FALSE}
-paste(1:12, month.name, sep='_')
+paste("A", "1", sep="")
 ```
 
-To do this, you will want a vector that has each month number (1-12) and a vector that has all the months.  R has such a vector already called: `month.name`.  Using those two vectors and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
+Be sure to use the `help` function in order to learn how to use the `paste` function.  Be aware that in R if you call an argument that expects a character vector, you will need to use quotes to indicate that it's a vector.  You might also wonder what an argument called "..." means.  That is a special argument that just means you can pass a lot of values in (instead of just one).  In the case of paste it means that unless you call a named argument (the other arguments are all named), paste will assume that your arguments are all character vectors that you want pasted together.  So to paste two characters (a letter and a number) together, you should include at least two character vectors (of length one each).
 
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+Now create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
+
+```{r, echo=FALSE}
+paste(month.name, "1",sep='_')
+```
+
+To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  
+
+#####   <span style="color:blue">__Exercise R1 part 3:__</span> 
+Now pass in two character vectors of unequal length.  Notice how paste handles the fact that you have passed in two different vectors by reusing the elements of the shorter vector...  This behavior is called "recycling".
 ***
 
 
@@ -743,21 +760,54 @@ http://bioconductor.org/help/workflows/
 
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
-You need to create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+First use the paste function to append a letter to a number. The output should look like this:
+
+```{r, echo=FALSE}
+paste("A", "1", sep="")
+```
+
+Be sure to use the `help` function in order to learn how to use the `paste` function.  Be aware that in R if you call an argument that expects a character vector, you will need to use quotes to indicate that it's a vector.  You might also wonder what an argument called "..." means.  That is a special argument that just means you can pass a lot of values in (instead of just one).  In the case of paste it means that unless you call a named argument (the other arguments are all named), paste will assume that your arguments are all character vectors that you want pasted together.  So to paste two characters (a letter and a number) together, you should include at least two character vectors (of length one each).
+
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+Now create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
 
 ```{r, echo=FALSE}
 paste(month.name, "1",sep='_')
 ```
 
-To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  Be sure to use the `help` function in order to learn how to use the `paste` function.
+To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  
+
+#####   <span style="color:blue">__Exercise R1 part 3:__</span> 
+Now pass in two character vectors of unequal length.  Notice how paste handles the fact that you have passed in two different vectors by reusing the elements of the shorter vector...  This behavior is called "recycling".
+
+
+
 
 #####  <span style="color:blue">__Answer for Exercise R1:__</span> 
 
-You can use the paste function like this:
+######  <span style="color:blue">__Answer for Exercise R1 (part 1):__</span> 
+To just append one character to one number, you can do it like this:
+
+```{r}
+paste("A", "1", sep="")
+```
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 2):__</span> 
+For the months example you can also use the the paste function like this with two longer vectors.
 
 ```{r, eval=FALSE}
 paste(1:12, month.name, sep='_')
 ```
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 3):__</span> 
+To two unequal character vectors, you can just enter two vectors with different amounts of values for each like below.  Notice how the shorter vector is 'recycled' by the paste function. 
+
+```{r}
+paste(c("A","B","C"), "1", sep="_")
+```
+
+
 
 
 

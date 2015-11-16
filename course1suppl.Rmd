@@ -64,7 +64,7 @@ Because `/home` belongs to you, it is one of the few places where you can explor
 ####  <span style="color:blue">__Exercise L2:__</span>
 * Navigate to your home directory using the `cd` command. <Hint: the home directory is given the special designation `~`.>
 * Find out how much disk space you are using in your home directory by typing the following command:
-```
+```{bash, eval=FALSE}
 du -sh
 ```
 
@@ -77,14 +77,14 @@ There are two directories in `root` that are specific to the SCRI environment an
 * __`/tools`__ The tools directory contains a collection of bioinformatics related applications, programs and tools that we have pre-compiled for your use. You will see a few programs of interest here, such as `GATK`, `freebayes`, `snpEFF`, etc. I want to briefly point out a few interesting locations:
 
     + __`/tools/BioBuilds-2014.04/bin`__: Most of the bioinformatics tools that you will need have been obtained through a software bundle called __`BioBuilds`__. This BioBuilds `bin` directory contains a bunch of executables for many common bioinformatics tools. If you want, you can look inside and see what is available. In practice though, you should never really need to physically look around in here. If you want to know if a particular program is available and ready to execute, such as the BWA aligner, the easiest thing to do is to use the `which` command. 
-```
+```{bash, eval=FALSE}
 which bwa
 ```
 The output of this will either tell you the path of where this command lives or will tell you that it couldn't find it in any of the expected locations (meaning it either isn't installed or it isn't ready to be executed easily).
 
 
     + __`/tools/BioBuilds-2014.04/share/java`__: One of the more useful utilities included in BioBuilds is one called `picard`. `picard` is a collection of mini programs that allow you to manipulate sequence files and alignment files. It is a java script `jar` file, which means that it executes a little differently than other programs. It has to be called from `java` and you will have to supply the full path to it. So in case you are wondering, here is how you call picard:
-```
+```{bash, eval=FALSE}
 java -jar /tools/BioBuilds-2015.04/share/java/picard/picard.jar
 ```
 The output of this will be a list of all the mini programs available through `picard`. We will go over how to use some of these at another time, or as needed through drop-in office hours.
@@ -120,20 +120,20 @@ In order to get access to your share drives, we have written a helper program th
     + You will now see a list of departmental shares that you have access to.
     
 * In your Linux terminal, run the following commands
-```
+```{bash, eval=FALSE}
 cd ~
 Mountscript
 ```
 Follow the prompts to add one or more of your departmental shares. Start with the one that you will primarily use to store your data. Be sure to follow the instructions regarding the use of forward slashes `/` for path separators.
 
 * If you have been successful, you will now see a series of new directories in your home drive: `share0`, `share1`, etc depending on how many drives you mounted. You will also see a new text file called `share_list`. This file simply records the names of the departmental shares that you have tried to mount. Try navigating through the file structure of your newly mounted shares
-```
+```{bash, eval=FALSE}
 cd share0
 ls -l
 ```
 
 * When you are done with your Linux session, it is good practice to unmount your drives before you log out. We are working on a way to do this automatically. In the meantime, you will want to manually unmount each drive as follows:
-```
+```{bash, eval=FALSE}
 cd ~
 unmount share0
 ```
@@ -154,7 +154,7 @@ Both of these functions will open up a file and display it's contents. What is t
 The behavior of each command can be modified by setting different parameters. Most commands have a default parameter setting that runs when nothing is specified. But this can be modified by specifying different options, parameters or settings. 
 
 * __flags__ are typically options that you can set to turn certain behaviors on or off. Because they are typically yes/no, they don't require any further arguments. In Linux, flags are set using the minus sign `-` and are typically followed by a letter. You can set multiple flags at once by specifying multiple letters after the `-`. There's often a long form version of flags that is set using the double minus sign `--` followed by a word. The double minus usually distinguishes between a long form flag vs a set of multiple flags.
-```
+```{bash, eval=FALSE}
 ls
 ls -a
 ls -l
@@ -163,13 +163,13 @@ ls --all
 ```
 
 * __parameters__ are special flags that require some additional input. For instance, you could specify the name of an input file or search string. Parameters are also typically designated with the minus sign `-` followed by a letter, `=` (or sometimes a space), and parameter value. As above, sometimes the parameter is designated with a word rather than a single letter. In this case, you would usually use a double minus `--`. (Just be aware that the double minus thing isn't a hard fast rule!)
-```
+```{bash, eval=FALSE}
 cd /
 ls --ignore=tools
 ```
 
 * __`--help`__ is how you find out what flags and parameters are available and how you use them.
-```
+```{bash, eval=FALSE}
 ls --help
 ```
 
@@ -178,14 +178,14 @@ We have included some cheat sheets that could come in handy for you down the roa
 
 #### Appendix 2: Regular Expressions
 Regular expressions are one of the most powerful tools for command line users. A startling number of problems you will encounter can be reformulated as some kind of simple text manipulation. These manipulations will follow patterns that easy for humans to define, but difficult for simple search and replace engines like you find in Excel or Word. For example, you may have a list of species as follows
-```
+```{bash, eval=FALSE}
 Homo sapiens
 Drosophila melanogaster
 Caenorhabditis elegans
 Danio rerio
 ```
 You would like to easily rename these to the more common short form
-```
+```{bash, eval=FALSE}
 H. sapiens
 D. melanogaster
 C. elegans

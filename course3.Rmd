@@ -322,17 +322,22 @@ names(knitr::knit_engines$get())
 ```
 
 
-
-
 ***
 ####  <span style="color:blue">__Exercise R:__</span> 
+
+Lets start by using RStudio to create an .Rmd file.
 ***
+
 
 
 
 
 # version control.
-### So you don't lose your mind
+
+So writing your code as .Rmd files will go a long ways towards helping you compose your ideas so that things can be tested easily.  But what if you have a lot of R code and you are making a lot of changes?  How will you keep track of what has changed?  And if you work on a piece of code with a co-worker, how will you both be able to work on it without losing your minds?
+
+The answer is to use version control software.  Version control softare is something that all software developers use, and it's very much worth your time to learn to use it too.  It's not difficult to learn, but if you make good use of it, it can not only save your bacon, but it can make your life a lot easier as well.  There have been many popular flavors of version control software that have come out over the years.  A few you might have heard about are `rcs`, `cvs`, `svn` and more recently `git`. 
+
 
 ***
 ####  <span style="color:blue">__Exercise R:__</span> 

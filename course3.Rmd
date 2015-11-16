@@ -22,7 +22,7 @@ The most basic R file system utility is probably `getwd` or "get working directo
 R has a family of functions for basic file management.  `dir` will let you list the contents of a directory, `file.remove` will let you remove a file from the file system and `file.rename` will let you rename OR move a file to another location (whether you name it something new or not).
 
 
-### The powerful (but problematic) `system` command:
+### The powerful (system dependent) `system` command:
 
 One of the most complicated and powerful of R's basic utilities is the `system` command.  This will run any command line commands based on the interpretation of a string that you pass in.  This is obviously extremely powerful, but remember that if you use this function in a program your code will no longer work on any platform other than ones that support the exact system command that you are passing in.  So for example, the following command will only work on unix based systems:
 
@@ -30,7 +30,7 @@ One of the most complicated and powerful of R's basic utilities is the `system` 
 system('pwd')
 ```
 
-### platform independence: `.Platform$file.sep`, `file.path` and `system.file`
+### Platform independence: `.Platform$file.sep`, `file.path` and `system.file`
 
 So how can you deal with the problem of platform independence?  There are many solutions to different problems that are created by the need to have portable R code.  One of the most common problems is: How do I read in a file when the file separators are different on different OS's?  
 
@@ -124,7 +124,7 @@ But addition to `==`, there are also a lot of other operators that test equality
  
  
  
-#### if
+#### `if`
 
 But what if you need to do something different based on the results of something like an equality test (something that returns TRUE or FALSE)? In that case, we might want to use an `if` statement.  In R, an if statement is actually just another function call similar to the  `function` function.  So in R, an `if` statement usually looks like this:
 
@@ -137,7 +137,7 @@ y
 Notice how the value for y was tested and then how it was set to a new value inside of the curly braces?  You can use `if` statements wherever it's convenient for you.  But most people find them most useful when you need a function to make a decision.
 
 
-#### else
+#### `else`
 
 Often times when you are done with an `if` statement you might need to do something 'else' in the event that the initial criteria was not met.  When that is true, you can use an `else` statement.  The `else` should always follow right after the results from the `if` statement like so:
 
@@ -153,7 +153,7 @@ y
 
 
 
-#### switch
+#### `switch`
 
 Sometimes you might need to evaluate a whole slew of different expressions.  The `switch` function can let you handle these cases and they are _much_ more compact than a tall stack of `if` expressions would be.  But take heed: for needing this function can often be a 'red flag' concerning the design of your code.  If you have a large number of different specific expressions to handle: that often means that you are committing to maintaining a list of flags and the specific results from those flags.  `switch` statements are easy to write, but they can become a fair amount of work to maintain in the long run.  The help page for the switch function gives a pretty clear example:
 
@@ -193,7 +193,7 @@ Using `lapply`, we could compute the mean of each list element like this:
 lapply(x, mean)
 ```
 
-### the `apply` function
+### The `apply` function
 
 The `apply` function is used for looping across matrices.  You use it a little bit like `lapply`, but in addition to the object and function to apply, you will need to indicate which axis you want to iterate across (columns or rows).  For an example of `apply`, consider the following matrix
 
@@ -243,16 +243,16 @@ One quick word of caution if you are going to be writing `for` loops.  In R it i
 # Writing good code
 R makes it easy to write functions.  But sometimes it seems that it makes it too easy.  You will find yourself thinking this someday when you have to decipher some horribly written R function that someone passes along to you.  Far worse though, is the realization that you yourself wrote an awful function years ago and now have to translate it today.  This section will attempt to help you avoid some of the misery associated with writing poor R code by giving you a few useful tips. 
 
-### check your arguments when writing functions
+### Check your arguments when writing functions
 One of the most important things to do when writing functions is to check the arguments.  You can never trust your end users to pass in the kinds of things you were thinking when you first wrote the function.  In fact, this problem is so important that a lot of the more used R functions end up with a large proportion of code at the time written just to make sure that the arguments passed in are the correct types, lengths and contain the correct kind of information.  It is much more valuable to an end user to be told early on that one of their arguments is the wrong kind of data than to silently fail and pass along bad information back to them...
 
-### write short functions
+### Write short functions
 Always try to write functions that only do one thing.  And if you must write a function that does multiple things, it should be written so that it calls several shorter (and simpler functions).  The best functions are the ones that do one thing well.  Why?  Because a simple function is more likely to be reusable.  And it is also a lot more likely to make sense when you have to decipher what it's original purpose was three months from now.
 
-### Don't repeat yourself (DRY)
+### Don't repeat yourself (DRY principle)
 Copying code is always a bad idea.  Inevitably, if you have two places in your code where the same thing is repeated, what will happen is that you will have to make a change and you will forget to keep them both in sync.  While that might be an interesting natural history experiment, it makes for a lot of engineering headaches down the road.  If you ever find yourself with the same code in more than one place do yourself a favor and write a short function (then call it in those two places).
 
-### always check if someone else has solved the problem
+### Always check if someone else has solved the problem
 Even better than writing code is to discover that someone else has already solved the problem.  Always look before you write.
 
 
@@ -317,7 +317,7 @@ As an example of a use case for .Rmd, all the handouts for this course were crea
 
 Also useful to know is that you can use .Rmd for languages other than just R.  Sure it's great for R, but you can also write code chunks that run a whole array of alternative language calls.  Have a look at this list of alternate possibilities:
 
-```{r}
+```{r, echo=FALSE}
 names(knitr::knit_engines$get())
 ```
 
@@ -332,9 +332,9 @@ Lets start by using RStudio to create an .Rmd file.
 
 
 
-# version control.
+# Version control.
 
-So writing your code as .Rmd files will go a long ways towards helping you compose your ideas so that things can be tested easily.  But what if you have a lot of R code and you are making a lot of changes?  How will you keep track of what has changed?  And if you work on a piece of code with a co-worker, how will you both be able to work on it without losing your minds?
+So writing your code as .Rmd files will go a long ways towards helping you compose your ideas so that things can be tested easily.  But what if you have a lot of R code and you are making a lot of changes?  How will you keep track of what has changed?  And if you work on a piece of code with a co-worker?  How will you both be able to work on it without losing your minds?
 
 The answer is to use version control software.  Version control softare is something that all software developers use, and it's very much worth your time to learn to use it too.  It's not difficult to learn, but if you make good use of it, it can not only save your bacon, but it can make your life a lot easier as well.  There have been many popular flavors of version control software that have come out over the years.  A few you might have heard about are `rcs`, `cvs`, `svn` and more recently `git`. 
 

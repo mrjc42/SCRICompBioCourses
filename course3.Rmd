@@ -53,21 +53,6 @@ Finally, if you have a file that is stored in an installed package, the `system.
 ***
 
 
-# Loops in R
-
-### the apply family 
-### lapply 
-### mclapply
-### map or mapply
-
-### for loops (for when apply is not possible)
-
-
-
-***
-####  <span style="color:blue">__Exercise R:__</span> 
-***
-
 
 
 # How to create basic functions
@@ -190,8 +175,72 @@ centre(x, "median")
 ####  <span style="color:blue">__Exercise R:__</span> 
 ***
 
+# Loops in R
 
-# Writing good code in R
+One of the most useful applications of any programming languages is getting computers to do repetitive tasks for us and R is no exception.  For most languages this would mean that you would want to use a for loop.  R has for loops, and we will get to those in a minute.  But for a data centric language like R, repetition usually means iterating over elements of one of the many data objects that are provided.  For these kinds of tasks, there is a whole family of functions that are useful.  These functions are the `apply` family of functions.  Lets talk about a few of the more commonly used ones here:  
+
+### `lapply` 
+
+The `lapply` function is used to loop across a `list` or a list like object such as a `vector`.  The return value of lapply is always going to be a list.  Lets consider the following list object:
+
+```{r}
+x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE,FALSE,FALSE,TRUE))
+x
+```
+
+Using `lapply`, we could compute the mean of each list element like this:
+```{r}
+lapply(x, mean)
+```
+
+### the `apply` function
+
+The `apply` function is used for looping across matrices.  You use it a little bit like `lapply`, but in addition to the object and function to apply, you will need to indicate which axis you want to iterate across (columns or rows).  For an example of `apply`, consider the following matrix
+
+```{r}
+x <- cbind(x1 = c(3,4,1,5), x2 = c(9,7,6,2))
+x
+```
+
+And this is how you can sort the columns of x:
+```{r}
+apply(x, 2, sort)
+```
+
+
+### `mapply`
+
+Sometimes you have a function that expects a few arguments and you need to supply them as a pair of vectors of equal length.  `mapply` lets you accomodate as many different values as your function needs. The first argument for mapply is the function followed by a `...` argument for vectors with a special named arument called `MoreArgs` in the event that you need to pass other non-vectorized argumements to your function.  The `MoreArgs` argument takes a named list of other arguments.  So for example if you needed to paste together a string and a number and have them be separated by an underscore, you could do it with `mapply` like this:
+
+```{r}
+mapply(paste, 1:3, LETTERS[1:3], MoreArgs = list(sep="_"))
+```
+
+
+### `bplapply`
+
+Sometimes you need to launch an apply function across multiple cores or across a cluster.  There are several tools to use for doing this.  But one of the most versatile is `bplapply`.  This function is detailed in the BiocParallel package and will allow you to leverage a wide range of different parallelization options available from R.  Parallel processing is a pretty advanced topic for a beginner course, so for now we just wanted to make you aware of this function and it's associated package documentation.
+
+
+### `for` loops (for when apply is not possible)
+
+Sometimes it just isn't convenient to use an `apply` function.  When that happens you might need to write an old fashioned `for` loop.  `for` loops in R look odd if you are from other languages.  In R, they take a format that makes them look like our previously described `function` definitions or our use of `if`.  Here is an example:
+
+```{r}
+for(i in 1:4){message('count ',i)}
+```
+
+One quick word of caution if you are going to be writing `for` loops.  In R it is very easy to write a `for` loop where with each pass you append another element to a vector or list etc.  But in general, this approach is a bad idea.  A much better idea is to prefabricate a data object of the size you will need and then to "fill in" each element as you loop along. This strategy is sometimes called 'pre-allocate and fill'.  And it's far more efficient for R because of the way that R handles copying and memory allocation.
+
+
+***
+####  <span style="color:blue">__Exercise R:__</span> 
+***
+
+
+
+
+# Writing good code
 R makes it easy to write functions.  But sometimes it seems that it makes it too easy.  You will find yourself thinking this someday when you have to decipher some horribly written R function that someone passes along to you.  Far worse though, is the realization that you yourself wrote an awful function years ago and now have to translate it today.  This section will attempt to help you avoid some of the misery associated with writing poor R code by giving you a few useful tips. 
 
 ### check your arguments when writing functions
@@ -250,12 +299,36 @@ https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
 
 
 # Literate programming.
+
+Literate programming is the idea that a single documnent can contain both human ideas and executable machine code.  It was initially put forward by the legenadary Donald Knuth.  And it is especially valuable in fields like science and mathetics where ideas need to be reproducible and testable when shared with colleagues.  Over the years there have been several attempts to make this workable and they have seen varying degrees of success, but one of the most useable and successful applications o fthis is the R markdown (.Rmd) document.
+
 ### What is an .Rmd file?
+
+An R markdown (.Rmd) document allows you to embed R code right into the middle of your english prose.  You can make one right from your RStudio session by simply choosing it from the File menu.  The mardown is extremely simple and easy to learn.  But for a fullly detailed description of all advanced features, be sure to have a look at this document here: 
+```{bash, eval=FALSE}
+http://rmarkdown.rstudio.com/
+```
+
 ### Reproducible research
+
+But why would you want to do this?  Probably the best reason is that you want to know both what code you wrote and why you wrote it later on.  By documenting your code with .Rmd files, you can come back later and see both what you were thinking as well as what code you ran.  It is also a nicely explicit way of sharing workflows with colleagues who otherwise might struggle to reproduce your work.
+
+As an example of a use case for .Rmd, all the handouts for this course were created with .Rmd documents.  Using .Rmd allowed us to run both a spelling check __and__ a code check to make sure that all the code blocks ran as expected before we went to press.
+
+Also useful to know is that you can use .Rmd for languages other than just R.  Sure it's great for R, but you can also write code chunks that run a whole array of alternative language calls.  Have a look at this list of alternate possibilities:
+
+```{r}
+names(knitr::knit_engines$get())
+```
+
+
+
 
 ***
 ####  <span style="color:blue">__Exercise R:__</span> 
 ***
+
+
 
 
 # version control.

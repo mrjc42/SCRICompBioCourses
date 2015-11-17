@@ -2,7 +2,7 @@
 title: "Intro To Citrix And Linux"
 author: "Bronson, Debbie, Sean and Marc"
 date: "10/25/2015"
-output: pdf_document
+output: html_document
 ---
 
 Welcome to the introductory course for computer resources here at SCRI.  This course will cover a basic introduction to the SCRI Citrix environment and also will introduce you to basic tools in linux.  If you have a bad case of CLAS (command line aversion syndrome), then this course should help you get on the road to recovery.
@@ -126,7 +126,7 @@ The command line is the main way that professional people interact with Unix.  Y
 
 To connect to a linux machine, one of the most common tools is `ssh` or 'secure shell'. You can use `ssh` to connect to a linux machine if you have permission to do do like this:
 
-```
+```{bash, eval=FALSE}
 ssh user@hostname
 ```
 
@@ -136,7 +136,7 @@ Normally ssh is not the first command you would teach a new student of the linux
 
 When you first log in to a linux terminal, you will see (with various levels of consternation) the __command prompt__. Like the dashboard of a car, the command prompt may look slightly different depending on the system, but in general the prompt will look something like this:
 
-```
+```{bash, eval=FALSE}
 userid@hostname:/workingdirectory $
 ```
 The __userid__ is the user name that is logged in to the system, in this case your SCH user id. The __hostname__ is the name of the computer you are logged into. Note that it is the real name of the computer, not the alias. Refer to the table in the Computational Resources section. The __working directory__,as the name implies, is the directory that you are currently worrking in (see the section on `pwd` below). The prompt ends with the `$` character and finally the cursor. 
@@ -162,26 +162,26 @@ In unix, you can always get back to previous commands by hitting the up arrow.  
 
 In Linux, the case of a letter matters. 'A' is not the same thing as 'a' etc.  So watch out for changes in case.  You will notice that some people prefer to name things using alternating lowercase and uppercase letters like this: 
 
-```
+```{bash, eval=FALSE}
 myFile.txt
 ``` 
 That style is called camel case.  
 
 Other people prefer to use underscores like this:
 
-```
+```{bash, eval=FALSE}
 my_file.txt
 ```
 
 And still other people prefer all lowercase like this:
 
-```
+```{bash, eval=FALSE}
 myfile.txt
 ```
 
 Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters:
 
-```
+```{bash, eval=FALSE}
 my\ file.txt
 ```
 
@@ -204,7 +204,7 @@ When working with the command line, you will notice that your view of the filesy
 
 This is how you know where you are:
  
-```
+```{bash, eval=FALSE}
 pwd
 ```
  
@@ -227,12 +227,12 @@ Directories are for storing stuff, executables do things to stuff and files are 
 And `..` means one directory up from here.
 
 So (for example), you could change to the root directory like this:
-```
+```{bash, eval=FALSE}
 cd /
 ```
 
 And then you could change back to your home directory like this:
-```
+```{bash, eval=FALSE}
 cd ~/
 ```
 
@@ -241,22 +241,22 @@ cd ~/
 
 `ls` is used to list a directory.  Which directory does it list?  That would be the second argument.  For example, the following command would list the contents of the root directory
 
-```
+```{bash, eval=FALSE}
 ls /
 ```
 
 And this would list the current directory.
-```
+```{bash, eval=FALSE}
 ls .
 ```
 
 But in practice when people want to list the current directory, they leave out the implicit `.` like so:
-```
+```{bash, eval=FALSE}
 ls
 ```
 
 And when I use this command, it tends to look like this:
-```
+```{bash, eval=FALSE}
 ls -alh
 ```
 Which translates to: list the directory, but list all the files (even hidden ones), and use the long format, and make the sizes human readable.  How did I ever learn to do that?
@@ -266,7 +266,7 @@ Which translates to: list the directory, but list all the files (even hidden one
 
 Well I used the man command to learn more about `ls`.  You can use the man command to pull up a manual about any linux command like this:
 
-```
+```{bash, eval=FALSE}
 man ls
 ```
 
@@ -274,7 +274,7 @@ When you are done looking at it, hit the `q` key to exit.
 
 Because linux is open sourced, software gets contributed from many different programmers. Sometimes, the programmers elect to not include a `man` page. An alternative route is to try the `--help` flag:
 
-```
+```{bash, eval=FALSE}
 ls --help
 ```
 
@@ -290,7 +290,7 @@ And while we are looking at an example of some, lets talk about `flags`.  In Lin
 
 Another thing you might have noticed about my longer form use of `ls` is that it puts a string of characters in from of each file and directory.  Lets look at a toy example:
 
-```
+```{bash, eval=FALSE}
 -rw-r--r-- 1 username rleQAS_SCRI-Sudo 8.2K Oct  7 17:21 file.txt
 ```
 
@@ -315,7 +315,7 @@ Display the working directory of your home directory.  Now look around to see if
 ### Using __`mkdir`__
 
 Sometimes you will need to make a new directory.  For that there is the mkdir command.
-```
+```{bash, eval=FALSE}
 mkdir myDir
 ```
 
@@ -323,7 +323,7 @@ mkdir myDir
 
 And sometimes you will just need to create an empty file.  Maybe later on you want to write something to it, but right now you just want to reserve that filename. For that you can use the `touch` command. Here we use touch to create a file inside of our new directory:
 
-```
+```{bash, eval=FALSE}
 touch myDir/test.txt
 ```
 
@@ -331,7 +331,7 @@ touch myDir/test.txt
 
 Linux is loaded with powerful text editors. Some of them (like vi or emacs) are so powerful that they could each have their own course.  Today lets look at a very simple and common one: `nano`.
 
-```
+```{bash, eval=FALSE}
 nano myFile.txt
 ```
 
@@ -344,7 +344,7 @@ That command will launch the nano editor.  Once inside you will be able to type 
 
 Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gigantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  So now that you know that, you should expect that the following command will let you look at the file `myFile.txt`:
 
-```
+```{bash, eval=FALSE}
 less myFile.txt
 ```
 
@@ -356,7 +356,7 @@ Another super useful thing to know about less is that you can search for a speci
 
 `cp` copies a file to another place.  `mv` moves a file (and so does not leave the original behind).  Here is an example of each of these:
 
-```
+```{bash, eval=FALSE}
 cp file.txt filecopy.txt
 mv file.txt ..
 ```
@@ -365,13 +365,13 @@ The first of these commands copies `file.txt` to another file with a different n
 
 But sometimes you may just want to get rid of something altogether.  `rm` will do that for you.  Here is an example that just removed file.txt:
 
-```
+```{bash, eval=FALSE}
 rm file.txt
 ```
 
 Another common case with rm is when you have a directory and you want to remove it AND everything in it  When that happens you can tell rm to remove things recursively like this:
 
-```
+```{bash, eval=FALSE}
 rm -r myDir
 ```
 
@@ -382,13 +382,13 @@ Where myDir and everything in it will be deleted.  Obviously using the -r flag w
 
 `dos2unix` is a useful command to know about. Text files from windows will typically have different line endings from text files from unix. And that can be a problem if you need to parse files by line. `dos2unix` fixes files that have been formatted for windows so that the line endings are the same.  So the following command will fix the `myFile.txt`.
 
-```
+```{bash, eval=FALSE}
 dos2unix myFile.txt
 ```
 
 If you are wondering whether your file has the wrong kind of line endings, you can see them by either looking at the file using the emacs text editor OR by feeding them through cat and using the -v flag like this:
 
-```
+```{bash, eval=FALSE}
 cat -v myFile
 ```
 
@@ -399,7 +399,7 @@ If when you do the above command, a file with windows style line endings will ha
 
 `tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar:
 
-```
+```{bash, eval=FALSE}
 tar -zxvf myFile.tar.gz
 ```
 
@@ -423,7 +423,7 @@ In the sampledata directory navigate to the `examples` directory, and inspect th
 
 Cat is useful for streaming the contents of a file.  As a quick example the following use of cat would dump the contents of `myFile.txt` to the screen.  So by itself `cat` is not so useful.  But in combination with other commands, it can be very useful (more on this in a moment).  Another command you will sometimes see is `zcat`, which allows you to call cat on files that are zipped (end with a `.gz` extension).
 
-```
+```{bash, eval=FALSE}
 cat myFile.txt
 ```
 
@@ -434,7 +434,7 @@ But: the more common use for `cat` is to send a command to a pipe.  What is a pi
 
 So glad you asked! A pipe is a way of moving data around in unix.  Technically, it is an "operator" (like "+" and "-").  And you use it to indicate something specific that you want to happen between a couple of other things.  Let me give an example to clarify:
 
-```
+```{bash, eval=FALSE}
 cat myFile.txt | less
 ```
 
@@ -447,20 +447,20 @@ Ok, I will admit that the example above could be a lot more interesting.  Right 
 
 The grep command is usually used to find strings in text files. For example you could search a file called `file.txt` for the string `var` like this:
 
-```
+```{bash, eval=FALSE}
 grep 'var' file.txt
 ```
 
 This is useful all by itself, and grep is extremely powerful since it is a fast and efficient way to search your files for lines that match.  But look at what happens when we pair it with a pipe and less like above:
 
-```
+```{bash, eval=FALSE}
 grep 'var' file.txt | less
 ```
 
 Now if I have a Large number of search results, I can easily page through them (or use the additional search feature inside of less).  Or I can take the results of the 1st grep search and send that along to another grep search like this:
 
 
-```
+```{bash, eval=FALSE}
 grep 'var' file.txt | grep 'car' | less
 ```
 
@@ -470,13 +470,13 @@ grep 'var' file.txt | grep 'car' | less
 
 What happens if you link together a set of pipes that does something useful?  In that case you might want to save the output.  This is when you would use the "bent pipe" or `>`
 
-```
+```{bash, eval=FALSE}
 grep 'var' file.txt | grep 'car' > saveFile.txt
 ```
 
 And sometimes, you might want to simply append to an existing file without overwriting it.  In that case you would use the "double bent pipe" or `>>`.  So if we repeat the example above, then you will see that we have appended the same thing into `saveFile.txt`.
 
-```
+```{bash, eval=FALSE}
 grep 'var' file.txt | grep 'car' >> saveFile.txt
 ```
 
@@ -489,7 +489,7 @@ Another thing that happens with large files is that you may only want to see (or
 
 The `wc` command is the word count command.  This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, if you wanted to know how many things were in the current directory you could do this:
 
-```
+```{bash, eval=FALSE}
 ls | wc
 ```
 
@@ -510,7 +510,7 @@ Now use `zcat`, `pipe` and `grep` along with `wc` to determine how many reads ar
 
 In linux you can use `*` as a wildcard to indicate more broadly which things you mean.  So for example, if I have to files that both end with `.txt` then I can move them both into myDir by doing this:
 
-```
+```{bash, eval=FALSE}
 mv *.txt /myDir
 ```
 
@@ -521,7 +521,7 @@ Wildcards are useful for a whole host of other circumstances.  But be careful.  
 
 Sometimes you may have a really big file that you need to split into smaller pieces.  the `split` command will let you easily do that. By default split will produce files that are 1000 lines long, but this is adjustable of course.
 
-```
+```{bash, eval=FALSE}
 split myFile.txt
 ```
 
@@ -529,14 +529,14 @@ split myFile.txt
 
 Need to put the contents of a command into a particular order?  The `sort` command is your friend for this task.
 
-```
+```{bash, eval=FALSE}
 sort test.txt
 ```
 
 ### Using __`uniq`__
 Want to filter out rows that are not unique?  Use the `uniq` command.
 
-```
+```{bash, eval=FALSE}
 sort test.txt | uniq
 ```
 
@@ -545,7 +545,7 @@ sort test.txt | uniq
 
 Cut is especially useful if you have to deal with delimited files.  It allows you to extract only the columns that are of interest.  For example, the following gets the 2nd column from a tab delimited file
 
-``` 
+```{bash, eval=FALSE} 
 cut -f2 testTabs.txt
 ```
 
@@ -554,7 +554,7 @@ cut -f2 testTabs.txt
 
 The find command is for finding files in the filesystem.  But it is actually VERY powerful because like everything else today it can be paired with the other toys in the Linux toybox.  The find command takes a couple of arguments. The 1st is the part of the directory to search in and the secons is what to look for.  A common way to use find is to find a file with a specific name.  So to find a file named `bob.txt` in your local directory could could do this
 
-```
+```{bash, eval=FALSE}
 find . -name 'bob.txt'
 ```
 
@@ -584,14 +584,14 @@ Other times when you log into a computer you might be wondering what it is doing
 
 Top is useful for seeing whether there is a problem, but it updates frequently and only tends to display long running processes that are using a lot of resources.  Sometimes you just want to see all the things that you are running.  `ps` is a good way to list all the processes that you have running.  This command will list all the processed run by a particular user:
 
-```
+```{bash, eval=FALSE}
 ps -U username
 ```
 
 Once you have done that, you will see an output that looks like this:
 
 
-```
+```{bash, eval=FALSE}
 [username@EWRLNXRD29 SCRICompBioCourses]$ ps -U username
   PID TTY          TIME CMD
  5101 ?        00:00:00 sshd
@@ -602,7 +602,7 @@ Once you have done that, you will see an output that looks like this:
 The `PID` stands for the process identifier.  It's a unique number that can be used to specify precisely which process you mean.  This is important, because if you make a mistake and accidentally launch some long running resource hogging process, you might not want to wait (or make others wait) for it to finish.  In that case you might need to `kill` it.  Here is an example of how you could do just that:
 
 
-```
+```{bash, eval=FALSE}
 kill 5106
 ```
 
@@ -613,14 +613,14 @@ The above command will kill the process where the PID = 5106.
 
 Sometimes you have a job that you want to run and you don't want to wait for it to finish before you get your terminal back.  When that happens you can hit [CTRL-Z] to get your command prompt back and then use the `bg` command to continue that process in the background.
 
-```
+```{bash, eval=FALSE}
 commandThatTakesALongTimeToRun
 [CTRL-Z]
 bg
 ```
 
 Or if you know something will run for a while, you can plan ahead and use the `&` operator.
-``` 
+```{bash, eval=FALSE} 
 commandThatTakesALongTimeToRun &
 ```
 
@@ -629,7 +629,7 @@ commandThatTakesALongTimeToRun &
 
 Sometimes you will want a job to run and you already know that it's going to take several hours. When that happens, you might worry that if you log out your job will not complete. For this circumstance you will want to use the `nohup` command (or: no hang up).  You can use it to run a command in the background.  `nohup` will keep running that process untill it either finishes or until someone kills it.  You can use `nohup` like this:
 
-```
+```{bash, eval=FALSE}
 nohup command &
 ```
 
@@ -639,7 +639,7 @@ nohup command &
 
 Now launch the following command (which will not finish anytime soon):
 
-```
+```{bash, eval=FALSE}
 du -sh /tools
 ```
 
@@ -650,7 +650,7 @@ Now find that process and kill it.
 
 Sometimes you may need to look at the contents of shell variables.  Linux systems will often use environment variables and sometimes you might need to see what these have been set to.  The `echo` command will let you see what these values are.  When you use the echo command, you have to prefix any variable names with `$`.
 
-```
+```{bash, eval=FALSE}
 echo $PATH
 ```
 
@@ -667,13 +667,13 @@ Here you can find answers to the questions posed above.
 
 Display the contents of your home dir:
 
-```
+```{bash, eval=FALSE}
 cd ~/
 ls
 ```
 
 Find where other home dirs are located:
-```
+```{bash, eval=FALSE}
 pwd
 cd ..
 ls
@@ -681,7 +681,7 @@ ls
 
 Are you allowed to see other working directories?
 
-```
+```{bash, eval=FALSE}
 ls -l
 ```
 No: the permissions prevent this
@@ -695,50 +695,50 @@ No: the permissions prevent this
 ##### __Answer for Question L2:__
 
 Change directories
-```
+```{bash, eval=FALSE}
 cd /tools/references
 ```
 What reference organisms are available?
-```
+```{bash, eval=FALSE}
 ls -l
 ```
 Use tab completion to find the human UCSC hg19 whole genome reference sequence
-```
+```{bash, eval=FALSE}
 ls -l /tools/references/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta
 ```
 Use tab completion to find the human Ensembl GRCh37 chr22 reference sequence
-```
+```{bash, eval=FALSE}
 ls /tools/references/Homo_sapiens/Ensembl/GRCh37/Sequence/Chromosomes/
 ```
 
 Now use the Ensembl GRCh37 most current gene annotation to discover how many exons does the gene PCA3 have?
-```
+```{bash, eval=FALSE}
 cd /tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes
 ```
 Now look at the `.gtf` file with less:
-```
+```{bash, eval=FALSE}
 less genes.gtf
 ```
 And while inside of `less`, use the / search feature to look for the string 'PCA3'
 
 
 Now use the copy command to pull down a tarball.  First go to your home directory and make a directory to put this stuff:
-```
+```{bash, eval=FALSE}
 cd ~
 mkdir sampledata
 ```
 Now go into your new directory and copy the file there. 
-```
+```{bash, eval=FALSE}
 cd sampledata
 cp /tools/sampledata/sampledata.tar.gz .
 ```
 Then unpack it.
-```
+```{bash, eval=FALSE}
 tar -zxvf sampledata.tar.gz
 ```
 
 Now for the final part of this exercise, inspect 'badtextfile.txt' using `cat -v`, and then 'fix' the line endings to match what unix expects.
-```
+```{bash, eval=FALSE}
 cd examples
 cat -v badtextfile.txt | less
 dos2unix badtextfile.txt
@@ -749,27 +749,27 @@ cat -v badtextfile.txt | less
 
 
 Lets have another look at that `.gtf` file.
-```
+```{bash, eval=FALSE}
 cd /tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes
 ```
 Now use grep to look at just the lines that contain 'PCA3'
-```
+```{bash, eval=FALSE}
 grep PCA3 genes.gtf
 ```
 Now count how many of those lines there are...
-```
+```{bash, eval=FALSE}
 grep PCA3 genes.gtf| wc -l
 ```
 
 Now enter the sampledata directory back in your working directory and view the first two read records of a file (in fastq format each read corresponds to 4 lines of data)
-```
+```{bash, eval=FALSE}
 cd ~/sampledata/rnaseq/data
 zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 8
 zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_2.fastq.gz | head -n 8
 ```
 
 Decompress file on the fly with 'zcat', pipe into 'grep', search for the read name prefix and pipe into 'wc' to do a word count ('-l' gives lines for word count)
-```
+```{bash, eval=FALSE}
 zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep -P "^\@HWI" | wc -l
 ```
 
@@ -777,23 +777,23 @@ zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep -P "^\@HWI" | wc -
 ##### __Answer for Question L4:__
 
 Use ls with * and > to make a new file that has all the different transcripts.gtf files.
-```
+```{bash, eval=FALSE}
 cd ~/sampledata/rnaseq/expression
 ls *_cDNA*_lib2/transcripts.gtf > assembly_GTF_list.txt
 ```
 
 Use head to look at the raw output from cufflinks in the isoforms.fpkm_tracking file.
-```
+```{bash, eval=FALSE}
 head Normal_cDNA1_lib2/isoforms.fpkm_tracking
 ```
 
 Now use cut to extract just the columns that were requested
-```
+```{bash, eval=FALSE}
 cut -f 1,4,7-13 Normal_cDNA1_lib2/isoforms.fpkm_tracking | less
 ```
 
 Now go to `~/sampledata/rnaseq/de` and look at the files mentioned
-```
+```{bash, eval=FALSE}
 cd ~/sampledata/rnaseq/de
 head splicing.diff
 head promoters.diff
@@ -801,14 +801,14 @@ head cds.diff
 ```
 
 For each results file, we sort the results by the p-value and view the top 10 isoforms, ignoring entries classified as 'LOWDATA'
-```
+```{bash, eval=FALSE}
 sort -k 12n splicing.diff | grep -v LOWDATA | head
 sort -k 12n promoters.diff | grep -v LOWDATA | head
 sort -k 12n cds.diff | grep -v LOWDATA | head
 ```
 
 How to display the top 20 DE genes:
-```
+```{bash, eval=FALSE}
 grep -P "OK|gene_id" gene_exp.diff | sort -k 12n,12n | head -n 20 | cut -f 3,5,6,8,9,10,12,13,14
 ```
 The above command is powerful.  But it is also getting a little carrried away and uses a few more advanced concepts. The first part uses a fancy search statement that includes the perl-style `OR` operator: `|`. So it is looking for lines that contain 'OK' OR 'gene_id'. This filters the list to include genes that are differentially expressed but also includes the column headers. The next bit sorts on the 12th column, then take the top 20, and then display only certain columns. Usually by the time you start doing things this complex, it starts to make sense to learn a high level programming language.  This will be the subject of course #2.
@@ -818,12 +818,12 @@ The above command is powerful.  But it is also getting a little carrried away an
 ##### __Answer for Question L5:__
 
 First you need to find the process
-```
+```{bash, eval=FALSE}
 ps -U yourUsername
 ```
 
 Then you have to get the pid and kill it like this (where pid is the process id listed on the left hand columns)
 
-```
+```{bash, eval=FALSE}
 kill pid
 ```

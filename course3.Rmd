@@ -22,7 +22,7 @@ The most basic R file system utility is probably `getwd` or "get working directo
 R has a family of functions for basic file management.  `dir` will let you list the contents of a directory, `file.remove` will let you remove a file from the file system and `file.rename` will let you rename OR move a file to another location (whether you name it something new or not).
 
 
-### The powerful (but problematic) `system` command:
+### The powerful (system dependent) `system` command:
 
 One of the most complicated and powerful of R's basic utilities is the `system` command.  This will run any command line commands based on the interpretation of a string that you pass in.  This is obviously extremely powerful, but remember that if you use this function in a program your code will no longer work on any platform other than ones that support the exact system command that you are passing in.  So for example, the following command will only work on unix based systems:
 
@@ -30,7 +30,7 @@ One of the most complicated and powerful of R's basic utilities is the `system` 
 system('pwd')
 ```
 
-### platform independence: `.Platform$file.sep`, `file.path` and `system.file`
+### Platform independence: `.Platform$file.sep`, `file.path` and `system.file`
 
 So how can you deal with the problem of platform independence?  There are many solutions to different problems that are created by the need to have portable R code.  One of the most common problems is: How do I read in a file when the file separators are different on different OS's?  
 
@@ -51,6 +51,8 @@ Finally, if you have a file that is stored in an installed package, the `system.
 ***
 ####  <span style="color:blue">__Exercise R:__</span> 
 ***
+
+
 
 
 # How to create basic functions
@@ -122,7 +124,7 @@ But addition to `==`, there are also a lot of other operators that test equality
  
  
  
-#### if
+#### `if`
 
 But what if you need to do something different based on the results of something like an equality test (something that returns TRUE or FALSE)? In that case, we might want to use an `if` statement.  In R, an if statement is actually just another function call similar to the  `function` function.  So in R, an `if` statement usually looks like this:
 
@@ -135,7 +137,7 @@ y
 Notice how the value for y was tested and then how it was set to a new value inside of the curly braces?  You can use `if` statements wherever it's convenient for you.  But most people find them most useful when you need a function to make a decision.
 
 
-#### else
+#### `else`
 
 Often times when you are done with an `if` statement you might need to do something 'else' in the event that the initial criteria was not met.  When that is true, you can use an `else` statement.  The `else` should always follow right after the results from the `if` statement like so:
 
@@ -151,7 +153,7 @@ y
 
 
 
-#### switch
+#### `switch`
 
 Sometimes you might need to evaluate a whole slew of different expressions.  The `switch` function can let you handle these cases and they are _much_ more compact than a tall stack of `if` expressions would be.  But take heed: for needing this function can often be a 'red flag' concerning the design of your code.  If you have a large number of different specific expressions to handle: that often means that you are committing to maintaining a list of flags and the specific results from those flags.  `switch` statements are easy to write, but they can become a fair amount of work to maintain in the long run.  The help page for the switch function gives a pretty clear example:
 
@@ -173,20 +175,84 @@ centre(x, "median")
 ####  <span style="color:blue">__Exercise R:__</span> 
 ***
 
+# Loops in R
 
-# Writing good code in R
+One of the most useful applications of any programming languages is getting computers to do repetitive tasks for us and R is no exception.  For most languages this would mean that you would want to use a for loop.  R has for loops, and we will get to those in a minute.  But for a data centric language like R, repetition usually means iterating over elements of one of the many data objects that are provided.  For these kinds of tasks, there is a whole family of functions that are useful.  These functions are the `apply` family of functions.  Lets talk about a few of the more commonly used ones here:  
+
+### `lapply` 
+
+The `lapply` function is used to loop across a `list` or a list like object such as a `vector`.  The return value of lapply is always going to be a list.  Lets consider the following list object:
+
+```{r}
+x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE,FALSE,FALSE,TRUE))
+x
+```
+
+Using `lapply`, we could compute the mean of each list element like this:
+```{r}
+lapply(x, mean)
+```
+
+### The `apply` function
+
+The `apply` function is used for looping across matrices.  You use it a little bit like `lapply`, but in addition to the object and function to apply, you will need to indicate which axis you want to iterate across (columns or rows).  For an example of `apply`, consider the following matrix
+
+```{r}
+x <- cbind(x1 = c(3,4,1,5), x2 = c(9,7,6,2))
+x
+```
+
+And this is how you can sort the columns of x:
+```{r}
+apply(x, 2, sort)
+```
+
+
+### `mapply`
+
+Sometimes you have a function that expects a few arguments and you need to supply them as a pair of vectors of equal length.  `mapply` lets you accomodate as many different values as your function needs. The first argument for mapply is the function followed by a `...` argument for vectors with a special named arument called `MoreArgs` in the event that you need to pass other non-vectorized argumements to your function.  The `MoreArgs` argument takes a named list of other arguments.  So for example if you needed to paste together a string and a number and have them be separated by an underscore, you could do it with `mapply` like this:
+
+```{r}
+mapply(paste, 1:3, LETTERS[1:3], MoreArgs = list(sep="_"))
+```
+
+
+### `bplapply`
+
+Sometimes you need to launch an apply function across multiple cores or across a cluster.  There are several tools to use for doing this.  But one of the most versatile is `bplapply`.  This function is detailed in the BiocParallel package and will allow you to leverage a wide range of different parallelization options available from R.  Parallel processing is a pretty advanced topic for a beginner course, so for now we just wanted to make you aware of this function and it's associated package documentation.
+
+
+### `for` loops (for when apply is not possible)
+
+Sometimes it just isn't convenient to use an `apply` function.  When that happens you might need to write an old fashioned `for` loop.  `for` loops in R look odd if you are from other languages.  In R, they take a format that makes them look like our previously described `function` definitions or our use of `if`.  Here is an example:
+
+```{r}
+for(i in 1:4){message('count ',i)}
+```
+
+One quick word of caution if you are going to be writing `for` loops.  In R it is very easy to write a `for` loop where with each pass you append another element to a vector or list etc.  But in general, this approach is a bad idea.  A much better idea is to prefabricate a data object of the size you will need and then to "fill in" each element as you loop along. This strategy is sometimes called 'pre-allocate and fill'.  And it's far more efficient for R because of the way that R handles copying and memory allocation.
+
+
+***
+####  <span style="color:blue">__Exercise R:__</span> 
+***
+
+
+
+
+# Writing good code
 R makes it easy to write functions.  But sometimes it seems that it makes it too easy.  You will find yourself thinking this someday when you have to decipher some horribly written R function that someone passes along to you.  Far worse though, is the realization that you yourself wrote an awful function years ago and now have to translate it today.  This section will attempt to help you avoid some of the misery associated with writing poor R code by giving you a few useful tips. 
 
-### check your arguments when writing functions
+### Check your arguments when writing functions
 One of the most important things to do when writing functions is to check the arguments.  You can never trust your end users to pass in the kinds of things you were thinking when you first wrote the function.  In fact, this problem is so important that a lot of the more used R functions end up with a large proportion of code at the time written just to make sure that the arguments passed in are the correct types, lengths and contain the correct kind of information.  It is much more valuable to an end user to be told early on that one of their arguments is the wrong kind of data than to silently fail and pass along bad information back to them...
 
-### write short functions
+### Write short functions
 Always try to write functions that only do one thing.  And if you must write a function that does multiple things, it should be written so that it calls several shorter (and simpler functions).  The best functions are the ones that do one thing well.  Why?  Because a simple function is more likely to be reusable.  And it is also a lot more likely to make sense when you have to decipher what it's original purpose was three months from now.
 
-### Don't repeat yourself (DRY)
+### Don't repeat yourself (DRY principle)
 Copying code is always a bad idea.  Inevitably, if you have two places in your code where the same thing is repeated, what will happen is that you will have to make a change and you will forget to keep them both in sync.  While that might be an interesting natural history experiment, it makes for a lot of engineering headaches down the road.  If you ever find yourself with the same code in more than one place do yourself a favor and write a short function (then call it in those two places).
 
-### always check if someone else has solved the problem
+### Always check if someone else has solved the problem
 Even better than writing code is to discover that someone else has already solved the problem.  Always look before you write.
 
 
@@ -232,58 +298,52 @@ https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
 ***
 
 
-
-# Some pitfalls specific to R
-#### forgetting to vectorize
-#### the loop with a big appetite
-#### hidden arguments and default behaviors [,drop=TRUE]
-
-***
-####  <span style="color:blue">__Exercise R:__</span> 
-***
-
-
 # Literate programming.
+
+Literate programming is the idea that a single documnent can contain both human ideas and executable machine code.  It was initially put forward by the legenadary Donald Knuth.  And it is especially valuable in fields like science and mathetics where ideas need to be reproducible and testable when shared with colleagues.  Over the years there have been several attempts to make this workable and they have seen varying degrees of success, but one of the most useable and successful applications o fthis is the R markdown (.Rmd) document.
+
 ### What is an .Rmd file?
+
+An R markdown (.Rmd) document allows you to embed R code right into the middle of your english prose.  You can make one right from your RStudio session by simply choosing it from the File menu.  The mardown is extremely simple and easy to learn.  But for a fullly detailed description of all advanced features, be sure to have a look at this document here: 
+```{bash, eval=FALSE}
+http://rmarkdown.rstudio.com/
+```
+
 ### Reproducible research
 
+But why would you want to do this?  Probably the best reason is that you want to know both what code you wrote and why you wrote it later on.  By documenting your code with .Rmd files, you can come back later and see both what you were thinking as well as what code you ran.  It is also a nicely explicit way of sharing workflows with colleagues who otherwise might struggle to reproduce your work.
+
+As an example of a use case for .Rmd, all the handouts for this course were created with .Rmd documents.  Using .Rmd allowed us to run both a spelling check __and__ a code check to make sure that all the code blocks ran as expected before we went to press.
+
+Also useful to know is that you can use .Rmd for languages other than just R.  Sure it's great for R, but you can also write code chunks that run a whole array of alternative language calls.  Have a look at this list of alternate possibilities:
+
+```{r, echo=FALSE}
+names(knitr::knit_engines$get())
+```
+
+
+***
+####  <span style="color:blue">__Exercise R:__</span> 
+
+Lets start by using RStudio to create an .Rmd file.
+***
+
+
+
+
+
+# Version control.
+
+So writing your code as .Rmd files will go a long ways towards helping you compose your ideas so that things can be tested easily.  But what if you have a lot of R code and you are making a lot of changes?  How will you keep track of what has changed?  And if you work on a piece of code with a co-worker?  How will you both be able to work on it without losing your minds?
+
+The answer is to use version control software.  Version control softare is something that all software developers use, and it's very much worth your time to learn to use it too.  It's not difficult to learn, but if you make good use of it, it can not only save your bacon, but it can make your life a lot easier as well.  There have been many popular flavors of version control software that have come out over the years.  A few you might have heard about are `rcs`, `cvs`, `svn` and more recently `git`. 
+
+
 ***
 ####  <span style="color:blue">__Exercise R:__</span> 
 ***
 
 
-# version control.
-### So you don't lose your mind
-
-***
-####  <span style="color:blue">__Exercise R:__</span> 
-***
-
-
-# Bioconductor. 
-### How to find good packages for your problem (biocviews)
-
-### How to use workflows
-### Fun Examples of things you can learn from workflows: (RNA-seq, chip-seq, etc.)
-
-***
-####  <span style="color:blue">__Exercise R:__</span> 
-***
-
-
-
-
-# How to write S4 methods (and when)
-### methods are not the same thing as functions
-### Why would you do this? (elegant dispatch)
-### What is a Generic and when do I need to care?
-
-
-# Write good packages (this is another course)
-#### use your namespace (don't export everything)
-#### use live code blocks and unit tests
-#### use toy examples to verify that code works
- 
 
 
 

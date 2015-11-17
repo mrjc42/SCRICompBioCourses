@@ -1,0 +1,41 @@
+---
+title: "Advanced Topics In R"
+author: "Marc and Sean"
+date: "11/16/2015"
+output: html_document
+---
+
+# Some pitfalls specific to R
+#### forgetting to vectorize
+#### the loop with a big appetite
+#### hidden arguments and default behaviors [,drop=TRUE]
+
+***
+####  <span style="color:blue">__Exercise R:__</span> 
+***
+
+
+# Bioconductor. (kind of covered already)
+### How to find good packages for your problem (biocviews)
+
+### How to use workflows
+### Fun Examples of things you can learn from workflows: (RNA-seq, chip-seq, etc.)
+
+***
+####  <span style="color:blue">__Exercise R:__</span> 
+***
+
+
+# How to write S4 methods (and when)
+### methods are not the same thing as functions
+### Why would you do this? (elegant dispatch)
+### What is a Generic and when do I need to care?
+
+
+# Write good packages (this is another course)
+#### use your namespace (don't export everything)
+#### use live code blocks and unit tests
+#### use toy examples to verify that code works
+ 
+
+

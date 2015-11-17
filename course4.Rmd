@@ -1,0 +1,318 @@
+---
+title: "Getting Work Done"
+author: "Sean, Marc, Debbie, Bronson"
+date: "11/11/2015"
+output: html_document
+---
+
+We have spent the last 3 courses trying to show you the basic building blocks for command line computing. Now it is time to put all the pieces together and talk about the mechanics of actually getting your work done. To do this we will step through a small RNA-Seq workflow. We will not focus too much on the science behind the workflow at this time. The purpose of this course is to show you how to use the resources we have made available and how to use your new skills as a computational biologist. It is hoped that by going through this workflow, you will get some experience with how to organize your data flow and how to execute a series of commands that you can now generalize to other applications beyond RNA-Seq.
+
+In order to save time and to help everyone keep up, we will be providing a text document that has all of the commands already populated. You might need to adjust one or two things, but otherwise you can just copy and paste. Here are a few tips and tricks regarding copying and pasting into a linux terminal
+
+* To __copy__ from a linux terminal, all you need to do is highlight. The highlighted text is automatically copied to the clipboard. No other key strokes necessary.
+
+* To __paste__ into a linux terminal, you cannot use the familiar `CTRL-V` keystroke. If using MobaXTerm, you can right click and paste using the menu. In all linux systems though, you can usually paste using the middle button of the mouse (or by pressing the scroll wheel).
+
+* You don't have to paste commands one at a time. You can paste in as many as you want, and the terminal will execute them in order. Sometimes though, you have to hit `Enter` once or twice more to make sure that all the commands are sent. 
+
+
+### A (very) brief intro to RNA-Seq
+RNA-Seq workflows are typically done with the aim of performing differential expression analysis. The idea is that instead of sequencing genomic DNA, instead you will sequence mRNA. By mapping the sequenced mRNA transcripts back to the reference genome, you can theoretically deduce A) what genes are being expressed based on the mapping and B) the relative expression levels of those genes based on how many reads map to a particular gene region. The basic, generic workflow for differential expression analysis goes like this:
+
+1. Extract mRNA and convert to cDNA
+2. Library preperation: fragment cDNA, size select, add adapters
+3. Sequence ends (usually paired end sequencing)
+4. Align reads against a reference genome
+5. Perform counting of reads against a feature model (e.g. gene model, transcript model, exon model, junction model, etc)
+6. Normalization of reads
+7. Statistical comparisons of counts between groups (Hypothesis: There is no difference in relative expression levels of gene X between condition 1 and condition 2)
+
+
+Other analysis goals of RNA-Seq include things such as alternative expression analysis, transcript discovery and annotation, allele specific expression, mutation discovery, fusion detections, and RNA editing. For this class, we will stick to differential expression analysis.
+
+
+### Getting setup
+Computational biology involves a fair amount of juggling of various kinds of input files, output files, and intermediate files. It can be easy to be overrun with a swamp of files unless you can come up with a good way to organize them. It's best if you take time at the very beginning to think through what inputs you will need, the outputs you will generate and where you will put it all.
+
+__Tools used__
+
+* `bowtie2`
+
+__Concepts used__
+
+* make directories (`mkdir`)
+
+* list contents (`ls`)
+
+* setting and using environment variables (`export` and `echo`)
+
+* exploring file contents (`less`, `zcat`, `head`)
+
+***
+####  <span style="color:blue">__Exercise L1:__</span> 
+
+First, let's make a space to do our work. The best place to do this is on your share drive. For uniformity's sake and demonstration purposes, we will do this in the next best place, which is `/data`.
+
+1. Let's make a working directory for ourselves
+```{bash, eval=FALSE}
+## Be sure to use your user name, not mine!
+cd /data/staylo
+mkdir rnaseq
+cd rnaseq
+```
+
+2. To save ourselves some trouble typing, let's create an environment variable
+```{bash}
+export RNASEQ=/data/staylo/rnaseq
+echo $RNASEQ
+```
+
+3. Now lets make a spot for our raw sequence data and copy it over.
+```{bash, eval=FALSE}
+cd $RNASEQ
+mkdir data
+cd data
+cp /tools/sampledata/rnaseq/data/* .
+```
+
+Let's quickly take a look at our raw data
+```{bash, eval=FALSE}
+ls -1h
+```
+```{bash, eval=TRUE, echo=FALSE, message=FALSE}
+export RNASEQ=/data/staylo/rnaseq
+cd $RNASEQ/data
+ls -1h
+```
+Here we have 16 sequencing files. The file extension on these is `.fastq.gz`, meaning they are compressed fastq files. These files are from an experiment with Normal and Tumor samples. There are 2 replicates for each (cDNA-1 and cDNA-2). Also, there were two different library preperation methods (lib1 and and lib2). Paired-end sequencing was performed on each sample, so that also gives us two sequencing reads (10pc_1 and 10pc_2). 2 conditions x 2 replicates x 2 libraries x 2 reads = 16 files. If you want, you can take a peek at the output of one these in order to see how a fastq file is structured. A full discussion of this is beyond the scope for today, but suffice it to say that each read conisists of four lines: 
+
+* A unique sequence identifier starting with `@`
+
+* The read sequence
+
+* `+`
+
+* The per base quality score (ASCII encouded)
+
+```{bash, eval=FALSE}
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 4
+```
+
+```{bash, eval=TRUE, echo=FALSE, message=FALSE}
+export RNASEQ='/data/staylo/rnaseq'
+cd $RNASEQ/data
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 4
+```
+
+4. Now let's make a spot for our reference data set. To speed things up for deomonstration purposes, our data has been pre-filtered to show only reads on Chr 22. So we will only align to chr22 rather than the full genome. Remember that reference sequence fasta files for many model organisms have already been downloaded and are available in the `/tools/references` directory. This includes full genome fasta files as well as for individual chromosomes. For reasons that will become apparent later, we still need to make some space in our working directory for the reference. However, we don't really need to copy it over, but instead we will just link to it.
+```{bash, eval=FALSE}
+cd $RNASEQ
+mkdir ref
+cd ref
+ln -s /tools/references/Homo_sapiens/UCSC/hg19/Sequence/Chromosomes/chr22.fa chr22.fa
+```
+Notice the notation for links when you run 
+```{bash, eval=FALSE}
+ls -l
+```
+```{bash, eval=TRUE, echo=FALSE, message=FALSE}
+export RNASEQ='/data/staylo/rnaseq'
+cd $RNASEQ/ref
+ls -l chr22.fa
+```
+Try taking a peek inside
+```{bash, eval=FALSE}
+head chr22.fa
+```
+```{bash, eval=TRUE, echo=FALSE, message=FALSE}
+export RNASEQ='/data/staylo/rnaseq'
+cd $RNASEQ/ref
+head chr22.fa
+```
+
+5. Before you can do a sequence alignment, you need to 'index' the genome. This process allows the alignment tool to quickly scan through the reference genome to find potential matches. Because different alignment tools use different algorithms they also require different index formats. So a reference must be indexed the first time it is used with a particular alignment tool. This process only has to be done once and then the index files can be reused. *If we were aligning to the whole genome, this process has already been done with a number of alignment tools such as `bowtie`, `bowtie2`, `bwa`, and `blast`.* You could see those if you ran the following code:
+```{bash, eval=FALSE}
+ls -lh /tools/references/Homo_sapiens/UCSC/hg19/Sequence/
+```
+Because we are only aligning to chr22, we first need to create an index for it. We will be using the `tophat2` alignment tool, which uses `bowtie2`, so that is what we will use to index
+```{bash, eval=FALSE}
+bowtie2-build chr22.fa chr22
+ls -lh
+```
+```{bash, eval=TRUE, echo=FALSE, message=FALSE}
+export RNASEQ='/data/staylo/rnaseq'
+cd $RNASEQ/ref
+ls -lh --ignore=*.gtf
+```
+6. You will also need a gene annotation file. A gene annotation file contains all the important information for your gene model, such as gene names, start and stop locations of each feature (gene, exon, CDS), and other important identifying information (Ensembl gene id, transcript id, etc). This information is usually encoded in one of several flexible formats : `.gtf`, `.gff`, or `.gff3`. As with the reference sequences, gene annotation files for many model organisms have been downloaded for you and are available in `/tools/references`. Because we are only aligning to chr22, we will filter the gtf file to only include genes from that chromosome:
+```{bash, eval=FALSE}
+grep "chr22"" /tools/references/Homo_sapiens/UCSC/hg19/Annotation/Genes/genes.gtf > genes_chr22.gtf
+```
+
+Check your file to make sure it looks the way you expect it to
+```{bash, eval=FALSE}
+head genes_chr22.gtf
+```
+```{bash, eval=TRUE, echo=FALSE, message=FALSE}
+export RNASEQ='/data/staylo/rnaseq'
+cd $RNASEQ/ref
+head genes_chr22.gtf
+```
+
+***
+
+### Sequence Alignment
+Now that we have set up our working environment, we are ready to begin the alignment. We will use Bowtie2/Tophat2 to align all pairs of read files to the genome.  The output of this step will be a BAM file for each data set. *Reminder, we will be using some basic defaults. A detailed discussion of the science will be reserved for later. Refer to TopHat manual and tutorial for a more detailed explanation if desired: https://ccb.jhu.edu/software/tophat/manual.shtml*
+
+__Tools used__
+
+* `tophat2`
+
+
+__Concepts used__
+
+* word count (`wc`)
+
+#### TopHat basic usage
+`tophat [options] <bowtie_index> <lane1_reads1[,lane2_reads1,...]> <lane1_reads2[,lane2_reads2,...]> `
+
+Extra options specified below:
+
+* `-p 1` tells TopHat to use 1 CPUs for bowtie alignments. On bigger systems you can increase this and get some performance increases.
+
+* `-r 100` tells TopHat the expected inner distance between the reads of a pair. [fragment size - (2*read length)].  300 - (2*100) = 100 
+
+* `-o` tells TopHat to write the output to a particular directory (one per sample). If the directory does not exist, it is created.
+
+* `-G <known transcripts file>` supplies a list of known transcript models.  These will be used to help TopHat measure known exon-exon connections (novel connections will still be predicted)
+
+* `--transcriptome-index`  TopHat will align to both the transcriptome and genome and figure out the 'best' alignments for you.  
+    + In order to perform alignments to the transcriptome, an index must be created as we did for the genome.  
+    + This parameter tells TopHat where to store it and allows it to be reused in multiple TopHat runs.
+
+    
+***
+####  <span style="color:blue">__Exercise L2:__</span>
+1. Make an alignment directory as well as a subdirectory to hold the transcriptome index
+```{bash, eval=FALSE}
+cd $RNASEQ
+mkdir -p alignments/trans_idx
+cd alignments
+```
+
+2. Perform the alignment. We will just do alignments for library 1. There are 2 Normal and 2 Tumor samples, so that is 4 alignment calls. Each alignment call gets 2 fastq files (Read 1 and Read 2). In my tests, each sample took ~3 minutes to align
+```{bash, eval=FALSE}
+tophat2 -p 1 -r 100 -o Normal-cDNA-1-lib1 -G $RNASEQ/ref/genes_chr22.gtf --transcriptome-index $RNASEQ/alignments/trans_idx $RNASEQ/ref/chr22 $RNASEQ/data/H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz $RNASEQ/data/H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_2.fastq.gz
+
+tophat2 -p 1 -r 100 -o Normal-cDNA-2-lib1 -G $RNASEQ/ref/genes_chr22.gtf --transcriptome-index $RNASEQ/alignments/trans_idx $RNASEQ/ref/chr22 $RNASEQ/data/H_KH-540077-Normal-cDNA-2-lib1_ds_10pc_1.fastq.gz $RNASEQ/data/H_KH-540077-Normal-cDNA-2-lib1_ds_10pc_2.fastq.gz
+
+tophat2 -p 1 -r 100 -o Tumor-cDNA-1-lib1 -G $RNASEQ/ref/genes_chr22.gtf --transcriptome-index $RNASEQ/alignments/trans_idx $RNASEQ/ref/chr22 $RNASEQ/data/H_KH-540077-Tumor-cDNA-1-lib1_ds_10pc_1.fastq.gz $RNASEQ/data/H_KH-540077-Tumor-cDNA-1-lib1_ds_10pc_2.fastq.gz
+
+tophat2 -p 1 -r 100 -o Tumor-cDNA-2-lib1 -G $RNASEQ/ref/genes_chr22.gtf --transcriptome-index $RNASEQ/alignments/trans_idx $RNASEQ/ref/chr22 $RNASEQ/data/H_KH-540077-Tumor-cDNA-2-lib1_ds_10pc_1.fastq.gz $RNASEQ/data/H_KH-540077-Tumor-cDNA-2-lib1_ds_10pc_2.fastq.gz
+```
+
+Let's count the alignment BAM files to make sure all were created successfully (you should have 4 total)
+```{bash, eval=FALSE}
+ls -l */accepted_hits.bam | wc -l
+ls -l */accepted_hits.bam 
+```
+```{bash, eval=TRUE, echo=FALSE, message=FALSE}
+export RNASEQ='/data/staylo/rnaseq'
+cd $RNASEQ/alignments
+ls -l */accepted_hits.bam | wc -l
+ls -l */accepted_hits.bam 
+```
+
+
+***
+
+### Perform feature counting
+The next step is count how many reads align to each feature in our gene model. There are many methods to do this, but we will pick `htseq-count`. We choose this because it is fairly straightforward and quick to run, which makes it ideal for demonstration purposes. Also it feeds nicely into a powerful package from Bioconductor called `DESeq2` which does differential expression testing. 
+
+__Tools used__
+
+* `samtools`
+
+* `htseq-count`
+
+__Concepts used__
+
+* piping commands (`|`)
+
+* output redirect (`>`)
+
+#### samtools basic usage
+`samtools <command> [options]`
+
+Samtools is actually a collection of different commands, each with their own set of options. We will be using two commands in this exercise
+
+* `sort` is used to sort an alignment file
+    + `-n` sorts on the chromosome name
+    
+* `view` converts the alignment file from binary (bam) to human readable form (sam)
+    + `-h` includes the header information
+
+#### htseq-count basic usage
+`htseq-count [options] <sam_file> <gff_file>`
+
+Extra options specified below
+
+* `--mode` determines how to deal with reads that overlap more than one feature. We believe the 'intersection-strict' mode is best.
+
+* `--stranded` specifies whether data is stranded or not. 
+
+* `--minaqual` will skip all reads with alignment quality lower than the given minimum value
+
+* `--type` specifies the feature type (3rd column in GFF file) to be used. (default, suitable for RNA-Seq and Ensembl GTF files: exon)
+
+* `--idattr` The feature ID used to identity the counts in the output table. The default, suitable for RNA-SEq and Ensembl GTF files, is gene_id.
+
+* NOTE: Instead of supplying the SAM file to htseq-count, we specify "-" to tell it to accept a stream from stdout
+
+***
+####  <span style="color:blue">__Exercise L3:__</span>
+1. Before we can count the aligned reads, the alignment file must first be sorted by chromosome name. 
+```{bash, eval=FALSE}
+
+cd $RNASEQ/alignments
+samtools sort -n Normal-cDNA-1-lib1/accepted_hits.bam Normal-cDNA-1-lib1/accepted_hits_namesorted.bam
+
+samtools sort -n Normal-cDNA-2-lib1/accepted_hits.bam Normal-cDNA-2-lib1/accepted_hits_namesorted.bam
+
+samtools sort -n Tumor-cDNA-1-lib1/accepted_hits.bam Tumor-cDNA-1-lib1/accepted_hits_namesorted.bam
+
+samtools sort -n Tumor-cDNA-2-lib1/accepted_hits.bam Tumor-cDNA-2-lib1/accepted_hits_namesorted.bam
+```
+
+2. The counting is done by the `htseq-count` program. This program expects alignments in the human readable sam format. Ours are currently in bam format. So, we will first convert our alignments from bam to sam using the `samtools view` command, and pipe the results into `htseq-count`. Also, `htseq-count` rather unhelpfully returns it's results as standard output (aka dumps it on the screen). Therefore we will also use the redirect operator `>` to capture this output and write it to a tab-seperated text file.
+```{bash, eval=FALSE}
+cd $RNASEQ
+mkdir expression
+cd expression
+mkdir Normal-cDNA-1-lib1  Normal-cDNA-2-lib1  Tumor-cDNA-1-lib1  Tumor-cDNA-2-lib1
+
+samtools view -h $RNASEQ/alignments/Normal-cDNA-1-lib1/accepted_hits_namesorted.bam | htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > Normal-cDNA-1-lib1/gene_read_counts.tsv
+
+samtools view -h $RNASEQ/alignments/Normal-cDNA-2-lib1/accepted_hits_namesorted.bam | htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > Normal-cDNA-2-lib1/gene_read_counts.tsv
+
+samtools view -h $RNASEQ/alignments/Tumor-cDNA-1-lib1/accepted_hits_namesorted.bam | htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > Tumor-cDNA-1-lib1/gene_read_counts.tsv
+
+samtools view -h $RNASEQ/alignments/Tumor-cDNA-2-lib1/accepted_hits_namesorted.bam | htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > Tumor-cDNA-2-lib1/gene_read_counts.tsv
+```
+
+3. Take a moment if you wish to explore the contents of this output.
+
+#### Using a text editor
+keep track of the commands as you issue them
+Use search and replace
+Brief comment on regex
+
+### Using R scripts
+Using R to keep track of your files and names
+Performing system calls from within R
+
+### Using Bioconductor
+Take advantage of prebuilt workflows
+
+### Using plots in R
+Make your output look pretty

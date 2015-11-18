@@ -579,7 +579,7 @@ Now add a new code chunk to the document to define and test the function you cre
 #####  <span style="color:blue">__Answer for Exercise R4:__</span> 
 
 
-The code chunk that you insert into your document should look like this (minus the "|" symbol on the left hand edge):
+The code chunk that you insert into your document should look like this (minus the "|" symbol on the left hand edge of the following display).  The reason for the "|" is because it is hard to get RStudio to render what a code chunk should look like since it wants to interpret that code chunk...
 
 ````
 |       ```{r}

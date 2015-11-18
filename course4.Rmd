@@ -301,6 +301,91 @@ samtools view -h $RNASEQ/alignments/Tumor-cDNA-2-lib1/accepted_hits_namesorted.b
 ```
 
 3. Take a moment if you wish to explore the contents of this output.
+***
+
+
+### Perform differential expression analysis
+There are several packages available for differential expression analysis. We will use the DESeq2 package which is part of the Bioconductory suite of packages for R. We will now leave the command line environment and move into RStudio.
+
+__Tools used__
+
+* `DESeq2`
+
+__Concepts used__
+
+* RStudio
+
+* Bioconductor
+
+***
+####  <span style="color:blue">__Exercise L3:__</span>
+1. Open RStudio by pointing your firefox browser at https://sideswiper:8787
+
+2. Set up your workspace by loading all the appropriate libraries you will need and setting your working directory.
+```{r, eval=TRUE, echo=FALSE, message=FALSE}
+library(DESeq2)
+```
+```{r}
+## Libraries to load
+library(DESeq2)
+library(plyr)
+
+## Set working directory
+setwd('/data/staylo/rnaseq/')
+```
+
+3. The DESeq2 package takes a table of counts. The column names are the individual sample names. The rownames are the gene names. So our first task is to load all the individual counts tables, merge them into a single counts table, and then make sure it is formatted properly.
+```{r}
+# Create vector of file paths for all gene_read_counts.tsv files
+countsfiles<-list.files(path = 'expression', pattern = 'gene_read_counts.tsv', recursive = TRUE, full.names = TRUE)
+
+# read all tables in and store them in a list. Notice the use of regular expressions to automatically capture the sample names.
+counts<-lapply(countsfiles, function (x) {
+  sample<-gsub('expression/(.+)/gene_read_counts.tsv', '\\1', x)
+  df<-read.table(x, header = FALSE, sep = '\t', as.is=TRUE)
+  colnames(df)<-c('gene_id', sample)
+  return(df)
+})
+
+#Take a peak at what you just loaded in
+lapply(counts, head)
+
+# Merge the data frames into a single dataframe
+counts<-Reduce(function(...) merge(..., all=TRUE), counts)
+head(counts)
+
+# Notice that in addition to gene counts, the first 5 rows detail various categories of reads that did not map to any gene. We will want to remove these from our table. Also note that the first column of the data frame contains the gene id. We want to turn this column into the row names. This sounds like a lot, but is actually acheived quite simply in two lines of code:
+row.names(counts)<-counts$gene_id
+counts<-counts[-c(1:5),-1]
+head(counts)
+```
+
+4. The next input for DESeq2 is the experimental design. This is just a simple table that describes the different variables that will be compared. In this case, we have just one variable that describes the type of sample as being either 'normal' or 'tumor'. The row names in this table should correspond to the columns in the counts table.
+```{r}
+#Use regular expressions to extract the type from the sample names
+type<-gsub('(.+)-cDNA.+', '\\1', colnames(counts))
+
+#create the data frame and format the rownames correctly
+design<-data.frame(type=type)
+row.names(design)<- colnames(counts)
+design
+```
+
+5. Now we take the counts table and the design table and enter them into a data set object. The `DESeq` command then performs the statistical analysis on the data set in one easy step. For details on the science and methods behind the analysis, consult the DESeq2 vignette by calling `browseVignettes('DESeq2')`.
+```{r, eval =FALSE, message=FALSE}
+## create the data set and make sure the comparison is by type, with tumor vs normal.
+dataset <- DESeqDataSetFromMatrix(countData=counts, colData=design, design=~type)
+dataset$type <- relevel(dataset$type, 'Normal') 
+  
+## run the analysis and extract the results
+deseq<-DESeq(dataset)
+results<-results(deseq)
+```
+
+
+***
+
+
 
 #### Using a text editor
 keep track of the commands as you issue them

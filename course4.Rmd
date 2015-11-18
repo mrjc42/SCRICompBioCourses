@@ -273,7 +273,6 @@ Extra options specified below
 ####  <span style="color:blue">__Exercise L3:__</span>
 1. Before we can count the aligned reads, the alignment file must first be sorted by chromosome name. 
 ```{bash, eval=FALSE}
-
 cd $RNASEQ/alignments
 samtools sort -n Normal-cDNA-1-lib1/accepted_hits.bam Normal-cDNA-1-lib1/accepted_hits_namesorted.bam
 
@@ -301,6 +300,7 @@ samtools view -h $RNASEQ/alignments/Tumor-cDNA-2-lib1/accepted_hits_namesorted.b
 ```
 
 3. Take a moment if you wish to explore the contents of this output.
+
 ***
 
 
@@ -321,27 +321,28 @@ __Concepts used__
 ####  <span style="color:blue">__Exercise L3:__</span>
 1. Open RStudio by pointing your firefox browser at https://sideswiper:8787
 
-2. Set up your workspace by loading all the appropriate libraries you will need and setting your working directory.
+2. Set up your workspace by loading all the appropriate libraries you will need. 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE}
 library(DESeq2)
+library(plyr)
+
 ```
-```{r}
+```{r, eval=FALSE}
 ## Libraries to load
 library(DESeq2)
 library(plyr)
 
-## Set working directory
-setwd('/data/staylo/rnaseq/')
 ```
 
-3. The DESeq2 package takes a table of counts. The column names are the individual sample names. The rownames are the gene names. So our first task is to load all the individual counts tables, merge them into a single counts table, and then make sure it is formatted properly.
+3. The DESeq2 package takes a table of counts. The column names are the individual sample names. The rownames are the gene names. So our first task is to load all the individual counts tables, merge them into a single counts table, and then make sure it is formatted properly. __Before you copy this code, make sure you change the path name to your directory!!!__
 ```{r}
 # Create vector of file paths for all gene_read_counts.tsv files
-countsfiles<-list.files(path = 'expression', pattern = 'gene_read_counts.tsv', recursive = TRUE, full.names = TRUE)
+workingpath<-'/data/staylo/rnaseq/expression'
+countsfiles<-list.files(path = workingpath, pattern = 'gene_read_counts.tsv', recursive = TRUE, full.names = TRUE)
 
 # read all tables in and store them in a list. Notice the use of regular expressions to automatically capture the sample names.
 counts<-lapply(countsfiles, function (x) {
-  sample<-gsub('expression/(.+)/gene_read_counts.tsv', '\\1', x)
+  sample<-gsub('.+expression/(.+)/gene_read_counts.tsv', '\\1', x)
   df<-read.table(x, header = FALSE, sep = '\t', as.is=TRUE)
   colnames(df)<-c('gene_id', sample)
   return(df)
@@ -372,7 +373,7 @@ design
 ```
 
 5. Now we take the counts table and the design table and enter them into a data set object. The `DESeq` command then performs the statistical analysis on the data set in one easy step. For details on the science and methods behind the analysis, consult the DESeq2 vignette by calling `browseVignettes('DESeq2')`.
-```{r, eval =FALSE, message=FALSE}
+```{r, message=FALSE}
 ## create the data set and make sure the comparison is by type, with tumor vs normal.
 dataset <- DESeqDataSetFromMatrix(countData=counts, colData=design, design=~type)
 dataset$type <- relevel(dataset$type, 'Normal') 
@@ -380,12 +381,75 @@ dataset$type <- relevel(dataset$type, 'Normal')
 ## run the analysis and extract the results
 deseq<-DESeq(dataset)
 results<-results(deseq)
+results
+
+## The results may be more helpful if you sort them by significance
+results[order(results$padj),]
+
 ```
 
+6. The results table can be output as a csv if desired:
+```{r, eval=FALSE}
+write.csv(results[order(results$padj),], file = '/data/staylo/rnaseq/expression/diffex_results.csv', quote = FALSE)
 
 ***
 
+### Visualize the results
+In addition to being a power statistical machine, R also has an impressive array of plotting functions that are useful for visualizing the data. We show these here just as a demonstration of what R is capable of doing. A thorough explanation of the plotting functions are beyond the scope of this course. For now, we leave it to you to explore some of these functions on your own. *A note on the science: This RNA-Seq data set was used because it was small and useful to demonstrate how to run the workflow. The results visualized here do not necessarily represent what a "good" experiment should look like.*
 
+***
+####  <span style="color:blue">__Exercise L4:__</span>
+```{r, eval=TRUE, echo=FALSE, message=FALSE}
+require(RColorBrewer)
+require(gplots)
+require(ggplot2)
+```
+
+```{r, eval=FALSE}
+require(RColorBrewer)
+require(gplots)
+require(ggplot2)
+```
+```{r}
+## Plot 1: Dispersion
+## This plot models the relationship between the number of counts for a gene and the observed variance
+plotDispEsts(deseq, main='Dispersion plot')
+
+## Plot 2: Principal components analysis
+## First perform a regularized log transformation, then use the plotPCA command
+rld <- rlogTransformation(deseq, blind=TRUE)
+plotPCA(rld, intgroup=colnames(colData(deseq)))+ggtitle("Principle Component Analysis")
+
+## Plot 3: Sample distance heatmap
+## Also uses regularized log transformation and takes advantage of nice color pallette from RColorBrewer
+mycols <- brewer.pal(8, "Dark2")[1:length(unique(deseq$type))]
+sampleDists <- as.matrix(dist(t(assay(rld))))
+heatmap.2(as.matrix(sampleDists), key=TRUE, trace="none",cexRow=0.8, cexCol=0.8,
+          col=colorpanel(100, "black", "white"),
+          ColSideColors=mycols[deseq$type], RowSideColors=mycols[deseq$type],
+          margin=c(10,10), main="Sample Distance Matrix")
+
+## Plot4: MA plot
+## Shows the fold change in expression (y axis) vs mean counts (x axis). Red points show genes with adjusted p value less than 0.1. These plots illustrate the fact that when the counts are low, a greater fold change is required to demonstrate significance.
+plotMA(results, main="MA plot") 
+
+## Plot 5: Volcano plot
+## Graphical way to show genes with differential expression that is both significant (y-axis) and large (x-axis)
+with(results, plot(log2FoldChange, -log10(padj), pch=20, main="Volcano plot"))
+
+# Add colored points: red if padj<0.05, orange of log2FC>1, green if both)
+with(subset(results, padj<.05 ), points(log2FoldChange, -log10(padj), pch=20, col="red"))
+with(subset(results, abs(log2FoldChange)>1), points(log2FoldChange, -log10(padj), pch=20, col="orange"))
+with(subset(results, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange, -log10(padj), pch=20, col="green"))
+
+#Add reference lines
+abline(v=c(-1, 1), h=-log10(0.05), lty=3)
+```
+
+***
+
+### Cleaning Up
+Once you are done with your analysis
 
 #### Using a text editor
 keep track of the commands as you issue them
@@ -396,8 +460,3 @@ Brief comment on regex
 Using R to keep track of your files and names
 Performing system calls from within R
 
-### Using Bioconductor
-Take advantage of prebuilt workflows
-
-### Using plots in R
-Make your output look pretty

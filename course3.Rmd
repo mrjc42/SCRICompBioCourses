@@ -316,7 +316,34 @@ https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
 ***
 ####  <span style="color:blue">__Exercise R3:__</span> 
 
-TODO: Question with code debugging  (give them a very broken function to fix...)
+Consider the following function which is intended to grab the middle string from a character vector.  In the event that the vector has an even number of elements, we will settle for the lower of the two middle values.
+
+```{r}
+middleString <- function(x){
+  vec <- sort(x)
+  len <- length(x)
+  middle <- len / 2
+  x[middle]
+}
+```
+
+And if you test this function out, you will see that it doesn't always produce a value all that near to the middle.   Here is an example that works as expected:
+
+```{r}
+test1 <- c('bob', 'cindy', 'fred', 'nancy', 'bart', 'nancy')
+middleString(test1)
+```
+
+
+And here is an example that really doesn't:
+
+```{r}
+test2 <- c('bob', 'cindy', 'fred')
+middleString(test2)
+```
+
+Use the debug function to step through and find the bug.  Once you have found the problem, try to write a new version of this function that always returns either the middle value or the lowest middle value.
+
 
 ***
 
@@ -477,9 +504,66 @@ res
 
 ####  <span style="color:blue">__Exercise R3:__</span> 
 
-TODO: Question with code debugging  (give them a very broken function to fix...)
+Consider the following function which is intended to grab the middle string from a character vector.  In the event that the vector has an even number of elements, we will settle for the lower of the two middle values.
+
+```{r}
+middleString <- function(x){
+  vec <- sort(x)
+  len <- length(x)
+  middle <- len / 2
+  x[middle]
+}
+```
+
+And if you test this function out, you will see that it doesn't always produce a value all that near to the middle.   Here is an example that works as expected:
+
+```{r}
+test1 <- c('bob', 'cindy', 'fred', 'nancy', 'bart', 'nancy')
+middleString(test1)
+```
+
+
+And here is an example that really doesn't:
+
+```{r}
+test2 <- c('bob', 'cindy', 'fred')
+middleString(test2)
+```
+
+Use the debug function to step through and find the bug.  Once you have found the problem, try to write a new version of this function that always returns either the middle value or the lowest middle value.
+
 
 #####  <span style="color:blue">__Answer for Exercise R3:__</span> 
+
+If you step through the function and have a look around, you will notice that the line of this function that is suspicious looking is this one:
+
+```  
+middle <- len/2
+```
+
+This happens because the value for `middle` (from the previous line) is: 1.5 
+
+So to "fix" it, all we really need to do is something like this:
+
+
+```{r}
+middleString <- function(x){
+  vec <- sort(x)
+  len <- length(x)
+  middle <- ceiling(len / 2)
+  x[middle]
+}
+```
+
+The `ceiling` funcion allows you to always round 'up'.  There may be other ways to resolve this but this is just one.  Don't worry if you didn't know about the `ceiling` function.  The exercise is about finding the problem and seeing what was wrong.  With a fix like this, both examples should produce values near the middle.
+
+```{r}
+test1 <- c('bob', 'cindy', 'fred', 'nancy', 'bart', 'nancy')
+middleString(test1)
+
+test2 <- c('bob', 'cindy', 'fred')
+middleString(test2)
+```
 
 
 ***

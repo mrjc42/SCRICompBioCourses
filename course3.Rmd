@@ -93,10 +93,13 @@ myFun(2)
 ***
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
-TODO: Question about system
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
 
-TODO: Question about functions
+While staying in your R session, find out what your working directory is and list out the files that are available there.  How could you have done this another way?  What are the advantages of each approach?
 
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+
+Write a function that appends a fictional extension '.extension' to any string.
 
 ***
 
@@ -108,7 +111,7 @@ Basic function creation is pretty straightforward, but what if we want to apply 
 
 ### `=` vs `==`
 
-You have already  seen the `=` operator before and know that in most (but not all) cases it acts as an assinment operator.  Now lets meed the `==`.  The `==` operator tests equality.  It returns a boolean value (TRUE or FALSE), depending on what the expression is.  So for example lets look at a couple of uses of this new operator and see what comes back:
+You have already  seen the `=` operator before and know that in most (but not all) cases it acts as an assignment operator.  Now lets meed the `==`.  The `==` operator tests equality.  It returns a boolean value (TRUE or FALSE), depending on what the expression is.  So for example lets look at a couple of uses of this new operator and see what comes back:
 
 ```{r}
 2==2
@@ -241,9 +244,19 @@ One quick word of caution if you are going to be writing `for` loops.  In R it i
 ***
 ####  <span style="color:blue">__Exercise R2:__</span>
 
-TODO: Question about flow
+#####   <span style="color:blue">__Exercise R2 part 1:__</span> 
 
-TODO: Question about loops
+You have the following vector of base calls:
+
+```{r}
+bases <- c('A','C','A','C','G','T')
+```
+
+You want to convert this info a vector where the purines (A and G) are labeled as TRUE and the pyrimidines (C and T) are FALSE.  Write a simple function to do this for just one element (one base).
+
+#####   <span style="color:blue">__Exercise R2 part 2:__</span> 
+
+Now write call that function using lapply to get a vector of answers.  Don't forget to use the `unlist` function to clean up the result.
 
 ***
 
@@ -330,14 +343,16 @@ Also useful to know is that you can use .Rmd for languages other than just R.  S
 ```{r, echo=FALSE}
 names(knitr::knit_engines$get())
 ```
-
+Lets do a quick exercise to learn what markdown looks like and how you can edit it
 
 ***
 ####  <span style="color:blue">__Exercise R4:__</span> 
 
-Lets start by using RStudio to create an .Rmd file.
+Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
 
-TODO: create an Rmd and modify the code chunks.
+Now look at the document that is opened up in RStudio.  Notice how certain sections of it are marked by triple back ticks (```).  These are code chunks which will be evaluated when the document is rendered.  You can put whatever R code you want to into these chunks and you can surround it be whatever prose you need to include in the document.
+
+Now add a new code chunk to the document to define and test the function you created in exercise 1.
 
 ***
 
@@ -351,11 +366,142 @@ So writing your code as .Rmd files will go a long ways towards helping you compo
 
 The answer is to use version control software.  Version control softare is something that all software developers use, and it's very much worth your time to learn to use it too.  It's not difficult to learn, but if you make good use of it, it can not only save your bacon, but it can make your life a lot easier as well.  There have been many popular flavors of version control software that have come out over the years.  A few you might have heard about are `rcs`, `cvs`, `svn` and more recently `git`. 
 
+Version control is probably too big a topic to do justice to in a beginner course (it could be a short class on it's own).  But it is mentioned here so that you know it is something that you should really learn about.
 
 
 
+***
+***
+***
+
+
+####  <span style="color:blue">__Exercise R1:__</span> 
+
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+
+While staying in your R session, find out what your working directory is and list out the files that are available there.  How could you have done this another way?  What are the advantages of each approach?
+
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+
+Write a function that appends a fictional extension '.extension' to any string.
 
 
 
+#####  <span style="color:blue">__Answers for Exercise R1:__</span> 
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 1):__</span> 
+
+As mentioned in the question, there are at least two different ways you can do this.  The first one is to use R exclusively like this:
+
+```{r, eval=FALSE}
+## Find the workding directory
+getwd()
+## now list the contents of the directory
+dir()
+```
+
+The second approach is to use system and the unix commands that you already know.  This approach is not as good as the one above because the code is not platform independent.  But on the plus side you do get access to all those command line flags...
+
+```{r, eval=FALSE}
+## Find the workding directory
+system('pwd')
+## now list the contents of the directory
+system('ls -alh')
+```
 
 
+######  <span style="color:blue">__Answer for Exercise R1 (part 2):__</span> 
+
+You can do this by just calling the paste function inside your custom function.
+
+
+```{r}
+myPasteFun <- function(x){
+  paste(x, 'extension', sep=".")
+}
+myPasteFun('testStr')
+```
+
+***
+
+
+####  <span style="color:blue">__Exercise R2:__</span>
+
+#####   <span style="color:blue">__Exercise R2 part 1:__</span> 
+
+You have the following vector of base calls:
+
+```{r}
+bases <- c('A','C','A','C','G','T')
+```
+
+You want to convert this info a vector where the purines (A and G) are labeled as TRUE and the pyrimidines (C and T) are FALSE.  Write a simple function to do this for just one element (one base).
+
+#####   <span style="color:blue">__Exercise R2 part 2:__</span> 
+
+Now write call that function using lapply to get a vector of answers.  Don't forget to use the `unlist` function to clean up the result.
+
+
+#####  <span style="color:blue">__Answers for Exercise R2:__</span> 
+######  <span style="color:blue">__Answer for Exercise R2 (part 1):__</span> 
+
+First lets write a simple function to decide which is which.
+
+```{r}
+isPurine <- function(x){
+switch(x,
+      'A'=TRUE,
+      'G'=TRUE,
+      'C'=FALSE,
+      'T'=FALSE)
+}
+## Test
+isPurine('A')
+isPurine('T')
+```
+
+######  <span style="color:blue">__Answer for Exercise R2 (part 2):__</span> 
+
+Now we just have to call our function using lapply to iterate over all elements of the vector:
+
+
+```{r}
+x <- lapply(bases, isPurine)
+res <- unlist(x)
+res
+```
+
+
+***
+
+
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+TODO: Question with code debugging  (give them a very broken function to fix...)
+
+#####  <span style="color:blue">__Answer for Exercise R3:__</span> 
+
+
+***
+
+####  <span style="color:blue">__Exercise R4:__</span> 
+
+Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
+
+Now look at the document that is opened up in RStudio.  Notice how certain sections of it are marked by triple back ticks (```).  These are code chunks which will be evaluated when the document is rendered.  You can put whatever R code you want to into these chunks and you can surround it be whatever prose you need to include in the document.
+
+Now add a new code chunk to the document to define and test the function you created in exercise 1.
+
+#####  <span style="color:blue">__Answer for Exercise R4:__</span> 
+
+
+The code chunk that you insert into your document should look like this (minus the "|" symbol on the left hand edge):
+
+````
+|       ```{r}
+        myPasteFun <- function(x){
+          paste(x, 'extension', sep=".")
+        }
+        myPasteFun('testStr')
+        ```
+````

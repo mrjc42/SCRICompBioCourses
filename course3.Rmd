@@ -48,11 +48,6 @@ file.path('foo','bar.txt')
 Finally, if you have a file that is stored in an installed package, the `system.file` command is an ideal way to refer to resources like this (in a way that respects whatever OS you are using).
 
 
-***
-####  <span style="color:blue">__Exercise R:__</span> 
-***
-
-
 
 
 # How to create basic functions
@@ -94,11 +89,24 @@ myFun <- function(x=1,y=2){x+y}
 myFun(2)
 ```
 
-### Flow control
 
-Now all of that is pretty straightforward, but what if we want to apply some logic inside of our function?  
+***
+####  <span style="color:blue">__Exercise R1:__</span> 
 
-#### `=` vs `==`
+TODO: Question about system
+
+TODO: Question about functions
+
+
+***
+
+
+
+# Flow control
+
+Basic function creation is pretty straightforward, but what if we want to apply some logic inside of our function?  
+
+### `=` vs `==`
 
 You have already  seen the `=` operator before and know that in most (but not all) cases it acts as an assinment operator.  Now lets meed the `==`.  The `==` operator tests equality.  It returns a boolean value (TRUE or FALSE), depending on what the expression is.  So for example lets look at a couple of uses of this new operator and see what comes back:
 
@@ -124,7 +132,7 @@ But addition to `==`, there are also a lot of other operators that test equality
  
  
  
-#### `if`
+### `if`
 
 But what if you need to do something different based on the results of something like an equality test (something that returns TRUE or FALSE)? In that case, we might want to use an `if` statement.  In R, an if statement is actually just another function call similar to the  `function` function.  So in R, an `if` statement usually looks like this:
 
@@ -137,7 +145,7 @@ y
 Notice how the value for y was tested and then how it was set to a new value inside of the curly braces?  You can use `if` statements wherever it's convenient for you.  But most people find them most useful when you need a function to make a decision.
 
 
-#### `else`
+### `else`
 
 Often times when you are done with an `if` statement you might need to do something 'else' in the event that the initial criteria was not met.  When that is true, you can use an `else` statement.  The `else` should always follow right after the results from the `if` statement like so:
 
@@ -153,7 +161,7 @@ y
 
 
 
-#### `switch`
+### `switch`
 
 Sometimes you might need to evaluate a whole slew of different expressions.  The `switch` function can let you handle these cases and they are _much_ more compact than a tall stack of `if` expressions would be.  But take heed: for needing this function can often be a 'red flag' concerning the design of your code.  If you have a large number of different specific expressions to handle: that often means that you are committing to maintaining a list of flags and the specific results from those flags.  `switch` statements are easy to write, but they can become a fair amount of work to maintain in the long run.  The help page for the switch function gives a pretty clear example:
 
@@ -171,9 +179,6 @@ centre(x, "median")
 
 
 
-***
-####  <span style="color:blue">__Exercise R:__</span> 
-***
 
 # Loops in R
 
@@ -234,7 +239,12 @@ One quick word of caution if you are going to be writing `for` loops.  In R it i
 
 
 ***
-####  <span style="color:blue">__Exercise R:__</span> 
+####  <span style="color:blue">__Exercise R2:__</span>
+
+TODO: Question about flow
+
+TODO: Question about loops
+
 ***
 
 
@@ -256,9 +266,6 @@ Copying code is always a bad idea.  Inevitably, if you have two places in your c
 Even better than writing code is to discover that someone else has already solved the problem.  Always look before you write.
 
 
-***
-####  <span style="color:blue">__Exercise R:__</span> 
-***
 
 
 
@@ -294,7 +301,10 @@ https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
 
 
 ***
-####  <span style="color:blue">__Exercise R:__</span> 
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+TODO: Question with code debugging  (give them a very broken function to fix...)
+
 ***
 
 
@@ -323,9 +333,12 @@ names(knitr::knit_engines$get())
 
 
 ***
-####  <span style="color:blue">__Exercise R:__</span> 
+####  <span style="color:blue">__Exercise R4:__</span> 
 
 Lets start by using RStudio to create an .Rmd file.
+
+TODO: create an Rmd and modify the code chunks.
+
 ***
 
 
@@ -339,9 +352,6 @@ So writing your code as .Rmd files will go a long ways towards helping you compo
 The answer is to use version control software.  Version control softare is something that all software developers use, and it's very much worth your time to learn to use it too.  It's not difficult to learn, but if you make good use of it, it can not only save your bacon, but it can make your life a lot easier as well.  There have been many popular flavors of version control software that have come out over the years.  A few you might have heard about are `rcs`, `cvs`, `svn` and more recently `git`. 
 
 
-***
-####  <span style="color:blue">__Exercise R:__</span> 
-***
 
 
 

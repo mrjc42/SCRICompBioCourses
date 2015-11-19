@@ -146,7 +146,7 @@ ls -lh --ignore=*.gtf
 ```
 6. You will also need a gene annotation file. A gene annotation file contains all the important information for your gene model, such as gene names, start and stop locations of each feature (gene, exon, CDS), and other important identifying information (Ensembl gene id, transcript id, etc). This information is usually encoded in one of several flexible formats : `.gtf`, `.gff`, or `.gff3`. As with the reference sequences, gene annotation files for many model organisms have been downloaded for you and are available in `/tools/references`. Because we are only aligning to chr22, we will filter the gtf file to only include genes from that chromosome:
 ```{bash, eval=FALSE}
-grep "chr22"" /tools/references/Homo_sapiens/UCSC/hg19/Annotation/Genes/genes.gtf > genes_chr22.gtf
+grep "chr22" /tools/references/Homo_sapiens/UCSC/hg19/Annotation/Genes/genes.gtf > genes_chr22.gtf
 ```
 
 Check your file to make sure it looks the way you expect it to
@@ -274,13 +274,13 @@ Extra options specified below
 1. Before we can count the aligned reads, the alignment file must first be sorted by chromosome name. 
 ```{bash, eval=FALSE}
 cd $RNASEQ/alignments
-samtools sort -n Normal-cDNA-1-lib1/accepted_hits.bam Normal-cDNA-1-lib1/accepted_hits_namesorted.bam
+samtools sort -n Normal-cDNA-1-lib1/accepted_hits.bam Normal-cDNA-1-lib1/accepted_hits_namesorted
 
-samtools sort -n Normal-cDNA-2-lib1/accepted_hits.bam Normal-cDNA-2-lib1/accepted_hits_namesorted.bam
+samtools sort -n Normal-cDNA-2-lib1/accepted_hits.bam Normal-cDNA-2-lib1/accepted_hits_namesorted
 
-samtools sort -n Tumor-cDNA-1-lib1/accepted_hits.bam Tumor-cDNA-1-lib1/accepted_hits_namesorted.bam
+samtools sort -n Tumor-cDNA-1-lib1/accepted_hits.bam Tumor-cDNA-1-lib1/accepted_hits_namesorted
 
-samtools sort -n Tumor-cDNA-2-lib1/accepted_hits.bam Tumor-cDNA-2-lib1/accepted_hits_namesorted.bam
+samtools sort -n Tumor-cDNA-2-lib1/accepted_hits.bam Tumor-cDNA-2-lib1/accepted_hits_namesorted
 ```
 
 2. The counting is done by the `htseq-count` program. This program expects alignments in the human readable sam format. Ours are currently in bam format. So, we will first convert our alignments from bam to sam using the `samtools view` command, and pipe the results into `htseq-count`. Also, `htseq-count` rather unhelpfully returns it's results as standard output (aka dumps it on the screen). Therefore we will also use the redirect operator `>` to capture this output and write it to a tab-seperated text file.
@@ -318,7 +318,7 @@ __Concepts used__
 * Bioconductor
 
 ***
-####  <span style="color:blue">__Exercise L3:__</span>
+####  <span style="color:blue">__Exercise L4:__</span>
 1. Open RStudio by pointing your firefox browser at https://sideswiper:8787
 
 2. Set up your workspace by loading all the appropriate libraries you will need. 
@@ -449,14 +449,108 @@ abline(v=c(-1, 1), h=-log10(0.05), lty=3)
 ***
 
 ### Cleaning Up
-Once you are done with your analysis
+Analyses like these tend to generate a good number of intermediate files. When you are done with your analysis it is important that you clean up after yourself. Otherwise, you will find that you have accumulated a significant number of files that you don't know what to do with and you will soon run out of space on your disk. This is particularly true if you are using a shared disk, such as `/data`. However, "Cleaning up after yourself" can actually present a surprisingly difficult challenge. What do you keep and what do you get rid of? When do you clean up? There are no hard and fast rules per se, but we will attempt to outline some good principles to help guide you.
 
-#### Using a text editor
-keep track of the commands as you issue them
-Use search and replace
-Brief comment on regex
+* __Clean up when you are done__. Often researchers will want to play around with different parameter sets until they find the parameter values that are most appropriate. This involves a lot of iterative reanalyzing of the data. It is not necessarily practical or desirable to throw away everything at the end of each iteration. It is good practice to put final and intermediate outputs of each iteration in different places to keep them seperate. When you are done with your iterations and you think you have the best output, don't forget to go back and remove all the other iterations. If you wait too long, you will have a hard time remembering which iteration gave you the best result.
+
+* __Don't leave things in a shared space__. Remember, `/data` is for scratch space only. Do not let your data spend more time here than it needs to. Not only is it wasteful of a shared resource, but it isn't safe. Nothing stored on `/data` or anywhere else on the autobots is backed up. The only safe place to put your data is back on your departmental share drive.
+
+* __Only keep the raw data and the final data__. Sounds simple right? This turns out to be a surprisingly contentious issue, particularly for sequence data. What is the right form of the 'raw' data for your sequence data? Is it the fastq or bam?
+
+    + __Fastq files__ are technically the most raw form of the data that is practical to keep. However, the alignment is often the most painstaking, time consuming step in a workflow. So it's nice if you don't have to do that again.
+    
+    + __BAM files__ are a superset of the fastq file, meaning that everything that is in a fastq file is also in the BAM file. You can always regenerate a fastq file from your BAM. Once you get a good alignment, you may never need to go back and realign unless you want to align to a different or newer reference. The catch is that the main BAM file only keeps the sequences that aligned. All of the sequences that didn't align are stored in a seperate BAM file (often with a label like 'unmapped.bam'). So if you choose to keep just the BAM, you will want to think about if you want to keep the unmapped sequences as well.
+    
+    + __Intermediate BAMs__ like the 'namesorted' BAM that we generated can easily be regenerated provided you kept a good record of the steps you used to make it the first time.
+    
+    + __Files with the `.bed` extension__ are text files that define the locations of various features. They are useful for visualization programs such as IGV and other downstream analyses. Depending on your workflow these will be more or less useful. The same logic will apply to all intermediate outputs in any workflow.
+    
+    + __Log files__ are often useful for troubleshooting, so they are handy to have while you are working out the bugs. Once your analysis has completed successfully you may not need these anymore. Sometimes they log the commands and parameters that you used. But if you take care to document this seperately elsewhere (see below) that may not be necessary.
+    
+* __Keep a record of what you did__. This is one of the most critical things to keep. As long as you have your raw data and a well documented record of what you did, you can always regenerate your analysis. Below we list some minimal things to include in that record. You may discover other pieces of information that are also useful to you.
+
+    + The date the analysis was done and who did it
+    
+    + The exact commands and parameters used
+    
+    + The version numbers of any software, programs, or packages that you used
+    
+
+### Using shell scripts
+One the most powerful aspects of working in the command line is the ability to write your own mini pieces of software, called *scripts*. At first, you may think that this is well beyond your ability. However, it is actually very easy. If you have taken the trouble to keep track of all the commands that you have executed, you are already 90% there! In fact, the text document that you have been using to copy and paste from up to this point is already a fully executable piece of custom software.
+
+#### Making your text file executable
+The secret is the little line of code at the top of the text file:
+```{bash, eval=FALSE}
+#! /usr/bin/bash
+```
+
+* The first bit `#!` is called the __shebang__ (ha __sh__ + __bang__, which is what computer nerds call the exclamation mark). When linux sees this at the beginning of a script, it tells the system that this is a program
+
+* The next bit `/usr/bin/bash` is called the __interpreter directive__, which basically tells the system what language environment to run the script in and where it is located. It turns out that all along, when you see the command prompt and entering commands, you have been using the __ba__ sic __sh__ ell scripting language, or __bash__. That is why the command prompt is also sometimes called the bash prompt. That is also why scripting in the command line is refered to as shell scripting, as opposed to scripting in another language such as python, perl, java, or R.
+
+* Rather than copying and pasting each line, you could have executed the entire document simply by calling the file with it's full path as function.
+```{bash, eval=FALSE}
+./ExamplesL1-L3.sh
+```
+
+* With the exception of the shebang, any line starting with `#` is ignored. These lines are comments, and are used to help document or explain what the code is supposed to do. Good code is well-commented code.
+
+* By convention, shell scripts receive a `.sh` extension although this isn't strictly necessary.
+
+* Note that this code also contains many exploratory calls (e.g. calls to `less` or `head` or `ls`) where we were just looking around at the environment and the files. You will see the output of all of these scroll quickly across your screen. In real documents, you would probably not have many of these. Take note however, that these do provide a sort of 'progress' bar to see how much of your code you have executed. Thus judicious use of these functions can be quite handy for debugging your code.
+
+***
+####  <span style="color:blue">__Homework L4:__</span>
+1. Try executing this script on your own. Before you do that, you will want to clear out your working directory so the script has a fresh start. __CAREFUL! Make sure you are in the correct directory!!! Linux will not ask you if you are sure you want to do this!__
+```{bash, eval=FALSE}
+cd $RNASEQ
+rm -r alignments
+rm -r data
+rm -r expression
+rm -r refs
+```
+
+2. Copy the script into your working directory
+```{bash, eval=FALSE}
+cp /tools/sampledata/course4Files/ExerciseL1-L3.sh .
+```
+
+3. Execute the script by calling it with it's full path
+```{bash, eval=FALSE}
+$RNASEQ/ExerciseL1-L3.sh
+
+## or alternatively if you are currently in the same directory as the script
+
+./ExerceiseL1-L3.sh
+```
+
+***
 
 ### Using R scripts
-Using R to keep track of your files and names
-Performing system calls from within R
+It is fairly common to have a workflow where you spend some time at the command line doing some preliminary data wrangling, and then move into R to perform the final statistical analysis. The only potential problem with this is that you end up with your workflow documentation spread out over multiple shell and R scripts. Unless you keep close track of these, it can be confusing to keep track of what you have done. 
+
+Wouldn't it be nice if you could just do all of your work from within Rstudio? Turns out you can. There is function in R called `system2` which allows you to send system calls from within R back down to the command line to be executed. As with anything there are advantages and disadvantages to this approach. Here is a brief list of a few of each:
+
+__Advantages__
+
+* Your entire workflow can be contained within a single script
+
+* You can take advantage of useful R features such as `lapply` to run the same bit of code against several different input files.
+
+* You can take advantage of powerful regular expression commands to easily capture sample names and format input and output file names. This is huge as it significantly reduces typo errors.
+
+* You can often use built-in R functions or packages that will do the same job as your command-line script, only easier, faster, or more intuitively.
+
+* You can easily parallelize operations in R, significantly increasing the performance of these machines.
+
+* You can use RStudio as your text editor, which is actually a really nice environment to program in.
+
+__Disadvantages__
+
+* Once you start making system calls, you are locked into a particular system configuration and your code is no longer portable. It more or less has to be run on the same machine or cluster unless you go back in and edit it.
+
+* Some system calls require slightly different syntax when called from R
+
+* It is less easy to access the `man` pages for your system commands when you are in R. 
 

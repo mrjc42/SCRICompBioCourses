@@ -719,7 +719,7 @@ This cheat sheet is valuable enough for new students that I plan to give you a c
 
 #####   <span style="color:blue">__Exercise R6 part 1:__</span> 
 
-Go look up the help page for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`. Find an example package and explore each of these.
+Go look up the help pages for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working for you, you might need to launch a vignette using `openVignette`.  Please note that `openVignette` requires that you have loaded the `Biobase` package to use.  Or you can look at the man pages using `help`. Find an example package and explore each of these.
 
 #####   <span style="color:blue">__Exercise R6 part 2:__</span> 
 
@@ -905,7 +905,7 @@ lst2
 
 #####   <span style="color:blue">__Exercise R6 part 1:__</span> 
 
-Go look up the help page for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working, you might need to launch a vignette using `openVignette` or to look at a man page using `help`. Find an example package and explore each of these.
+Go look up the help pages for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working for you, you might need to launch a vignette using `openVignette`.  Please note that `openVignette` requires that you have loaded the `Biobase` package to use.  Or you can look at the man pages using `help`. Find an example package and explore each of these.
 
 #####   <span style="color:blue">__Exercise R6 part 2:__</span> 
 

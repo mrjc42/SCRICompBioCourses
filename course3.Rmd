@@ -10,11 +10,11 @@ Welcome to our third course which aims to take you from a basic ability to inter
 Here is a list of topics that should be covered by the end of this course:
 
 # Basic system tools
-One of the useful parts of R is how it can interact directly with the OS that you have installed it on.  R can see what is in your local filesystem, it knows what kind of an OS you are running, and how to point the file separators.  And it can even launch command line tools right from R.  However, using these abilities can come at the cost of platform independence (the ability of your R scripts to be portable to other platforms).  So you should use these powers judiciously.
+One of the useful parts of R is how it can interact directly with the OS that you have installed it on.  R can see what is in your local file system, it knows what kind of an OS you are running, and how to point the file separators.  And it can even launch command line tools right from R.  However, using these abilities can come at the cost of platform independence (the ability of your R scripts to be portable to other platforms).  So you should use these powers judiciously.
 
 ### `getwd`, `setwd`
 
-The most basic R file system utility is probably `getwd` or "get working directory" function.  It means the same thing as the unix `pwd` command, except that instead of telling you where you are, it tells you where R is working from at the time.  If you don't like where R has defaulted to, you can use the `setwd` command to set the directory to something else.
+The most basic R file system utility is probably `getwd` or "get working directory" function.  It means the same thing as the UNIX `pwd` command, except that instead of telling you where you are, it tells you where R is working from at the time.  If you don't like where R has defaulted to, you can use the `setwd` command to set the directory to something else.
 
 
 ### `dir`, `file.remove`, `file.rename`
@@ -24,7 +24,7 @@ R has a family of functions for basic file management.  `dir` will let you list 
 
 ### The powerful (system dependent) `system` command:
 
-One of the most complicated and powerful of R's basic utilities is the `system` command.  This will run any command line commands based on the interpretation of a string that you pass in.  This is obviously extremely powerful, but remember that if you use this function in a program your code will no longer work on any platform other than ones that support the exact system command that you are passing in.  So for example, the following command will only work on unix based systems:
+One of the most complicated and powerful of R's basic utilities is the `system` command.  This will run any command line commands based on the interpretation of a string that you pass in.  This is obviously extremely powerful, but remember that if you use this function in a program your code will no longer work on any platform other than ones that support the exact system command that you are passing in.  So for example, the following command will only work on UNIX based systems:
 
 ```{r}
 system('pwd')
@@ -75,7 +75,7 @@ myFun <- function(){1+2}
 myFun()
 ```
 
-So that is at least more interesting.  But what if we wanted to pass in a value to our function?  Well we could define a function argument just by putting it into the function call to `function`, and then referring to that argument insid of the curly braces.  That would look like this:
+So that is at least more interesting.  But what if we wanted to pass in a value to our function?  Well we could define a function argument just by putting it into the function call to `function`, and then referring to that argument inside of the curly braces.  That would look like this:
 
 ```{r}
 myFun <- function(x,y){x+y}
@@ -93,10 +93,13 @@ myFun(2)
 ***
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
-TODO: Question about system
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
 
-TODO: Question about functions
+While staying in your R session, find out what your working directory is and list out the files that are available there.  How could you have done this another way?  What are the advantages of each approach?
 
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+
+Write a function that appends a fictional extension '.extension' to any string.
 
 ***
 
@@ -108,7 +111,7 @@ Basic function creation is pretty straightforward, but what if we want to apply 
 
 ### `=` vs `==`
 
-You have already  seen the `=` operator before and know that in most (but not all) cases it acts as an assinment operator.  Now lets meed the `==`.  The `==` operator tests equality.  It returns a boolean value (TRUE or FALSE), depending on what the expression is.  So for example lets look at a couple of uses of this new operator and see what comes back:
+You have already  seen the `=` operator before and know that in most (but not all) cases it acts as an assignment operator.  Now lets meed the `==`.  The `==` operator tests equality.  It returns a boolean value (TRUE or FALSE), depending on what the expression is.  So for example lets look at a couple of uses of this new operator and see what comes back:
 
 ```{r}
 2==2
@@ -215,7 +218,7 @@ apply(x, 2, sort)
 
 ### `mapply`
 
-Sometimes you have a function that expects a few arguments and you need to supply them as a pair of vectors of equal length.  `mapply` lets you accomodate as many different values as your function needs. The first argument for mapply is the function followed by a `...` argument for vectors with a special named arument called `MoreArgs` in the event that you need to pass other non-vectorized argumements to your function.  The `MoreArgs` argument takes a named list of other arguments.  So for example if you needed to paste together a string and a number and have them be separated by an underscore, you could do it with `mapply` like this:
+Sometimes you have a function that expects a few arguments and you need to supply them as a pair of vectors of equal length.  `mapply` lets you accommodate as many different values as your function needs. The first argument for mapply is the function followed by a `...` argument for vectors with a special named argument called `MoreArgs` in the event that you need to pass other non-vectorized arguments to your function.  The `MoreArgs` argument takes a named list of other arguments.  So for example if you needed to paste together a string and a number and have them be separated by an underscore, you could do it with `mapply` like this:
 
 ```{r}
 mapply(paste, 1:3, LETTERS[1:3], MoreArgs = list(sep="_"))
@@ -241,9 +244,19 @@ One quick word of caution if you are going to be writing `for` loops.  In R it i
 ***
 ####  <span style="color:blue">__Exercise R2:__</span>
 
-TODO: Question about flow
+#####   <span style="color:blue">__Exercise R2 part 1:__</span> 
 
-TODO: Question about loops
+You have the following vector of base calls:
+
+```{r}
+bases <- c('A','C','A','C','G','T')
+```
+
+You want to convert this info a vector where the purines (A and G) are labeled as TRUE and the pyrimidines (C and T) are FALSE.  Write a simple function to do this for just one element (one base).
+
+#####   <span style="color:blue">__Exercise R2 part 2:__</span> 
+
+Now write call that function using lapply to get a vector of answers.  Don't forget to use the `unlist` function to clean up the result.
 
 ***
 
@@ -303,18 +316,45 @@ https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
 ***
 ####  <span style="color:blue">__Exercise R3:__</span> 
 
-TODO: Question with code debugging  (give them a very broken function to fix...)
+Consider the following function which is intended to grab the middle string from a character vector.  In the event that the vector has an even number of elements, we will settle for the lower of the two middle values.
+
+```{r}
+middleString <- function(x){
+  vec <- sort(x)
+  len <- length(x)
+  middle <- len / 2
+  x[middle]
+}
+```
+
+And if you test this function out, you will see that it doesn't always produce a value all that near to the middle.   Here is an example that works as expected:
+
+```{r}
+test1 <- c('bob', 'cindy', 'fred', 'nancy', 'bart', 'nancy')
+middleString(test1)
+```
+
+
+And here is an example that really doesn't:
+
+```{r}
+test2 <- c('bob', 'cindy', 'fred')
+middleString(test2)
+```
+
+Use the debug function to step through and find the bug.  Once you have found the problem, try to write a new version of this function that always returns either the middle value or the lowest middle value.
+
 
 ***
 
 
 # Literate programming.
 
-Literate programming is the idea that a single documnent can contain both human ideas and executable machine code.  It was initially put forward by the legenadary Donald Knuth.  And it is especially valuable in fields like science and mathetics where ideas need to be reproducible and testable when shared with colleagues.  Over the years there have been several attempts to make this workable and they have seen varying degrees of success, but one of the most useable and successful applications o fthis is the R markdown (.Rmd) document.
+Literate programming is the idea that a single document can contain both human ideas and executable machine code.  It was initially put forward by the legendary Donald Knuth.  And it is especially valuable in fields like science and mathematics where ideas need to be reproducible and testable when shared with colleagues.  Over the years there have been several attempts to make this workable and they have seen varying degrees of success, but one of the most usable and successful applications of this is the R markdown (.Rmd) document.
 
 ### What is an .Rmd file?
 
-An R markdown (.Rmd) document allows you to embed R code right into the middle of your english prose.  You can make one right from your RStudio session by simply choosing it from the File menu.  The mardown is extremely simple and easy to learn.  But for a fullly detailed description of all advanced features, be sure to have a look at this document here: 
+An R markdown (.Rmd) document allows you to embed R code right into the middle of your prose.  You can make one right from your RStudio session by simply choosing it from the File menu.  The markdown is extremely simple and easy to learn.  But for a fully detailed description of all advanced features, be sure to have a look at this document here: 
 ```{bash, eval=FALSE}
 http://rmarkdown.rstudio.com/
 ```
@@ -330,14 +370,16 @@ Also useful to know is that you can use .Rmd for languages other than just R.  S
 ```{r, echo=FALSE}
 names(knitr::knit_engines$get())
 ```
-
+Lets do a quick exercise to learn what markdown looks like and how you can edit it
 
 ***
 ####  <span style="color:blue">__Exercise R4:__</span> 
 
-Lets start by using RStudio to create an .Rmd file.
+Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
 
-TODO: create an Rmd and modify the code chunks.
+Now look at the document that is opened up in RStudio.  Notice how certain sections of it are marked by triple back ticks (```).  These are code chunks which will be evaluated when the document is rendered.  You can put whatever R code you want to into these chunks and you can surround it be whatever prose you need to include in the document.
+
+Now add a new code chunk to the document to define and test the function you created in exercise 1.
 
 ***
 
@@ -349,13 +391,226 @@ TODO: create an Rmd and modify the code chunks.
 
 So writing your code as .Rmd files will go a long ways towards helping you compose your ideas so that things can be tested easily.  But what if you have a lot of R code and you are making a lot of changes?  How will you keep track of what has changed?  And if you work on a piece of code with a co-worker?  How will you both be able to work on it without losing your minds?
 
-The answer is to use version control software.  Version control softare is something that all software developers use, and it's very much worth your time to learn to use it too.  It's not difficult to learn, but if you make good use of it, it can not only save your bacon, but it can make your life a lot easier as well.  There have been many popular flavors of version control software that have come out over the years.  A few you might have heard about are `rcs`, `cvs`, `svn` and more recently `git`. 
+The answer is to use version control software.  Version control software is something that all software developers use, and it's very much worth your time to learn to use it too.  It's not difficult to learn, but if you make good use of it, it can not only save your bacon, but it can make your life a lot easier as well.  There have been many popular flavors of version control software that have come out over the years.  A few you might have heard about are `rcs`, `cvs`, `svn` and more recently `git`. 
+
+Version control is probably too big a topic to do justice to in a beginner course (it could be a short class on it's own).  But it is mentioned here so that you know it is something that you should really learn about.
+
+
+***
+
+# Homework exercises.
+
+Some of you have been asking for homework.  One great activity is to work through external vignettes.  Some good packages to look at ahead of next week are these:
+
+```
+http://bioconductor.org/packages/release/bioc/html/ShortRead.html
+
+http://bioconductor.org/packages/release/bioc/html/DESeq2.html
+
+http://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html
+
+http://bioconductor.org/packages/release/bioc/html/GenomicFeatures.html
+```
+
+If you look at the .pdf files for these packages (even if you don't fully understand them) you will be helping to set yourself up for success next time.  Another thing to look is to explore the Bioconductor packages here:
+
+```
+http://bioconductor.org/packages/release/BiocViews.html#___Software
+```
+
+As you do that, pay close attention to the tree hierarchy and to the search boxes on that page.  These all allow you to search the repository in different ways until you can find a package written to solve a problems that you are working on.  Once you find software written to solve problems you are working on, you should read through the vignettes for it.
 
 
 
+***
+***
+***
+
+
+####  <span style="color:blue">__Exercise R1:__</span> 
+
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+
+While staying in your R session, find out what your working directory is and list out the files that are available there.  How could you have done this another way?  What are the advantages of each approach?
+
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+
+Write a function that appends a fictional extension '.extension' to any string.
 
 
 
+#####  <span style="color:blue">__Answers for Exercise R1:__</span> 
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 1):__</span> 
+
+As mentioned in the question, there are at least two different ways you can do this.  The first one is to use R exclusively like this:
+
+```{r, eval=FALSE}
+## Find the workding directory
+getwd()
+## now list the contents of the directory
+dir()
+```
+
+The second approach is to use system and the UNIX commands that you already know.  This approach is not as good as the one above because the code is not platform independent.  But on the plus side you do get access to all those command line flags...
+
+```{r, eval=FALSE}
+## Find the workding directory
+system('pwd')
+## now list the contents of the directory
+system('ls -alh')
+```
 
 
+######  <span style="color:blue">__Answer for Exercise R1 (part 2):__</span> 
 
+You can do this by just calling the paste function inside your custom function.
+
+
+```{r}
+myPasteFun <- function(x){
+  paste(x, 'extension', sep=".")
+}
+myPasteFun('testStr')
+```
+
+***
+
+
+####  <span style="color:blue">__Exercise R2:__</span>
+
+#####   <span style="color:blue">__Exercise R2 part 1:__</span> 
+
+You have the following vector of base calls:
+
+```{r}
+bases <- c('A','C','A','C','G','T')
+```
+
+You want to convert this info a vector where the purines (A and G) are labeled as TRUE and the pyrimidines (C and T) are FALSE.  Write a simple function to do this for just one element (one base).
+
+#####   <span style="color:blue">__Exercise R2 part 2:__</span> 
+
+Now write call that function using lapply to get a vector of answers.  Don't forget to use the `unlist` function to clean up the result.
+
+
+#####  <span style="color:blue">__Answers for Exercise R2:__</span> 
+######  <span style="color:blue">__Answer for Exercise R2 (part 1):__</span> 
+
+First lets write a simple function to decide which is which.
+
+```{r}
+isPurine <- function(x){
+switch(x,
+      'A'=TRUE,
+      'G'=TRUE,
+      'C'=FALSE,
+      'T'=FALSE)
+}
+## Test
+isPurine('A')
+isPurine('T')
+```
+
+######  <span style="color:blue">__Answer for Exercise R2 (part 2):__</span> 
+
+Now we just have to call our function using lapply to iterate over all elements of the vector:
+
+
+```{r}
+x <- lapply(bases, isPurine)
+res <- unlist(x)
+res
+```
+
+
+***
+
+
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+Consider the following function which is intended to grab the middle string from a character vector.  In the event that the vector has an even number of elements, we will settle for the lower of the two middle values.
+
+```{r}
+middleString <- function(x){
+  vec <- sort(x)
+  len <- length(x)
+  middle <- len / 2
+  x[middle]
+}
+```
+
+And if you test this function out, you will see that it doesn't always produce a value all that near to the middle.   Here is an example that works as expected:
+
+```{r}
+test1 <- c('bob', 'cindy', 'fred', 'nancy', 'bart', 'nancy')
+middleString(test1)
+```
+
+
+And here is an example that really doesn't:
+
+```{r}
+test2 <- c('bob', 'cindy', 'fred')
+middleString(test2)
+```
+
+Use the debug function to step through and find the bug.  Once you have found the problem, try to write a new version of this function that always returns either the middle value or the lowest middle value.
+
+
+#####  <span style="color:blue">__Answer for Exercise R3:__</span> 
+
+If you step through the function and have a look around, you will notice that the line of this function that is suspicious looking is this one:
+
+```  
+middle <- len/2
+```
+
+This happens because the value for `middle` (from the previous line) is: 1.5 
+
+So to "fix" it, all we really need to do is something like this:
+
+
+```{r}
+middleString <- function(x){
+  vec <- sort(x)
+  len <- length(x)
+  middle <- ceiling(len / 2)
+  x[middle]
+}
+```
+
+The `ceiling` function allows you to always round 'up'.  There may be other ways to resolve this but this is just one.  Don't worry if you didn't know about the `ceiling` function.  The exercise is about finding the problem and seeing what was wrong.  With a fix like this, both examples should produce values near the middle.
+
+```{r}
+test1 <- c('bob', 'cindy', 'fred', 'nancy', 'bart', 'nancy')
+middleString(test1)
+
+test2 <- c('bob', 'cindy', 'fred')
+middleString(test2)
+```
+
+
+***
+
+####  <span style="color:blue">__Exercise R4:__</span> 
+
+Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
+
+Now look at the document that is opened up in RStudio.  Notice how certain sections of it are marked by triple back ticks (```).  These are code chunks which will be evaluated when the document is rendered.  You can put whatever R code you want to into these chunks and you can surround it be whatever prose you need to include in the document.
+
+Now add a new code chunk to the document to define and test the function you created in exercise 1.
+
+#####  <span style="color:blue">__Answer for Exercise R4:__</span> 
+
+
+The code chunk that you insert into your document should look like this (minus the "|" symbol on the left hand edge of the following display).  The reason for the "|" is because it is hard to get RStudio to render what a code chunk should look like since it wants to interpret that code chunk...
+
+````
+|       ```{r}
+        myPasteFun <- function(x){
+          paste(x, 'extension', sep=".")
+        }
+        myPasteFun('testStr')
+        ```
+````

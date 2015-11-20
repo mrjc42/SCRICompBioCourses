@@ -300,6 +300,24 @@ I don't really recommend using `browswer` for actual debugging.  But it's been a
 
 Instead I recommend starting your debug adventures with the `debug` function.  This will allow you to 'look inside' a function while it runs, pausing to look at the values of local variables as it proceeds.  This function will make a call to the browser() whenever you actually step into the marked function 'as if' you had modified your code by using the `browser` function.  And when you are done, you can call `undebug` so that future calls to that function will not get launch into the debugger.
 
+To use the `debug` function just pass the name of a function you want to debug in as an argument like this:
+
+```{r}
+debug(mean)
+```
+
+Then call the function:
+
+```{r, eval=FALSE}
+mean(1:4)
+```
+
+Then hit the <ENTER> key to step through the function, and use ls() to 'look around'.  Once you have learned what you need, hit 'Q' to quit. And then use the `undebug` function so that you can call the function again without debugging.
+
+```{r}
+undebug(mean)
+```
+
 ### `trace`
 
 The one big bummer about `debug` is that it doesn't work on methods.  This would not be a problem except that a lot of functions are actually S4 methods (so `debug` won't let you look inside of these).  The `trace` method is better in the sense that it works on everything, but it's worse in the sense that you have to use several arguments to get it to help you.  So it's not as convenient as `debug`.

@@ -398,7 +398,7 @@ write.csv(results[order(results$padj),], file = '/data/staylo/rnaseq/expression/
 In addition to being a power statistical machine, R also has an impressive array of plotting functions that are useful for visualizing the data. We show these here just as a demonstration of what R is capable of doing. A thorough explanation of the plotting functions are beyond the scope of this course. For now, we leave it to you to explore some of these functions on your own. *A note on the science: This RNA-Seq data set was used because it was small and useful to demonstrate how to run the workflow. The results visualized here do not necessarily represent what a "good" experiment should look like.*
 
 ***
-####  <span style="color:blue">__Exercise L4:__</span>
+####  <span style="color:blue">__Exercise L5:__</span>
 ```{r, eval=TRUE, echo=FALSE, message=FALSE}
 require(RColorBrewer)
 require(gplots)
@@ -501,7 +501,7 @@ The secret is the little line of code at the top of the text file:
 * Note that this code also contains many exploratory calls (e.g. calls to `less` or `head` or `ls`) where we were just looking around at the environment and the files. You will see the output of all of these scroll quickly across your screen. In real documents, you would probably not have many of these. Take note however, that these do provide a sort of 'progress' bar to see how much of your code you have executed. Thus judicious use of these functions can be quite handy for debugging your code.
 
 ***
-####  <span style="color:blue">__Homework L4:__</span>
+####  <span style="color:blue">__Homework L6:__</span>
 1. Try executing this script on your own. Before you do that, you will want to clear out your working directory so the script has a fresh start. __CAREFUL! Make sure you are in the correct directory!!! Linux will not ask you if you are sure you want to do this!__
 ```{bash, eval=FALSE}
 cd $RNASEQ
@@ -553,4 +553,6 @@ __Disadvantages__
 * Some system calls require slightly different syntax when called from R
 
 * It is less easy to access the `man` pages for your system commands when you are in R. 
+
+* It can sometimes be a little more challenging to troubleshoot your system calls because of the added layer of the R environment.
 

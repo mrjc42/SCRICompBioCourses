@@ -13,7 +13,7 @@ bar = "no"
 foo
 bar
 
-
+############ Vectors in R
 ## character vectors
 LETTERS
 
@@ -25,7 +25,7 @@ numbers
 string <- c('The', 'lazy', 'brown', 'fox')
 string
 
-## How to use Functions
+############ How to use Functions
 ## help('grepl')
 
 ## arguments "in order"
@@ -40,6 +40,8 @@ grepl('A', x=LETTERS)
 ## Exercise 1
 ## paste(1:12, month.name, sep='_')
 
+
+############ How to load external R packages
 ## using Library
 library("stats4")
 
@@ -51,6 +53,8 @@ ls(2)
 
 ls("package:stats4")
 
+
+############ Popular objects in R
 ## What class is our object?
 class(LETTERS)
 

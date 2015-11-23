@@ -416,7 +416,7 @@ We won't go into how those commands work in the context of this course, but I wa
 ***
 ####  <span style="color:blue">__Exercise R3:__</span> 
 
-Use read.table to read in the file `genesFile.txt`.  Be sure to capture the results of this into a local variable called `myTable`.  What kind of object is `myTable`?  How do you know?  How can you read in the table so that the header is ignored?
+Use read.table to read in the file `genesFile.txt`.  Be sure to capture the results of this into a local variable called `myTable`.  What kind of object is `myTable`?  How do you know?  How can you read in the table so that the column headers are understood?
 
 ***
 

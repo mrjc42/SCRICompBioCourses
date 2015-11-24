@@ -37,8 +37,10 @@ grepl(x=LETTERS, pattern='A')
 ## Mixed arguments
 grepl('A', x=LETTERS)
 
+##########################################
 ## Exercise 1
-## paste(1:12, month.name, sep='_')
+##########################################
+
 
 
 ############ How to load external R packages
@@ -68,6 +70,13 @@ lst <- list(a=1, b='foo')
 lst
 
 length(lst)
+
+##########################################
+## Exercise 2
+##########################################
+
+
+
 
 ## matrix objects
 numVec <- c(1,2,3,11,12,13)
@@ -115,6 +124,13 @@ library(org.Hs.eg.db)
 con <- org.Hs.eg_dbconn()
 dbGetQuery(con, "SELECT * FROM gene_info limit 3")
 
+##########################################
+## Exercise 3
+##########################################
+
+
+
+
 
 ## Data coercion: data.frame converted into a list
 as.list(df)
@@ -159,6 +175,18 @@ c(shortLetters,shortLetters) %in% c('C','A')
 ## unique()
 c(shortLetters,shortLetters)
 unique(c(shortLetters,shortLetters))
+
+##########################################
+## Exercise 4
+##########################################
+
+
+
+##########################################
+##########################################
+## 45 min mark
+##########################################
+##########################################
 
 
 ################# Subsetting with '[['
@@ -223,4 +251,13 @@ class(df[1,1, drop=FALSE])
 
 ## The example function 
 example('as.numeric')
+
+
+##########################################
+## Exercise 5
+##########################################
+
+
+
+## 1.5 hour mark
 

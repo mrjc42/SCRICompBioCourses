@@ -31,6 +31,12 @@ myFun(x=2, y=3)
 myFun <- function(x=1,y=2){x+y}
 myFun(2)
 
+##########################################
+## Exercise 1
+##########################################
+
+
+
 
 ############# Flow control
 ## 
@@ -96,6 +102,11 @@ mapply(paste, 1:3, LETTERS[1:3], MoreArgs = list(sep="_"))
 ## And for loops
 for(i in 1:4){message('count ',i)}
 
+##########################################
+## Exercise 2
+##########################################
+
+
 
 
 ############# Some basic debugging tools
@@ -112,7 +123,17 @@ debug(mean)
 ## Then unmark it later
 undebug(mean)
 
+##########################################
+## Exercise 3
+##########################################
+
+
+
 
 ############# Literate programming:
 ## http://rmarkdown.rstudio.com/
+
+##########################################
+## Exercise 4
+##########################################
 

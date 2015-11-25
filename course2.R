@@ -59,16 +59,16 @@ ls("package:stats4")
 ############ Popular objects in R
 ## What class is our object?
 class(LETTERS)
-
 class(pi)
 
-## Hoe long is it?
+## How long is it?
 length(LETTERS)
 
-## List Objects
+## Introducing List Objects
 lst <- list(a=1, b='foo')
 lst
 
+class(lst)
 length(lst)
 
 ##########################################

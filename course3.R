@@ -5,12 +5,13 @@ dir()
 
 ## platform dependent commands
 system('pwd')
+system('ls')
 
 ## What is the file separator for my system?
 .Platform$file.sep
 
 ## How can I make a file path that 'always works'
-file.path('foo','bar.txt')
+file.path('bar','foo','bar.txt')
 
 
 ############# Writing functions
@@ -30,6 +31,12 @@ myFun(x=2, y=3)
 ## A function with default values
 myFun <- function(x=1,y=2){x+y}
 myFun(2)
+
+##########################################
+## Exercise 1
+##########################################
+
+
 
 
 ############# Flow control
@@ -80,21 +87,27 @@ x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE,FALSE,FALSE,TRUE))
 x
 
 ## Using lapply
-lapply(x, mean)
+lapply(x, FUN=mean)
 
 
 ##  Now lets consider some square data:
 x <- cbind(x1 = c(3,4,1,5), x2 = c(9,7,6,2))
 x
-## and then loop by row
+## and then loop by col
 apply(x, 2, sort)
 
 
 ## mapply for listing over two vectors (or more) at once
 mapply(paste, 1:3, LETTERS[1:3], MoreArgs = list(sep="_"))
 
+
 ## And for loops
 for(i in 1:4){message('count ',i)}
+
+##########################################
+## Exercise 2
+##########################################
+
 
 
 
@@ -112,7 +125,17 @@ debug(mean)
 ## Then unmark it later
 undebug(mean)
 
+##########################################
+## Exercise 3
+##########################################
+
+
+
 
 ############# Literate programming:
 ## http://rmarkdown.rstudio.com/
+
+##########################################
+## Exercise 4
+##########################################
 

@@ -1,4 +1,4 @@
-## Variables 
+## Variables
 pi
 
 ## Operators
@@ -13,6 +13,7 @@ bar = "no"
 foo
 bar
 
+
 ############ Vectors in R
 ## character vectors
 LETTERS
@@ -24,6 +25,7 @@ numbers
 ## how to make custom character vectors with c()
 string <- c('The', 'lazy', 'brown', 'fox')
 string
+
 
 ############ How to use Functions
 ## help('grepl')
@@ -37,8 +39,10 @@ grepl(x=LETTERS, pattern='A')
 ## Mixed arguments
 grepl('A', x=LETTERS)
 
-## Exercise 1
-## paste(1:12, month.name, sep='_')
+##########################################
+## Exercise 1 (done)
+##########################################
+
 
 
 ############ How to load external R packages
@@ -54,22 +58,34 @@ ls(2)
 ls("package:stats4")
 
 
+###############################
+## NOW starting new material ##
+###############################
+
+
 ############ Popular objects in R
 ## What class is our object?
 class(LETTERS)
-
 class(pi)
 
-## Hoe long is it?
+## How long is it?
 length(LETTERS)
 
-## List Objects
+## Introducing List Objects
 lst <- list(a=1, b='foo')
 lst
 
+class(lst)
 length(lst)
 
-## matrix objects
+##########################################
+## Exercise 2
+##########################################
+
+
+
+## Introductin 'square' data
+## matrix objects (look like vectors)
 numVec <- c(1,2,3,11,12,13)
 numVec
 mat <- matrix(numVec, nrow = 2, ncol = 3, byrow = TRUE)
@@ -81,7 +97,7 @@ dim(mat)
 ## 
 length(mat)
 
-## data.frame objects
+## data.frame objects (look like lists)
 df <- data.frame(number = 1:4, letter = c('A','B','C','D'))
 df
 
@@ -115,6 +131,13 @@ library(org.Hs.eg.db)
 con <- org.Hs.eg_dbconn()
 dbGetQuery(con, "SELECT * FROM gene_info limit 3")
 
+##########################################
+## Exercise 3
+##########################################
+
+
+
+
 
 ## Data coercion: data.frame converted into a list
 as.list(df)
@@ -129,7 +152,7 @@ as.vector(as.matrix(df))
 ################# Subsetting with '['
 ## Numeric subsetting with a single bracket.  '['
 LETTERS[1]
-LETTERS[1:3]
+LETTERS[c(1:3]
 LETTERS[c(1,3)]
 LETTERS[c(4,2)]
 
@@ -160,6 +183,18 @@ c(shortLetters,shortLetters) %in% c('C','A')
 c(shortLetters,shortLetters)
 unique(c(shortLetters,shortLetters))
 
+##########################################
+## Exercise 4
+##########################################
+
+
+
+##########################################
+##########################################
+## 45 min mark
+##########################################
+##########################################
+
 
 ################# Subsetting with '[['
 ## Numeric Subsetting with a double bracket '[['
@@ -188,7 +223,7 @@ mat
 mat[1,1]
 ## two rows and a column
 mat[1:2,2]
-## onw row and three columns
+## one row and three columns
 mat[2, 1:3]
 
 ##  two argument subsetting on a data.frame  
@@ -206,7 +241,7 @@ class(df)
 class(df[3,1:2])
 
 ## BUT if you slice finely enough it will change
-class(df[1,1])
+class(df[1,1,drop=TRUE])
 
 ## For this situation you can use a THIRD argument to prevent unwanted type casting
 class(df[1,1, drop=FALSE])
@@ -223,4 +258,13 @@ class(df[1,1, drop=FALSE])
 
 ## The example function 
 example('as.numeric')
+
+
+##########################################
+## Exercise 5
+##########################################
+
+
+
+## 1.5 hour mark
 

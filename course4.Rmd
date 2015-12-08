@@ -2,12 +2,39 @@
 title: "Getting Work Done"
 author: "Sean, Marc, Debbie, Bronson"
 date: "11/11/2015"
-output: html_document
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    toc: yes
 ---
 
+```{r wrap-hook, echo=FALSE}
+library(knitr)
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+plot_hook = knit_hooks$get('plot')
+knit_hooks$set(plot = function(x, options) {
+  options$fig.align = 'default'  # whatever you set, I reset it
+  plot_hook(x, options)
+})
+```
+
+
+## Introduction
 We have spent the last 3 courses trying to show you the basic building blocks for command line computing. Now it is time to put all the pieces together and talk about the mechanics of actually getting your work done. To do this we will step through a small RNA-Seq workflow. We will not focus too much on the science behind the workflow at this time. The purpose of this course is to show you how to use the resources we have made available and how to use your new skills as a computational biologist. It is hoped that by going through this workflow, you will get some experience with how to organize your data flow and how to execute a series of commands that you can now generalize to other applications beyond RNA-Seq.
 
-In order to save time and to help everyone keep up, we will be providing a text document that has all of the commands already populated. You might need to adjust one or two things, but otherwise you can just copy and paste. Here are a few tips and tricks regarding copying and pasting into a linux terminal
+In order to save time and to help everyone keep up, we will be providing a text document that has all of the commands already populated. You might need to adjust one or two things, but otherwise you can just copy and paste. Here are a few tips and tricks regarding copying and pasting into a linux terminal:
 
 * To __copy__ from a linux terminal, all you need to do is highlight. The highlighted text is automatically copied to the clipboard. No other key strokes necessary.
 
@@ -16,7 +43,8 @@ In order to save time and to help everyone keep up, we will be providing a text 
 * You don't have to paste commands one at a time. You can paste in as many as you want, and the terminal will execute them in order. Sometimes though, you have to hit `Enter` once or twice more to make sure that all the commands are sent. 
 
 
-### A (very) brief intro to RNA-Seq
+
+## A (very) brief intro to RNA-Seq
 RNA-Seq workflows are typically done with the aim of performing differential expression analysis. The idea is that instead of sequencing genomic DNA, instead you will sequence mRNA. By mapping the sequenced mRNA transcripts back to the reference genome, you can theoretically deduce A) what genes are being expressed based on the mapping and B) the relative expression levels of those genes based on how many reads map to a particular gene region. The basic, generic workflow for differential expression analysis goes like this:
 
 1. Extract mRNA and convert to cDNA
@@ -30,8 +58,33 @@ RNA-Seq workflows are typically done with the aim of performing differential exp
 
 Other analysis goals of RNA-Seq include things such as alternative expression analysis, transcript discovery and annotation, allele specific expression, mutation discovery, fusion detections, and RNA editing. For this class, we will stick to differential expression analysis.
 
+## Using a text editor
+Having a good text editor handy is very important to devolping and working with scripting languages. Some important features in a good text editor include
 
-### Getting setup
+* Saves file as plain text (therefore WordPad and other word processors are not appropriate)
+
+* Can handle windows and unix style line endings
+
+* Can support search and replace with regular expressions
+
+* Can provide line numbers
+
+* Can optionally format keywords and tabs using the conventions and syntax of popular scripting languages (shell, python, perl, R, etc)
+
+MobaXTerm has a decent editor built into it which you can access under the 'Tools' menu. Alternatively, you can use Notepad++ which we have included along with the Moba application in the ISInformaticsTransfer department share location:
+`\\childrens\ISInformaticsTransfer\CourseDownloads`
+***
+####  <span style="color:blue">__Exercise L0:__</span> 
+
+1. From the above location, copy the folder 'Course4Exercises' to your O drive. 
+
+2. Open the text editor of your choice. I will be using Notepad++. 
+
+3. From within the text editor, open the file `ExerciseL1-L3.sh` from the CourseExercises folder that you obtained earlier. If you cannot find it, you can get it again from the following Departmental Share location:
+`\\childrens\ISInformaticsTransfer\CourseDownloads\Course4Exercises`
+***
+
+## Getting setup
 Computational biology involves a fair amount of juggling of various kinds of input files, output files, and intermediate files. It can be easy to be overrun with a swamp of files unless you can come up with a good way to organize them. It's best if you take time at the very beginning to think through what inputs you will need, the outputs you will generate and where you will put it all.
 
 __Tools used__
@@ -53,17 +106,18 @@ __Concepts used__
 
 First, let's make a space to do our work. The best place to do this is on your share drive. For uniformity's sake and demonstration purposes, we will do this in the next best place, which is `/data`.
 
-1. Let's make a working directory for ourselves
+1. Let's make a working directory for ourselves. Note how we use the command substitution operator to ensure that everyone creates a valid, but unique directory/
 ```{bash, eval=FALSE}
-## Be sure to use your user name, not mine!
-cd /data/staylo
-mkdir rnaseq
-cd rnaseq
+## Make a subdirectory in /data using your userid
+cd /data
+mkdir -p $(whoami)/rnaseq
+
+cd $(whoami)/rnaseq
 ```
 
 2. To save ourselves some trouble typing, let's create an environment variable
 ```{bash}
-export RNASEQ=/data/staylo/rnaseq
+export RNASEQ=/data/$(whoami)/rnaseq
 echo $RNASEQ
 ```
 
@@ -79,11 +133,7 @@ Let's quickly take a look at our raw data
 ```{bash, eval=FALSE}
 ls -1h
 ```
-```{bash, eval=TRUE, echo=FALSE, message=FALSE}
-export RNASEQ=/data/staylo/rnaseq
-cd $RNASEQ/data
-ls -1h
-```
+
 Here we have 16 sequencing files. The file extension on these is `.fastq.gz`, meaning they are compressed fastq files. These files are from an experiment with Normal and Tumor samples. There are 2 replicates for each (cDNA-1 and cDNA-2). Also, there were two different library preperation methods (lib1 and and lib2). Paired-end sequencing was performed on each sample, so that also gives us two sequencing reads (10pc_1 and 10pc_2). 2 conditions x 2 replicates x 2 libraries x 2 reads = 16 files. If you want, you can take a peek at the output of one these in order to see how a fastq file is structured. A full discussion of this is beyond the scope for today, but suffice it to say that each read conisists of four lines: 
 
 * A unique sequence identifier starting with `@`
@@ -94,15 +144,14 @@ Here we have 16 sequencing files. The file extension on these is `.fastq.gz`, me
 
 * The per base quality score (ASCII encouded)
 
+So if we look at the frist 8 lines of the fastq file, we will see the records from two sequencing reads. (Note, I truncated the sequence to show only 60 bases for the sake of formatting for the pdf)
 ```{bash, eval=FALSE}
-zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 4
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 8 | cut -c -60
+```
+```{bash, echo=FALSE}
+zcat /data/$(whoami)/rnaseq/data/H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 8 | cut -c -60
 ```
 
-```{bash, eval=TRUE, echo=FALSE, message=FALSE}
-export RNASEQ='/data/staylo/rnaseq'
-cd $RNASEQ/data
-zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 4
-```
 
 4. Now let's make a spot for our reference data set. To speed things up for deomonstration purposes, our data has been pre-filtered to show only reads on Chr 22. So we will only align to chr22 rather than the full genome. Remember that reference sequence fasta files for many model organisms have already been downloaded and are available in the `/tools/references` directory. This includes full genome fasta files as well as for individual chromosomes. For reasons that will become apparent later, we still need to make some space in our working directory for the reference. However, we don't really need to copy it over, but instead we will just link to it.
 ```{bash, eval=FALSE}
@@ -115,12 +164,8 @@ Notice the notation for links when you run
 ```{bash, eval=FALSE}
 ls -l
 ```
-```{bash, eval=TRUE, echo=FALSE, message=FALSE}
-export RNASEQ='/data/staylo/rnaseq'
-cd $RNASEQ/ref
-ls -l chr22.fa
-```
-Try taking a peek inside
+
+This indicates that you have created a link to a file that actually lives in another location. However, you can still interact with it as if it were a real copy. For instance, you can try taking a peak inside using
 ```{bash, eval=FALSE}
 head chr22.fa
 ```
@@ -137,31 +182,32 @@ ls -lh /tools/references/Homo_sapiens/UCSC/hg19/Sequence/
 Because we are only aligning to chr22, we first need to create an index for it. We will be using the `tophat2` alignment tool, which uses `bowtie2`, so that is what we will use to index
 ```{bash, eval=FALSE}
 bowtie2-build chr22.fa chr22
-ls -lh
+ls -1h
 ```
 ```{bash, eval=TRUE, echo=FALSE, message=FALSE}
 export RNASEQ='/data/staylo/rnaseq'
 cd $RNASEQ/ref
-ls -lh --ignore=*.gtf
+ls -1 --ignore=*.gtf
 ```
 6. You will also need a gene annotation file. A gene annotation file contains all the important information for your gene model, such as gene names, start and stop locations of each feature (gene, exon, CDS), and other important identifying information (Ensembl gene id, transcript id, etc). This information is usually encoded in one of several flexible formats : `.gtf`, `.gff`, or `.gff3`. As with the reference sequences, gene annotation files for many model organisms have been downloaded for you and are available in `/tools/references`. Because we are only aligning to chr22, we will filter the gtf file to only include genes from that chromosome:
 ```{bash, eval=FALSE}
-grep "chr22" /tools/references/Homo_sapiens/UCSC/hg19/Annotation/Genes/genes.gtf > genes_chr22.gtf
+grep "chr22" /tools/references/Homo_sapiens/UCSC/hg19/Annotation/Genes/genes.gtf > 
+    genes_chr22.gtf
 ```
 
-Check your file to make sure it looks the way you expect it to
+Check your file to make sure it looks the way you expect it to (just showing the first 8 fields)
 ```{bash, eval=FALSE}
-head genes_chr22.gtf
+head genes_chr22.gtf | cut -f 1-8
 ```
 ```{bash, eval=TRUE, echo=FALSE, message=FALSE}
 export RNASEQ='/data/staylo/rnaseq'
 cd $RNASEQ/ref
-head genes_chr22.gtf
+head genes_chr22.gtf | cut -f 1-8
 ```
 
 ***
 
-### Sequence Alignment
+## Sequence Alignment
 Now that we have set up our working environment, we are ready to begin the alignment. We will use Bowtie2/Tophat2 to align all pairs of read files to the genome.  The output of this step will be a BAM file for each data set. *Reminder, we will be using some basic defaults. A detailed discussion of the science will be reserved for later. Refer to TopHat manual and tutorial for a more detailed explanation if desired: https://ccb.jhu.edu/software/tophat/manual.shtml*
 
 __Tools used__
@@ -202,13 +248,29 @@ cd alignments
 
 2. Perform the alignment. We will just do alignments for library 1. There are 2 Normal and 2 Tumor samples, so that is 4 alignment calls. Each alignment call gets 2 fastq files (Read 1 and Read 2). In my tests, each sample took ~3 minutes to align
 ```{bash, eval=FALSE}
-tophat2 -p 1 -r 100 -o Normal-cDNA-1-lib1 -G $RNASEQ/ref/genes_chr22.gtf --transcriptome-index $RNASEQ/alignments/trans_idx $RNASEQ/ref/chr22 $RNASEQ/data/H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz $RNASEQ/data/H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_2.fastq.gz
+tophat2 -p 1 -r 100 -o Normal-cDNA-1-lib1 -G $RNASEQ/ref/genes_chr22.gtf 
+    --transcriptome-index $RNASEQ/alignments/trans_idx 
+    $RNASEQ/ref/chr22 
+    $RNASEQ/data/H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz 
+    $RNASEQ/data/H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_2.fastq.gz
 
-tophat2 -p 1 -r 100 -o Normal-cDNA-2-lib1 -G $RNASEQ/ref/genes_chr22.gtf --transcriptome-index $RNASEQ/alignments/trans_idx $RNASEQ/ref/chr22 $RNASEQ/data/H_KH-540077-Normal-cDNA-2-lib1_ds_10pc_1.fastq.gz $RNASEQ/data/H_KH-540077-Normal-cDNA-2-lib1_ds_10pc_2.fastq.gz
+tophat2 -p 1 -r 100 -o Normal-cDNA-2-lib1 -G $RNASEQ/ref/genes_chr22.gtf 
+    --transcriptome-index $RNASEQ/alignments/trans_idx 
+    $RNASEQ/ref/chr22 
+    $RNASEQ/data/H_KH-540077-Normal-cDNA-2-lib1_ds_10pc_1.fastq.gz 
+    $RNASEQ/data/H_KH-540077-Normal-cDNA-2-lib1_ds_10pc_2.fastq.gz
 
-tophat2 -p 1 -r 100 -o Tumor-cDNA-1-lib1 -G $RNASEQ/ref/genes_chr22.gtf --transcriptome-index $RNASEQ/alignments/trans_idx $RNASEQ/ref/chr22 $RNASEQ/data/H_KH-540077-Tumor-cDNA-1-lib1_ds_10pc_1.fastq.gz $RNASEQ/data/H_KH-540077-Tumor-cDNA-1-lib1_ds_10pc_2.fastq.gz
+tophat2 -p 1 -r 100 -o Tumor-cDNA-1-lib1 -G $RNASEQ/ref/genes_chr22.gtf 
+    --transcriptome-index $RNASEQ/alignments/trans_idx 
+    $RNASEQ/ref/chr22 
+    $RNASEQ/data/H_KH-540077-Tumor-cDNA-1-lib1_ds_10pc_1.fastq.gz 
+    $RNASEQ/data/H_KH-540077-Tumor-cDNA-1-lib1_ds_10pc_2.fastq.gz
 
-tophat2 -p 1 -r 100 -o Tumor-cDNA-2-lib1 -G $RNASEQ/ref/genes_chr22.gtf --transcriptome-index $RNASEQ/alignments/trans_idx $RNASEQ/ref/chr22 $RNASEQ/data/H_KH-540077-Tumor-cDNA-2-lib1_ds_10pc_1.fastq.gz $RNASEQ/data/H_KH-540077-Tumor-cDNA-2-lib1_ds_10pc_2.fastq.gz
+tophat2 -p 1 -r 100 -o Tumor-cDNA-2-lib1 -G $RNASEQ/ref/genes_chr22.gtf 
+    --transcriptome-index $RNASEQ/alignments/trans_idx 
+    $RNASEQ/ref/chr22 
+    $RNASEQ/data/H_KH-540077-Tumor-cDNA-2-lib1_ds_10pc_1.fastq.gz 
+    $RNASEQ/data/H_KH-540077-Tumor-cDNA-2-lib1_ds_10pc_2.fastq.gz
 ```
 
 Let's count the alignment BAM files to make sure all were created successfully (you should have 4 total)
@@ -219,29 +281,29 @@ ls -l */accepted_hits.bam
 ```{bash, eval=TRUE, echo=FALSE, message=FALSE}
 export RNASEQ='/data/staylo/rnaseq'
 cd $RNASEQ/alignments
-ls -l */accepted_hits.bam | wc -l
-ls -l */accepted_hits.bam 
+ls -1 */accepted_hits.bam | wc -l
+ls -1 */accepted_hits.bam 
 ```
 
 
 ***
 
-### Perform feature counting
+## Perform feature counting
 The next step is count how many reads align to each feature in our gene model. There are many methods to do this, but we will pick `htseq-count`. We choose this because it is fairly straightforward and quick to run, which makes it ideal for demonstration purposes. Also it feeds nicely into a powerful package from Bioconductor called `DESeq2` which does differential expression testing. 
 
-__Tools used__
+##### Tools used
 
 * `samtools`
 
 * `htseq-count`
 
-__Concepts used__
+##### Concepts used
 
 * piping commands (`|`)
 
 * output redirect (`>`)
 
-#### samtools basic usage
+##### samtools basic usage
 `samtools <command> [options]`
 
 Samtools is actually a collection of different commands, each with their own set of options. We will be using two commands in this exercise
@@ -252,7 +314,7 @@ Samtools is actually a collection of different commands, each with their own set
 * `view` converts the alignment file from binary (bam) to human readable form (sam)
     + `-h` includes the header information
 
-#### htseq-count basic usage
+##### htseq-count basic usage
 `htseq-count [options] <sam_file> <gff_file>`
 
 Extra options specified below
@@ -274,13 +336,17 @@ Extra options specified below
 1. Before we can count the aligned reads, the alignment file must first be sorted by chromosome name. 
 ```{bash, eval=FALSE}
 cd $RNASEQ/alignments
-samtools sort -n Normal-cDNA-1-lib1/accepted_hits.bam Normal-cDNA-1-lib1/accepted_hits_namesorted
+samtools sort -n Normal-cDNA-1-lib1/accepted_hits.bam 
+    Normal-cDNA-1-lib1/accepted_hits_namesorted
 
-samtools sort -n Normal-cDNA-2-lib1/accepted_hits.bam Normal-cDNA-2-lib1/accepted_hits_namesorted
+samtools sort -n Normal-cDNA-2-lib1/accepted_hits.bam 
+    Normal-cDNA-2-lib1/accepted_hits_namesorted
 
-samtools sort -n Tumor-cDNA-1-lib1/accepted_hits.bam Tumor-cDNA-1-lib1/accepted_hits_namesorted
+samtools sort -n Tumor-cDNA-1-lib1/accepted_hits.bam 
+    Tumor-cDNA-1-lib1/accepted_hits_namesorted
 
-samtools sort -n Tumor-cDNA-2-lib1/accepted_hits.bam Tumor-cDNA-2-lib1/accepted_hits_namesorted
+samtools sort -n Tumor-cDNA-2-lib1/accepted_hits.bam 
+    Tumor-cDNA-2-lib1/accepted_hits_namesorted
 ```
 
 2. The counting is done by the `htseq-count` program. This program expects alignments in the human readable sam format. Ours are currently in bam format. So, we will first convert our alignments from bam to sam using the `samtools view` command, and pipe the results into `htseq-count`. Also, `htseq-count` rather unhelpfully returns it's results as standard output (aka dumps it on the screen). Therefore we will also use the redirect operator `>` to capture this output and write it to a tab-seperated text file.
@@ -290,13 +356,25 @@ mkdir expression
 cd expression
 mkdir Normal-cDNA-1-lib1  Normal-cDNA-2-lib1  Tumor-cDNA-1-lib1  Tumor-cDNA-2-lib1
 
-samtools view -h $RNASEQ/alignments/Normal-cDNA-1-lib1/accepted_hits_namesorted.bam | htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > Normal-cDNA-1-lib1/gene_read_counts.tsv
+samtools view -h $RNASEQ/alignments/Normal-cDNA-1-lib1/accepted_hits_namesorted.bam | 
+    htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon 
+      --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > 
+    Normal-cDNA-1-lib1/gene_read_counts.tsv
 
-samtools view -h $RNASEQ/alignments/Normal-cDNA-2-lib1/accepted_hits_namesorted.bam | htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > Normal-cDNA-2-lib1/gene_read_counts.tsv
+samtools view -h $RNASEQ/alignments/Normal-cDNA-2-lib1/accepted_hits_namesorted.bam | 
+    htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon 
+      --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > 
+    Normal-cDNA-2-lib1/gene_read_counts.tsv
 
-samtools view -h $RNASEQ/alignments/Tumor-cDNA-1-lib1/accepted_hits_namesorted.bam | htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > Tumor-cDNA-1-lib1/gene_read_counts.tsv
+samtools view -h $RNASEQ/alignments/Tumor-cDNA-1-lib1/accepted_hits_namesorted.bam | 
+    htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon 
+      --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > 
+    Tumor-cDNA-1-lib1/gene_read_counts.tsv
 
-samtools view -h $RNASEQ/alignments/Tumor-cDNA-2-lib1/accepted_hits_namesorted.bam | htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > Tumor-cDNA-2-lib1/gene_read_counts.tsv
+samtools view -h $RNASEQ/alignments/Tumor-cDNA-2-lib1/accepted_hits_namesorted.bam | 
+    htseq-count --mode=intersection-strict --stranded=no --minaqual=1 --type=exon 
+      --idattr=gene_id - $RNASEQ/ref/genes_chr22.gtf > 
+    Tumor-cDNA-2-lib1/gene_read_counts.tsv
 ```
 
 3. Take a moment if you wish to explore the contents of this output.
@@ -304,14 +382,14 @@ samtools view -h $RNASEQ/alignments/Tumor-cDNA-2-lib1/accepted_hits_namesorted.b
 ***
 
 
-### Perform differential expression analysis
-There are several packages available for differential expression analysis. We will use the DESeq2 package which is part of the Bioconductory suite of packages for R. We will now leave the command line environment and move into RStudio.
+## Perform differential expression analysis
+There are several packages available for differential expression analysis. We will use the DESeq2 package which is part of the Bioconductory suite of packages for R. We will now leave the command line environment and move into RStudio. 
 
-__Tools used__
+##### Tools used
 
 * `DESeq2`
 
-__Concepts used__
+##### Concepts used
 
 * RStudio
 
@@ -319,7 +397,7 @@ __Concepts used__
 
 ***
 ####  <span style="color:blue">__Exercise L4:__</span>
-1. Open RStudio by pointing your firefox browser at https://sideswiper:8787
+1. Open RStudio by pointing your firefox browser at https://sideswiper:8787. From the Files pane (usually the lower right pane), browse to `/tools/sampledata/course4Exercises/` and open the file `ExerciseL4-L5.R`)
 
 2. Set up your workspace by loading all the appropriate libraries you will need. 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE}
@@ -328,14 +406,14 @@ library(plyr)
 
 ```
 ```{r, eval=FALSE}
-## Libraries to load
+# Libraries to load
 library(DESeq2)
 library(plyr)
 
 ```
 
 3. The DESeq2 package takes a table of counts. The column names are the individual sample names. The rownames are the gene names. So our first task is to load all the individual counts tables, merge them into a single counts table, and then make sure it is formatted properly. __Before you copy this code, make sure you change the path name to your directory!!!__
-```{r}
+```{r, tidy=TRUE}
 # Create vector of file paths for all gene_read_counts.tsv files
 workingpath<-'/data/staylo/rnaseq/expression'
 countsfiles<-list.files(path = workingpath, pattern = 'gene_read_counts.tsv', recursive = TRUE, full.names = TRUE)
@@ -348,7 +426,7 @@ counts<-lapply(countsfiles, function (x) {
   return(df)
 })
 
-#Take a peak at what you just loaded in
+# Take a peak at what you just loaded in
 lapply(counts, head)
 
 # Merge the data frames into a single dataframe
@@ -363,38 +441,38 @@ head(counts)
 
 4. The next input for DESeq2 is the experimental design. This is just a simple table that describes the different variables that will be compared. In this case, we have just one variable that describes the type of sample as being either 'normal' or 'tumor'. The row names in this table should correspond to the columns in the counts table.
 ```{r}
-#Use regular expressions to extract the type from the sample names
+# Use regular expressions to extract the sample type from the sample names
 type<-gsub('(.+)-cDNA.+', '\\1', colnames(counts))
 
-#create the data frame and format the rownames correctly
+# create the data frame and format the row names correctly
 design<-data.frame(type=type)
 row.names(design)<- colnames(counts)
 design
 ```
 
-5. Now we take the counts table and the design table and enter them into a data set object. The `DESeq` command then performs the statistical analysis on the data set in one easy step. For details on the science and methods behind the analysis, consult the DESeq2 vignette by calling `browseVignettes('DESeq2')`.
-```{r, message=FALSE}
-## create the data set and make sure the comparison is by type, with tumor vs normal.
+5. Now we take the counts table and the design table and enter them into a data set object. The `DESeq` command then performs the statistical analysis on the data set in one easy step. For details on the science and methods behind the analysis, consult the DESeq2 vignette.
+```{r, message=FALSE, eval=TRUE, tidy=TRUE}
+# create the data set and make sure the comparison is by type, with tumor vs normal.
 dataset <- DESeqDataSetFromMatrix(countData=counts, colData=design, design=~type)
 dataset$type <- relevel(dataset$type, 'Normal') 
   
-## run the analysis and extract the results
+# run the analysis and extract the results
 deseq<-DESeq(dataset)
 results<-results(deseq)
 results
 
-## The results may be more helpful if you sort them by significance
+# The results may be more helpful if you sort them by significance. Note that we are using the adjusted p-value to account for multiple hypothesis testing. That is bigger topic for another time, so for now just trust us.
 results[order(results$padj),]
 
 ```
 
 6. The results table can be output as a csv if desired:
-```{r, eval=FALSE}
-write.csv(results[order(results$padj),], file = '/data/staylo/rnaseq/expression/diffex_results.csv', quote = FALSE)
-
+```{r, eval=FALSE, tidy=TRUE}
+write.csv(results[order(results$padj),], file = paste0(workingpath, 'diffex_results.csv', quote = FALSE))
+```
 ***
 
-### Visualize the results
+## Visualize the results
 In addition to being a power statistical machine, R also has an impressive array of plotting functions that are useful for visualizing the data. We show these here just as a demonstration of what R is capable of doing. A thorough explanation of the plotting functions are beyond the scope of this course. For now, we leave it to you to explore some of these functions on your own. *A note on the science: This RNA-Seq data set was used because it was small and useful to demonstrate how to run the workflow. The results visualized here do not necessarily represent what a "good" experiment should look like.*
 
 ***
@@ -410,18 +488,21 @@ require(RColorBrewer)
 require(gplots)
 require(ggplot2)
 ```
-```{r}
-## Plot 1: Dispersion
-## This plot models the relationship between the number of counts for a gene and the observed variance
+```{r, eval=TRUE, tidy=TRUE, fig.width=6, fig.align='center'}
+# Plot 1: Dispersion
+# This plot models the relationship between the number of counts for a gene and the observed variance
+
 plotDispEsts(deseq, main='Dispersion plot')
 
-## Plot 2: Principal components analysis
-## First perform a regularized log transformation, then use the plotPCA command
+# Plot 2: Principal components analysis
+# First perform a regularized log transformation, then use the plotPCA command. Regularized log transforms are an important topic that we will discuss another time. For now, just trust us.
+
 rld <- rlogTransformation(deseq, blind=TRUE)
 plotPCA(rld, intgroup=colnames(colData(deseq)))+ggtitle("Principle Component Analysis")
 
-## Plot 3: Sample distance heatmap
-## Also uses regularized log transformation and takes advantage of nice color pallette from RColorBrewer
+# Plot 3: Sample distance heatmap
+# Also uses regularized log transformation and takes advantage of nice color pallette from RColorBrewer
+
 mycols <- brewer.pal(8, "Dark2")[1:length(unique(deseq$type))]
 sampleDists <- as.matrix(dist(t(assay(rld))))
 heatmap.2(as.matrix(sampleDists), key=TRUE, trace="none",cexRow=0.8, cexCol=0.8,
@@ -429,26 +510,30 @@ heatmap.2(as.matrix(sampleDists), key=TRUE, trace="none",cexRow=0.8, cexCol=0.8,
           ColSideColors=mycols[deseq$type], RowSideColors=mycols[deseq$type],
           margin=c(10,10), main="Sample Distance Matrix")
 
-## Plot4: MA plot
-## Shows the fold change in expression (y axis) vs mean counts (x axis). Red points show genes with adjusted p value less than 0.1. These plots illustrate the fact that when the counts are low, a greater fold change is required to demonstrate significance.
+# Plot4: MA plot
+# Shows the fold change in expression (y axis) vs mean counts (x axis). Red points show genes with adjusted p value less than 0.1. These plots illustrate the fact that when the counts are low, a greater fold change is required to demonstrate significance.
+
 plotMA(results, main="MA plot") 
 
-## Plot 5: Volcano plot
-## Graphical way to show genes with differential expression that is both significant (y-axis) and large (x-axis)
+# Plot 5: Volcano plot
+# Graphical way to show genes with differential expression that is both significant (y-axis) and large (x-axis)
+
 with(results, plot(log2FoldChange, -log10(padj), pch=20, main="Volcano plot"))
 
 # Add colored points: red if padj<0.05, orange of log2FC>1, green if both)
+
 with(subset(results, padj<.05 ), points(log2FoldChange, -log10(padj), pch=20, col="red"))
 with(subset(results, abs(log2FoldChange)>1), points(log2FoldChange, -log10(padj), pch=20, col="orange"))
 with(subset(results, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange, -log10(padj), pch=20, col="green"))
 
 #Add reference lines
+
 abline(v=c(-1, 1), h=-log10(0.05), lty=3)
 ```
 
 ***
 
-### Cleaning Up
+## Cleaning Up
 Analyses like these tend to generate a good number of intermediate files. When you are done with your analysis it is important that you clean up after yourself. Otherwise, you will find that you have accumulated a significant number of files that you don't know what to do with and you will soon run out of space on your disk. This is particularly true if you are using a shared disk, such as `/data`. However, "Cleaning up after yourself" can actually present a surprisingly difficult challenge. What do you keep and what do you get rid of? When do you clean up? There are no hard and fast rules per se, but we will attempt to outline some good principles to help guide you.
 
 * __Clean up when you are done__. Often researchers will want to play around with different parameter sets until they find the parameter values that are most appropriate. This involves a lot of iterative reanalyzing of the data. It is not necessarily practical or desirable to throw away everything at the end of each iteration. It is good practice to put final and intermediate outputs of each iteration in different places to keep them seperate. When you are done with your iterations and you think you have the best output, don't forget to go back and remove all the other iterations. If you wait too long, you will have a hard time remembering which iteration gave you the best result.
@@ -476,7 +561,7 @@ Analyses like these tend to generate a good number of intermediate files. When y
     + The version numbers of any software, programs, or packages that you used
     
 
-### Using shell scripts
+## Using shell scripts
 One the most powerful aspects of working in the command line is the ability to write your own mini pieces of software, called *scripts*. At first, you may think that this is well beyond your ability. However, it is actually very easy. If you have taken the trouble to keep track of all the commands that you have executed, you are already 90% there! In fact, the text document that you have been using to copy and paste from up to this point is already a fully executable piece of custom software.
 
 #### Making your text file executable
@@ -487,16 +572,16 @@ The secret is the little line of code at the top of the text file:
 
 * The first bit `#!` is called the __shebang__ (ha __sh__ + __bang__, which is what computer nerds call the exclamation mark). When linux sees this at the beginning of a script, it tells the system that this is a program
 
-* The next bit `/usr/bin/bash` is called the __interpreter directive__, which basically tells the system what language environment to run the script in and where it is located. It turns out that all along, when you see the command prompt and entering commands, you have been using the __ba__ sic __sh__ ell scripting language, or __bash__. That is why the command prompt is also sometimes called the bash prompt. That is also why scripting in the command line is refered to as shell scripting, as opposed to scripting in another language such as python, perl, java, or R.
+* The next bit `/usr/bin/bash` is called the __interpreter directive__, which basically tells the system what language environment to run the script in and where it is located. It turns out that all along, when you see the command prompt and entering commands, you have been using the __b__orn __a__gain __sh__ ell scripting language, or __bash__. That is why the command prompt is also sometimes called the bash prompt. That is also why scripting in the command line is refered to as shell scripting, as opposed to scripting in another language such as python, perl, java, or R.
+
+* With the exception of the shebang, any line starting with `#` is ignored. These lines are comments, and are used to help document or explain what the code is supposed to do. Good code is well-commented code.
+
+* By convention, shell scripts receive a `.sh` extension although this isn't strictly necessary.
 
 * Rather than copying and pasting each line, you could have executed the entire document simply by calling the file with it's full path as function.
 ```{bash, eval=FALSE}
 ./ExamplesL1-L3.sh
 ```
-
-* With the exception of the shebang, any line starting with `#` is ignored. These lines are comments, and are used to help document or explain what the code is supposed to do. Good code is well-commented code.
-
-* By convention, shell scripts receive a `.sh` extension although this isn't strictly necessary.
 
 * Note that this code also contains many exploratory calls (e.g. calls to `less` or `head` or `ls`) where we were just looking around at the environment and the files. You will see the output of all of these scroll quickly across your screen. In real documents, you would probably not have many of these. Take note however, that these do provide a sort of 'progress' bar to see how much of your code you have executed. Thus judicious use of these functions can be quite handy for debugging your code.
 
@@ -511,9 +596,10 @@ rm -r expression
 rm -r refs
 ```
 
-2. Copy the script into your working directory
+2. Copy the script into your working directory. Note that it shouldn't matter what my current working directory is because I have used absolute pathnames throughout the script. But for uniformity sake, I am copying it into our $RNASEQ directory
 ```{bash, eval=FALSE}
-cp /tools/sampledata/course4Files/ExerciseL1-L3.sh .
+cd $RNASEQ
+cp /tools/sampledata/course4Exercises/ExerciseL1-L3.sh .
 ```
 
 3. Execute the script by calling it with it's full path
@@ -525,9 +611,27 @@ $RNASEQ/ExerciseL1-L3.sh
 ./ExerceiseL1-L3.sh
 ```
 
+####  <span style="color:blue">__Optional Homework L7:__</span>
+Creating the above script can be tedious and/or challenging when you are trying to repeat the same command on different files. This is where a good text editor and the judicious use of regular expressions can save you a lot of work. Learning regular expressions is beyond the scope of this course. However, this bonus exercise should be sufficient to give you a taste of why they are so useful and perhaps motivate you to learn more about them outside of this class. 
+
+1. Open a good text editor. 
+
+2. Open the file `HomeworkL7.sh` from the Course4Exercises folder that you obtained earlier. If you cannot find it, you can get it again from the following Departmental Share location:
+`\\childrens\ISInformaticsTransfer\CourseDownloads\Course4Exercises`
+
+3. The document consists of three examples of how you would use a text editor to build a command string from a list of input files.
+
+4. The first section builds the tophat2 alignment commands. Navigate to the indicated directory and paste the specified command into your terminal to generate a list of input files. Copy the output of that command back into the text document.
+
+5. Open the search/replace tool in your text editor. Make sure that the 'Regular expression' option is selected. Copy and paste the indicated search and replace terms from the text document into the appropriate fields. 
+
+6. Use the 'Find Next' and 'Replace' buttons to convert your list of input files to complete commands. 
+
+7. Repeat for the other two sections.
+
 ***
 
-### Using R scripts
+## Using R scripts
 It is fairly common to have a workflow where you spend some time at the command line doing some preliminary data wrangling, and then move into R to perform the final statistical analysis. The only potential problem with this is that you end up with your workflow documentation spread out over multiple shell and R scripts. Unless you keep close track of these, it can be confusing to keep track of what you have done. 
 
 Wouldn't it be nice if you could just do all of your work from within Rstudio? Turns out you can. There is function in R called `system2` which allows you to send system calls from within R back down to the command line to be executed. As with anything there are advantages and disadvantages to this approach. Here is a brief list of a few of each:
@@ -550,9 +654,19 @@ __Disadvantages__
 
 * Once you start making system calls, you are locked into a particular system configuration and your code is no longer portable. It more or less has to be run on the same machine or cluster unless you go back in and edit it.
 
-* Some system calls require slightly different syntax when called from R
+* Some system calls require slightly different syntax when called from R.
+
+* Complex operations involving piping and redirect can be especially difficult or may need to be redesigned from the way you would normally accomplish the task in bash.
 
 * It is less easy to access the `man` pages for your system commands when you are in R. 
 
 * It can sometimes be a little more challenging to troubleshoot your system calls because of the added layer of the R environment.
 
+***
+####  <span style="color:blue">__Homework L8:__</span>
+
+1. Within Rstudio, use the __Files__ pane (usually in the lower right corner) to find and open the following file: `/tools/sampledata/course4Exercises/HomeworkL8.R`
+
+2. Go through the script and execute it line by line. *Hint: use `Ctrl-ENTER` to send a single line of code (or a selected code chunk) to the R console.* As with Homework L6, you will want to clear out your working directory so the script has a fresh start.
+
+3. Take note where the script seems to differ from the syntax used in the bash shell. If you come across a command that you are not familiar with, read more about it from it's help page. *Hint: use `help()` or `?` to access the man page.

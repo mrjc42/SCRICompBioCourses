@@ -5,27 +5,50 @@ date: "12/9/2015"
 output: pdf_document
 ---
 
-This is a survey for our new course.  Please taka a minute to fill in this form and hand it to either Sean or myself.  All responses are confidential, so please tell us as much as possible so that we can do a better job next time.
+This is a survey for our new course.  Please taka a minute to fill in this form and hand it to either Sean or myself.  All responses are considered confidential, so please just tell us as much as possible so that we can do a better job next time.
 
 
-Other survey questions:
+Survey questions:
+
+
+
+Do you agree or disagree with the following: I would like to take more classes taught by RIS? (A/D)
+
+If you agreed with the above, what other topics would be interesting to you? (open)
+
+
+Do you agree or disagree with the following: This class will help me with my research? (A/D)
+
+Do you agree or disagree with the following: This class will help me to get grants? (A/D)
+
+Would you recommend this course to a friend?  Why or why not? (open)
+
+
+More or less time? (Range)
+
+More or fewer classes? (Range)
+
+
+On a scale of 1 to 5, how helpful were the course materials? (Range)
+
+Do you agree or disagree with the following: This couse offered an adequate number of examples to help me understand the material. (A/D)
+
+How do you feel we could make the materials presented in this class easier to learn? (open)
+
+
+On a scale of 1 to 5, how well do you feel the information was presented by course presenters? (Range)
+
+Too Deep/shallow? (Range)
+
+Too hard/easy? (Range)
+
+Too fast/slow? (Range) 
+
+
+
+If you could change one practical thing about the way that this class was done, what would it be? (open)
+
 
 What other feedback would you like to give us about the class and how it can be improved?(open)
-I would like to take more classes taught on the topic of computational biology? (Agree/Disagree)
-Which classes and topics are intersting to you? (open)
-I would like to take more classes taught by RIS? (A/D)
-This class will help me with my research? (A/D)
-This class will help me to get grants? (A/D)
-Would you recommend this course to a friend?  Why or why not? (open)
-More or less time? (Range)
-More or fewer classes? (Range)
-On a scale of 1 to 5, how helpful were the course materials? (Range)
-This couse offered an adequate number of examples to help me understand the material. (A/D)
-On a scale of 1 to 5, how well do you feel the information was presented by course presenters? (range)
-Too Deep/shallow? (Range)
-Too hard/easy? (Range)
-Too fast/slow? (Range)
-How do you feel we could make the materials presented in this class easier to learn? (open)
-If you could change one practical thing about the way that this class was done, what would it be? (open)
 
 

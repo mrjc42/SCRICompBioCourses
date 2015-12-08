@@ -1,0 +1,77 @@
+---
+title: "Survey for Computational Biology for Biologists"
+author: "Marc"
+date: "12/9/2015"
+output: pdf_document
+---
+
+This is a survey for our new course.  Please taka a minute to fill in this form and hand it to either Sean or myself.  All responses are confidential, so please tell us as much as possible so that we can do a better job next time.
+
+On a scale of 1 to 5, how helpful do you feel the information presented during this course was for you?
+
+      1  I fear that I may actually know less than before
+      2  not very helpful
+      3  average utility
+      4  helpful
+      5  very helpful
+
+On a scale of 1 to 5, how well do you feel the information was presented by course presenters?
+
+      1  This was a disaster
+      2  not very smooth
+      3  It went OK
+      4  good job
+      5  seemed professional
+
+On a scale of 1 to 5, how helpful were the course materials (handouts)?
+
+      1  These handouts are confusing
+      2  not very helpful
+      3  average utility
+      4  helpful
+      5  very helpful
+
+On a scale of 1 to 5, how difficult was the course material?
+
+      1  I used to be enthusiastic about computational biology, but now I fear for my future
+      2  this was a very difficult class
+      3  this class was challenging, but the material makes sense now
+      4  the material was not difficult
+      5  the material was too easy and so I was a little bit bored
+
+
+How do you feel we could make the materials presented in this class easier to learn?
+```
+
+
+
+
+```
+
+
+
+Would you recommend this course to a friend?  Why or why not?
+```
+
+
+
+
+```
+
+
+
+If you could change one practical thing about the way that this class was done, what would it be?
+```
+
+
+
+
+```
+
+
+What other feedback would you like to give us about the class and how it can be improved?
+
+
+
+
+

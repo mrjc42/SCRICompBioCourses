@@ -12,43 +12,47 @@ Survey questions:
 
 
 
-Do you agree or disagree with the following: I would like to take more classes taught by RIS? (A/D)
+Do you agree or disagree with the following: I would like to take more classes taught by RIS? 
 
-If you agreed with the above, what other topics would be interesting to you? (open)
+If you agreed with the above, what other topics would be interesting to you? 
+```
+```
 
+Do you agree or disagree with the following: This class will help me with my research? 
 
-Do you agree or disagree with the following: This class will help me with my research? (A/D)
+Do you agree or disagree with the following: This class will help me to get grants? 
 
-Do you agree or disagree with the following: This class will help me to get grants? (A/D)
+Would you recommend this course to a friend?  Why or why not? 
+```
+```
 
-Would you recommend this course to a friend?  Why or why not? (open)
+On a scale from 1 (less) to 5 (more): Should there have been less or more time budgeted per individual class? 
 
-
-More or less time? (Range)
-
-More or fewer classes? (Range)
-
-
-On a scale of 1 to 5, how helpful were the course materials? (Range)
-
-Do you agree or disagree with the following: This couse offered an adequate number of examples to help me understand the material. (A/D)
-
-How do you feel we could make the materials presented in this class easier to learn? (open)
+On a scale from 1 (fewer) to 5 (more): Should there have been fewer or classes taught in order to cover the material presented? 
 
 
-On a scale of 1 to 5, how well do you feel the information was presented by course presenters? (Range)
+On a scale from 1 (unhelpful) to 5 (very helpful): How helpful were the course materials?
 
-Too Deep/shallow? (Range)
+Do you agree or disagree with the following: This couse offered an adequate number of examples to help me understand the material. 
 
-Too hard/easy? (Range)
+How do you feel we could make the materials presented in this class easier to learn?
+```
+```
 
-Too fast/slow? (Range) 
+On a scale from 1 (poor) to 5 (excellent): How well do you feel the information was presented by course presenters?
+
+On a scale from 1 (easy) to 5 (advanced): Do you feel that the material which was presented too easy or too advanced? 
+
+On a scale from 1 (slow) to 5 (fast): Do you feel that the pacing with which the material presented too slow or too fast?
+
+On a scale from 1 (shallow) to 5 (deep): Do would you rank the coverage of the material presented? Was it too shallow or too in depth (deep)? 
 
 
+If you could change one practical thing about the way that this class was done, what would it be? 
+```
+```
 
-If you could change one practical thing about the way that this class was done, what would it be? (open)
-
-
-What other feedback would you like to give us about the class and how it can be improved?(open)
-
+What other feedback would you like to give us about the class and how it can be improved?
+```
+```
 

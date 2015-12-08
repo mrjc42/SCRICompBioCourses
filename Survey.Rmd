@@ -5,54 +5,130 @@ date: "12/9/2015"
 output: pdf_document
 ---
 
-This is a survey for our new course.  Please taka a minute to fill in this form and hand it to either Sean or myself.  All responses are considered confidential, so please just tell us as much as possible so that we can do a better job next time.
+This is a survey for our new course.  Please take a minute to fill in this form and hand it to either Sean or myself.  All responses are considered confidential, so please just tell us as much as possible so that we can do a better job next time.
 
 
 Survey questions:
 
 
 
-Do you agree or disagree with the following: I would like to take more classes taught by RIS? 
+**Do you agree or disagree with the following: I would like to take more classes taught by RIS?**
 
-If you agreed with the above, what other topics would be interesting to you? 
-```
-```
+        1 strongly agree
+        2 agree
+        3 no opinion
+        4 disagree
+        5 strongly disagree
 
-Do you agree or disagree with the following: This class will help me with my research? 
-
-Do you agree or disagree with the following: This class will help me to get grants? 
-
-Would you recommend this course to a friend?  Why or why not? 
-```
+**If you agreed with the above, what other topics would be interesting to you?**
 ```
 
-On a scale from 1 (less) to 5 (more): Should there have been less or more time budgeted per individual class? 
 
-On a scale from 1 (fewer) to 5 (more): Should there have been fewer or classes taught in order to cover the material presented? 
-
-
-On a scale from 1 (unhelpful) to 5 (very helpful): How helpful were the course materials?
-
-Do you agree or disagree with the following: This couse offered an adequate number of examples to help me understand the material. 
-
-How do you feel we could make the materials presented in this class easier to learn?
-```
 ```
 
-On a scale from 1 (poor) to 5 (excellent): How well do you feel the information was presented by course presenters?
+**Do you agree or disagree with the following: This class will help me with my research?** 
 
-On a scale from 1 (easy) to 5 (advanced): Do you feel that the material which was presented too easy or too advanced? 
+        1 strongly agree
+        2 agree
+        3 no opinion
+        4 disagree
+        5 strongly disagree
 
-On a scale from 1 (slow) to 5 (fast): Do you feel that the pacing with which the material presented too slow or too fast?
 
-On a scale from 1 (shallow) to 5 (deep): Do would you rank the coverage of the material presented? Was it too shallow or too in depth (deep)? 
+**Do you agree or disagree with the following: This class will help me to get grants?** 
+
+        1 strongly agree
+        2 agree
+        3 no opinion
+        4 disagree
+        5 strongly disagree
 
 
-If you could change one practical thing about the way that this class was done, what would it be? 
+**Would you recommend this course to a friend?  Why or why not?** 
 ```
+
+
 ```
 
-What other feedback would you like to give us about the class and how it can be improved?
+**On a scale from 1 (less) to 5 (more): Should there have been less or more time budgeted per individual class?** 
+
+        1 much less
+        2 less
+        3 about right
+        4 more
+        5 much more
+
+**On a scale from 1 (fewer) to 5 (more): Should there have been fewer or classes taught in order to cover the material presented?** 
+
+        1 many fewer
+        2 fewer
+        3 about right
+        4 more
+        5 much more
+
+**On a scale from 1 (unhelpful) to 5 (very helpful): How helpful were the course materials?**
+
+        1 very unhelpful
+        2 unhelpful
+        3 about right
+        4 helpful
+        5 very helpful
+
+**Do you agree or disagree with the following: This couse offered an adequate number of examples to help me understand the material.** 
+
+        1 strongly agree
+        2 agree
+        3 no opinion
+        4 disagree
+        5 strongly disagree
+
+**How do you feel we could make the materials presented in this class easier to learn?**
 ```
+
+
+```
+
+**On a scale from 1 (poor) to 5 (excellent): How well do you feel the information was presented by course presenters?**
+
+        1 very poor
+        2 poor
+        3 about right
+        4 excellent
+        5 very excellent
+
+**On a scale from 1 (easy) to 5 (advanced): Do you feel that the material which was presented too easy or too advanced?** 
+
+        1 very easy
+        2 easy
+        3 about right
+        4 advanced
+        5 very advanced
+
+**On a scale from 1 (slow) to 5 (fast): Do you feel that the pacing with which the material presented too slow or too fast?**
+
+        1 very slow
+        2 slow
+        3 about right
+        4 fast
+        5 very fast
+
+**On a scale from 1 (shallow) to 5 (deep): Do would you rank the coverage of the material presented? Was it too shallow or too in depth (deep)?** 
+
+        1 very shallow
+        2 shallow
+        3 about right
+        4 deep
+        5 very deep
+
+**If you could change one practical thing about the way that this class was done, what would it be?**
+```
+
+
+```
+
+**What other feedback would you like to give us about the class and how it can be improved?**
+```
+
+
 ```
 

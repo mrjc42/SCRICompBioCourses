@@ -12,7 +12,7 @@ Survey questions:
 
 
 
-**Do you agree or disagree with the following: I would like to take more classes taught by RIS?**
+**Do you agree or disagree with the following: I would like to take more classes taught by Research Scientific Computing?**
 
         1 strongly agree
         2 agree

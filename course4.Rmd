@@ -1,7 +1,7 @@
 ---
 title: "Getting Work Done"
 author: "Sean, Marc, Debbie, Bronson"
-date: "11/11/2015"
+date: "12/09/2015"
 output:
   pdf_document:
     toc: yes
@@ -34,11 +34,11 @@ knit_hooks$set(plot = function(x, options) {
 ## Introduction
 We have spent the last 3 courses trying to show you the basic building blocks for command line computing. Now it is time to put all the pieces together and talk about the mechanics of actually getting your work done. To do this we will step through a small RNA-Seq workflow. We will not focus too much on the science behind the workflow at this time. The purpose of this course is to show you how to use the resources we have made available and how to use your new skills as a computational biologist. It is hoped that by going through this workflow, you will get some experience with how to organize your data flow and how to execute a series of commands that you can now generalize to other applications beyond RNA-Seq.
 
-In order to save time and to help everyone keep up, we will be providing a text document that has all of the commands already populated. You might need to adjust one or two things, but otherwise you can just copy and paste. Here are a few tips and tricks regarding copying and pasting into a linux terminal:
+In order to save time and to help everyone keep up, we will be providing a text document that has all of the commands already populated. You might need to adjust one or two things, but otherwise you can just copy and paste. Here are a few tips and tricks regarding copying and pasting into a Linux terminal:
 
-* To __copy__ from a linux terminal, all you need to do is highlight. The highlighted text is automatically copied to the clipboard. No other key strokes necessary.
+* To __copy__ from a Linux terminal, all you need to do is highlight. The highlighted text is automatically copied to the clipboard. No other key strokes necessary.
 
-* To __paste__ into a linux terminal, you cannot use the familiar `CTRL-V` keystroke. If using MobaXTerm, you can right click and paste using the menu. In all linux systems though, you can usually paste using the middle button of the mouse (or by pressing the scroll wheel).
+* To __paste__ into a Linux terminal, you cannot use the familiar `CTRL-V` keystroke. If using MobaXTerm, you can right click and paste using the menu. In all Linux systems though, you can usually paste using the middle button of the mouse (or by pressing the scroll wheel).
 
 * You don't have to paste commands one at a time. You can paste in as many as you want, and the terminal will execute them in order. Sometimes though, you have to hit `Enter` once or twice more to make sure that all the commands are sent. 
 
@@ -48,7 +48,7 @@ In order to save time and to help everyone keep up, we will be providing a text 
 RNA-Seq workflows are typically done with the aim of performing differential expression analysis. The idea is that instead of sequencing genomic DNA, instead you will sequence mRNA. By mapping the sequenced mRNA transcripts back to the reference genome, you can theoretically deduce A) what genes are being expressed based on the mapping and B) the relative expression levels of those genes based on how many reads map to a particular gene region. The basic, generic workflow for differential expression analysis goes like this:
 
 1. Extract mRNA and convert to cDNA
-2. Library preperation: fragment cDNA, size select, add adapters
+2. Library preparation: fragment cDNA, size select, add adapters
 3. Sequence ends (usually paired end sequencing)
 4. Align reads against a reference genome
 5. Perform counting of reads against a feature model (e.g. gene model, transcript model, exon model, junction model, etc)
@@ -56,14 +56,14 @@ RNA-Seq workflows are typically done with the aim of performing differential exp
 7. Statistical comparisons of counts between groups (Hypothesis: There is no difference in relative expression levels of gene X between condition 1 and condition 2)
 
 
-Other analysis goals of RNA-Seq include things such as alternative expression analysis, transcript discovery and annotation, allele specific expression, mutation discovery, fusion detections, and RNA editing. For this class, we will stick to differential expression analysis.
+Other analysis goals of RNA-Seq include things such as alternative expression analysis, transcript discovery and annotation, allele specific expression, mutation discovery, fusion detection, and RNA editing. For this class, we will stick to differential expression analysis.
 
 ## Using a text editor
-Having a good text editor handy is very important to devolping and working with scripting languages. Some important features in a good text editor include
+Having a good text editor handy is very important to developing and working with scripting languages. Some important features in a good text editor include
 
 * Saves file as plain text (therefore WordPad and other word processors are not appropriate)
 
-* Can handle windows and unix style line endings
+* Can handle windows and Unix style line endings
 
 * Can support search and replace with regular expressions
 
@@ -71,9 +71,11 @@ Having a good text editor handy is very important to devolping and working with 
 
 * Can optionally format keywords and tabs using the conventions and syntax of popular scripting languages (shell, python, perl, R, etc)
 
-MobaXTerm has a decent editor built into it which you can access under the 'Tools' menu. Alternatively, you can use Notepad++ which we have included along with the Moba application in the ISInformaticsTransfer department share location:
-`\\childrens\ISInformaticsTransfer\CourseDownloads`
+MobaXTerm has a decent editor built into it which you can access under the 'Tools' menu. Alternatively, you can use Notepad++ which we have included along with the MobaXTerm application in the ISInformaticsTransfer department share location:
+`\\childrens\research\ISInformaticsTransfer\CourseDownloads`
+
 ***
+
 ####  <span style="color:blue">__Exercise L0:__</span> 
 
 1. From the above location, copy the folder 'Course4Exercises' to your O drive. 
@@ -81,7 +83,8 @@ MobaXTerm has a decent editor built into it which you can access under the 'Tool
 2. Open the text editor of your choice. I will be using Notepad++. 
 
 3. From within the text editor, open the file `ExerciseL1-L3.sh` from the CourseExercises folder that you obtained earlier. If you cannot find it, you can get it again from the following Departmental Share location:
-`\\childrens\ISInformaticsTransfer\CourseDownloads\Course4Exercises`
+`\\childrens\research\ISInformaticsTransfer\CourseDownloads\Course4Exercises`
+
 ***
 
 ## Getting setup
@@ -134,7 +137,7 @@ Let's quickly take a look at our raw data
 ls -1h
 ```
 
-Here we have 16 sequencing files. The file extension on these is `.fastq.gz`, meaning they are compressed fastq files. These files are from an experiment with Normal and Tumor samples. There are 2 replicates for each (cDNA-1 and cDNA-2). Also, there were two different library preperation methods (lib1 and and lib2). Paired-end sequencing was performed on each sample, so that also gives us two sequencing reads (10pc_1 and 10pc_2). 2 conditions x 2 replicates x 2 libraries x 2 reads = 16 files. If you want, you can take a peek at the output of one these in order to see how a fastq file is structured. A full discussion of this is beyond the scope for today, but suffice it to say that each read conisists of four lines: 
+Here we have 16 sequencing files. The file extension on these is `.fastq.gz`, meaning they are compressed fastq files. These files are from an experiment with Normal and Tumor samples. There are 2 replicates for each (cDNA-1 and cDNA-2). Also, there were two different library preparation methods (lib1 and and lib2). Paired-end sequencing was performed on each sample, so that also gives us two sequencing reads (10pc_1 and 10pc_2). 2 conditions x 2 replicates x 2 libraries x 2 reads = 16 files. If you want, you can take a peek at the output of one these in order to see how a fastq file is structured. A full discussion of this is beyond the scope for today, but suffice it to say that each read consists of four lines: 
 
 * A unique sequence identifier starting with `@`
 
@@ -142,9 +145,9 @@ Here we have 16 sequencing files. The file extension on these is `.fastq.gz`, me
 
 * `+`
 
-* The per base quality score (ASCII encouded)
+* The per base quality score (ASCII encoded)
 
-So if we look at the frist 8 lines of the fastq file, we will see the records from two sequencing reads. (Note, I truncated the sequence to show only 60 bases for the sake of formatting for the pdf)
+So if we look at the first 8 lines of the fastq file, we will see the records from two sequencing reads. (Note, I truncated the sequence to show only 60 bases for the sake of formatting for the pdf)
 ```{bash, eval=FALSE}
 zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 8 | cut -c -60
 ```
@@ -153,7 +156,7 @@ zcat /data/$(whoami)/rnaseq/data/H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.
 ```
 
 
-4. Now let's make a spot for our reference data set. To speed things up for deomonstration purposes, our data has been pre-filtered to show only reads on Chr 22. So we will only align to chr22 rather than the full genome. Remember that reference sequence fasta files for many model organisms have already been downloaded and are available in the `/tools/references` directory. This includes full genome fasta files as well as for individual chromosomes. For reasons that will become apparent later, we still need to make some space in our working directory for the reference. However, we don't really need to copy it over, but instead we will just link to it.
+4. Now let's make a spot for our reference data set. To speed things up for demonstration purposes, our data has been pre-filtered to show only reads on Chr 22. So we will only align to chr22 rather than the full genome. Remember that reference sequence fasta files for many model organisms have already been downloaded and are available in the `/tools/references` directory. This includes full genome fasta files as well as for individual chromosomes. For reasons that will become apparent later, we still need to make some space in our working directory for the reference. However, we don't really need to copy it over, but instead we will just link to it.
 ```{bash, eval=FALSE}
 cd $RNASEQ
 mkdir ref
@@ -239,7 +242,7 @@ Extra options specified below:
     
 ***
 ####  <span style="color:blue">__Exercise L2:__</span>
-1. Make an alignment directory as well as a subdirectory to hold the transcriptome index
+1. Make an alignment directory as well as a sub-directory to hold the transcriptome index
 ```{bash, eval=FALSE}
 cd $RNASEQ
 mkdir -p alignments/trans_idx
@@ -327,7 +330,7 @@ Extra options specified below
 
 * `--type` specifies the feature type (3rd column in GFF file) to be used. (default, suitable for RNA-Seq and Ensembl GTF files: exon)
 
-* `--idattr` The feature ID used to identity the counts in the output table. The default, suitable for RNA-SEq and Ensembl GTF files, is gene_id.
+* `--idattr` The feature ID used to identity the counts in the output table. The default, suitable for RNA-Seq and Ensembl GTF files, is gene_id.
 
 * NOTE: Instead of supplying the SAM file to htseq-count, we specify "-" to tell it to accept a stream from stdout
 
@@ -349,7 +352,7 @@ samtools sort -n Tumor-cDNA-2-lib1/accepted_hits.bam
     Tumor-cDNA-2-lib1/accepted_hits_namesorted
 ```
 
-2. The counting is done by the `htseq-count` program. This program expects alignments in the human readable sam format. Ours are currently in bam format. So, we will first convert our alignments from bam to sam using the `samtools view` command, and pipe the results into `htseq-count`. Also, `htseq-count` rather unhelpfully returns it's results as standard output (aka dumps it on the screen). Therefore we will also use the redirect operator `>` to capture this output and write it to a tab-seperated text file.
+2. The counting is done by the `htseq-count` program. This program expects alignments in the human readable sam format. Ours are currently in bam format. So, we will first convert our alignments from bam to sam using the `samtools view` command, and pipe the results into `htseq-count`. Also, `htseq-count` rather unhelpfully returns it's results as standard output (aka dumps it on the screen). Therefore we will also use the redirect operator `>` to capture this output and write it to a tab-separated text file.
 ```{bash, eval=FALSE}
 cd $RNASEQ
 mkdir expression
@@ -383,7 +386,7 @@ samtools view -h $RNASEQ/alignments/Tumor-cDNA-2-lib1/accepted_hits_namesorted.b
 
 
 ## Perform differential expression analysis
-There are several packages available for differential expression analysis. We will use the DESeq2 package which is part of the Bioconductory suite of packages for R. We will now leave the command line environment and move into RStudio. 
+There are several packages available for differential expression analysis. We will use the DESeq2 package which is part of the Bioconductor suite of packages for R. We will now leave the command line environment and move into RStudio. 
 
 ##### Tools used
 
@@ -397,9 +400,9 @@ There are several packages available for differential expression analysis. We wi
 
 ***
 ####  <span style="color:blue">__Exercise L4:__</span>
-1. Open RStudio by pointing your firefox browser at https://sideswiper:8787. From the Files pane (usually the lower right pane), browse to `/tools/sampledata/course4Exercises/` and open the file `ExerciseL4-L5.R`)
+1. Open RStudio by pointing your Firefox browser at https://sideswiper:8787. From the Files pane (usually the lower right pane), browse to `/tools/sampledata/course4Exercises/` and open the file `ExerciseL4-L5.R`)
 
-2. Set up your workspace by loading all the appropriate libraries you will need. 
+2. Set up your work space by loading all the appropriate libraries you will need. 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE}
 library(DESeq2)
 library(plyr)
@@ -412,7 +415,7 @@ library(plyr)
 
 ```
 
-3. The DESeq2 package takes a table of counts. The column names are the individual sample names. The rownames are the gene names. So our first task is to load all the individual counts tables, merge them into a single counts table, and then make sure it is formatted properly. __Before you copy this code, make sure you change the path name to your directory!!!__
+3. The DESeq2 package takes a table of counts. The column names are the individual sample names. The row names are the gene names. So our first task is to load all the individual counts tables, merge them into a single counts table, and then make sure it is formatted properly. __Before you copy this code, make sure you change the path name to your directory!!!__
 ```{r, tidy=TRUE}
 # Create vector of file paths for all gene_read_counts.tsv files
 workingpath<-'/data/staylo/rnaseq/expression'
@@ -536,7 +539,7 @@ abline(v=c(-1, 1), h=-log10(0.05), lty=3)
 ## Cleaning Up
 Analyses like these tend to generate a good number of intermediate files. When you are done with your analysis it is important that you clean up after yourself. Otherwise, you will find that you have accumulated a significant number of files that you don't know what to do with and you will soon run out of space on your disk. This is particularly true if you are using a shared disk, such as `/data`. However, "Cleaning up after yourself" can actually present a surprisingly difficult challenge. What do you keep and what do you get rid of? When do you clean up? There are no hard and fast rules per se, but we will attempt to outline some good principles to help guide you.
 
-* __Clean up when you are done__. Often researchers will want to play around with different parameter sets until they find the parameter values that are most appropriate. This involves a lot of iterative reanalyzing of the data. It is not necessarily practical or desirable to throw away everything at the end of each iteration. It is good practice to put final and intermediate outputs of each iteration in different places to keep them seperate. When you are done with your iterations and you think you have the best output, don't forget to go back and remove all the other iterations. If you wait too long, you will have a hard time remembering which iteration gave you the best result.
+* __Clean up when you are done__. Often researchers will want to play around with different parameter sets until they find the parameter values that are most appropriate. This involves a lot of iterative reanalyzing of the data. It is not necessarily practical or desirable to throw away everything at the end of each iteration. It is good practice to put final and intermediate outputs of each iteration in different places to keep them separate. When you are done with your iterations and you think you have the best output, don't forget to go back and remove all the other iterations. If you wait too long, you will have a hard time remembering which iteration gave you the best result.
 
 * __Don't leave things in a shared space__. Remember, `/data` is for scratch space only. Do not let your data spend more time here than it needs to. Not only is it wasteful of a shared resource, but it isn't safe. Nothing stored on `/data` or anywhere else on the autobots is backed up. The only safe place to put your data is back on your departmental share drive.
 
@@ -544,13 +547,13 @@ Analyses like these tend to generate a good number of intermediate files. When y
 
     + __Fastq files__ are technically the most raw form of the data that is practical to keep. However, the alignment is often the most painstaking, time consuming step in a workflow. So it's nice if you don't have to do that again.
     
-    + __BAM files__ are a superset of the fastq file, meaning that everything that is in a fastq file is also in the BAM file. You can always regenerate a fastq file from your BAM. Once you get a good alignment, you may never need to go back and realign unless you want to align to a different or newer reference. The catch is that the main BAM file only keeps the sequences that aligned. All of the sequences that didn't align are stored in a seperate BAM file (often with a label like 'unmapped.bam'). So if you choose to keep just the BAM, you will want to think about if you want to keep the unmapped sequences as well.
+    + __BAM files__ are a superset of the fastq file, meaning that everything that is in a fastq file is also in the BAM file. You can always regenerate a fastq file from your BAM. Once you get a good alignment, you may never need to go back and realign unless you want to align to a different or newer reference. The catch is that the main BAM file only keeps the sequences that aligned. All of the sequences that didn't align are stored in a separate BAM file (often with a label like 'unmapped.bam'). So if you choose to keep just the BAM, you will want to think about if you want to keep the unmapped sequences as well.
     
     + __Intermediate BAMs__ like the 'namesorted' BAM that we generated can easily be regenerated provided you kept a good record of the steps you used to make it the first time.
     
     + __Files with the `.bed` extension__ are text files that define the locations of various features. They are useful for visualization programs such as IGV and other downstream analyses. Depending on your workflow these will be more or less useful. The same logic will apply to all intermediate outputs in any workflow.
     
-    + __Log files__ are often useful for troubleshooting, so they are handy to have while you are working out the bugs. Once your analysis has completed successfully you may not need these anymore. Sometimes they log the commands and parameters that you used. But if you take care to document this seperately elsewhere (see below) that may not be necessary.
+    + __Log files__ are often useful for troubleshooting, so they are handy to have while you are working out the bugs. Once your analysis has completed successfully you may not need these anymore. Sometimes they log the commands and parameters that you used. But if you take care to document this separately elsewhere (see below) that may not be necessary.
     
 * __Keep a record of what you did__. This is one of the most critical things to keep. As long as you have your raw data and a well documented record of what you did, you can always regenerate your analysis. Below we list some minimal things to include in that record. You may discover other pieces of information that are also useful to you.
 
@@ -570,15 +573,20 @@ The secret is the little line of code at the top of the text file:
 #! /usr/bin/bash
 ```
 
-* The first bit `#!` is called the __shebang__ (ha __sh__ + __bang__, which is what computer nerds call the exclamation mark). When linux sees this at the beginning of a script, it tells the system that this is a program
+* The first bit `#!` is called the __shebang__ (ha __sh__ + __bang__, which is what computer nerds call the exclamation mark). When Linux sees this at the beginning of a script, it tells the system that this is a program
 
-* The next bit `/usr/bin/bash` is called the __interpreter directive__, which basically tells the system what language environment to run the script in and where it is located. It turns out that all along, when you see the command prompt and entering commands, you have been using the __b__orn __a__gain __sh__ ell scripting language, or __bash__. That is why the command prompt is also sometimes called the bash prompt. That is also why scripting in the command line is refered to as shell scripting, as opposed to scripting in another language such as python, perl, java, or R.
+* The next bit `/usr/bin/bash` is called the __interpreter directive__, which basically tells the system what language environment to run the script in and where it is located. It turns out that all along, when you see the command prompt and entering commands, you have been using the __b__orn __a__gain __sh__ ell scripting language, or __bash__. That is why the command prompt is also sometimes called the bash prompt. That is also why scripting in the command line is referred to as shell scripting, as opposed to scripting in another language such as python, perl, java, or R.
 
 * With the exception of the shebang, any line starting with `#` is ignored. These lines are comments, and are used to help document or explain what the code is supposed to do. Good code is well-commented code.
 
 * By convention, shell scripts receive a `.sh` extension although this isn't strictly necessary.
 
-* Rather than copying and pasting each line, you could have executed the entire document simply by calling the file with it's full path as function.
+* You will have to change the mode of the script to be executable. This is done with the `chmod` command whose argument should be understood to mean: (ch)ange (mod)e for (u)ser to add(+) e(x)ecutable permissions to ExamplesL1-L3.sh:
+```{bash, eval=FALSE}
+chmod u+x ExamplesL1-L3.sh
+```
+
+* Rather than copying and pasting each line, you could have executed the entire document simply by calling the file with it's full path as if it were a command.
 ```{bash, eval=FALSE}
 ./ExamplesL1-L3.sh
 ```
@@ -596,7 +604,7 @@ rm -r expression
 rm -r refs
 ```
 
-2. Copy the script into your working directory. Note that it shouldn't matter what my current working directory is because I have used absolute pathnames throughout the script. But for uniformity sake, I am copying it into our $RNASEQ directory
+2. Copy the script into your working directory. Note that it shouldn't matter what my current working directory is because I have used absolute path names throughout the script. But for uniformity sake, I am copying it into our $RNASEQ directory
 ```{bash, eval=FALSE}
 cd $RNASEQ
 cp /tools/sampledata/course4Exercises/ExerciseL1-L3.sh .
@@ -634,7 +642,7 @@ Creating the above script can be tedious and/or challenging when you are trying 
 ## Using R scripts
 It is fairly common to have a workflow where you spend some time at the command line doing some preliminary data wrangling, and then move into R to perform the final statistical analysis. The only potential problem with this is that you end up with your workflow documentation spread out over multiple shell and R scripts. Unless you keep close track of these, it can be confusing to keep track of what you have done. 
 
-Wouldn't it be nice if you could just do all of your work from within Rstudio? Turns out you can. There is function in R called `system2` which allows you to send system calls from within R back down to the command line to be executed. As with anything there are advantages and disadvantages to this approach. Here is a brief list of a few of each:
+Wouldn't it be nice if you could just do all of your work from within RStudio? Turns out you can. There is function in R called `system2` which allows you to send system calls from within R back down to the command line to be executed. As with anything there are advantages and disadvantages to this approach. Here is a brief list of a few of each:
 
 __Advantages__
 
@@ -665,8 +673,12 @@ __Disadvantages__
 ***
 ####  <span style="color:blue">__Homework L8:__</span>
 
-1. Within Rstudio, use the __Files__ pane (usually in the lower right corner) to find and open the following file: `/tools/sampledata/course4Exercises/HomeworkL8.R`
+1. Within RStudio, use the __Files__ pane (usually in the lower right corner) to find and open the following file: `/tools/sampledata/course4Exercises/HomeworkL8.R`
 
 2. Go through the script and execute it line by line. *Hint: use `Ctrl-ENTER` to send a single line of code (or a selected code chunk) to the R console.* As with Homework L6, you will want to clear out your working directory so the script has a fresh start.
 
 3. Take note where the script seems to differ from the syntax used in the bash shell. If you come across a command that you are not familiar with, read more about it from it's help page. *Hint: use `help()` or `?` to access the man page.
+
+***
+####  <span style="color:blue">__Homework L9:__</span>
+1. All of the above exercises were completed with just half of the available data set, i.e. library 1. Try to repeat the workflow, but this time use library 2. You can execute interactively (by composing each ), from a shell script, or from an R script. Use the .sh and .R scripts provided as templates.

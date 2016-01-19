@@ -98,7 +98,7 @@ Computer Name | Alias | Memory | Processor | Cores|Primary Function
 EWRLNXRD28|Sunstreaker|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical| Worker nodes
 EWRLNXRD29|Sideswiper|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical | Worker nodes
 
-
+ 
 
 # Introduction to Linux: 
 
